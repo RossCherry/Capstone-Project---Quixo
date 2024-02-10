@@ -11,19 +11,15 @@ public class GameBoard : MonoBehaviour
     public GameObject[,] Board;
     private const int ROW_COUNT_X = 5;
     private const int COL_COUNT_Y = 5;
+    public bool didOpponentWin;
     //public GameObject piecePrefab;
-    public bool isPlayerOne = true;
     // Start is called before the first frame update
     void Start()
     {
         GenerateAllPieces();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 
     //Generate Game Board
     private void GenerateAllPieces()
@@ -41,15 +37,15 @@ public class GameBoard : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    for (int j = 0; j < 5; j++)
+        //    {
                 
-                Debug.Log(Board[j, i] + ": " + i + ", " + j);
-            }
-            Debug.Log("");
-        }
+        //        Debug.Log(Board[j, i] + ": " + i + ", " + j);
+        //    }
+        //    Debug.Log("");
+        //}
     }
 
     public bool isCornerPiece(GameObject piece)
@@ -134,15 +130,15 @@ public class GameBoard : MonoBehaviour
         }
         //Destroy(temp);
         //UpdateBoard();
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    for (int j = 0; j < 5; j++)
+        //    {
                 
-                Debug.Log(Board[j, i] + ": " + i + ", " + j);
-            }
-            Debug.Log("");
-        }
+        //        Debug.Log(Board[j, i] + ": " + i + ", " + j);
+        //    }
+        //    Debug.Log("");
+        //}
     }
 
     public void MovePieces()
@@ -181,6 +177,112 @@ public class GameBoard : MonoBehaviour
         int x = col;
         int y = row;
         return new Vector3(x, 0, y);
+    }
+
+    public bool checkWin(bool isPlayerOnesTurn)
+    {
+        int player1WinTracker = 0;
+        int player2WinTracker = 0;
+        int player1RowTracker = 0;
+        int player2RowTracker = 0;
+        int player1ColTracker = 0;
+        int player2ColTracker = 0;
+
+        //Checks diagnals for a win
+        for(int i = 0;i < 5; i++)
+        {
+            if (Board[i, i].CompareTag("Player1"))
+            {
+                player1RowTracker++;
+            }
+            else if (Board[i, i].CompareTag("Player2"))
+            {
+                player2RowTracker++;
+            }
+
+            if (Board[(4-i), i].CompareTag("Player1"))
+            {
+                player1ColTracker++;
+            }
+            else if (Board[(4-i), i].CompareTag("Player2"))
+            {
+                player2ColTracker++;
+            }           
+        }
+
+        if (player1RowTracker == 5 || player1ColTracker == 5)
+        {
+            if (!isPlayerOnesTurn)
+            {
+                didOpponentWin = true;
+            }
+            return true;
+        }
+        else if (player2RowTracker == 5 || player2ColTracker == 5)
+        {
+            if (isPlayerOnesTurn)
+            {
+                didOpponentWin = true;
+            }
+            return true;
+        }
+
+        player1RowTracker = 0;
+        player2RowTracker = 0;
+        player1ColTracker = 0;
+        player2ColTracker = 0;
+
+        //checks rows and columns for a win
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (Board[j, i].CompareTag("Player1"))
+                {
+                    player1RowTracker++;
+                }
+                else if (Board[j, i].CompareTag("Player2"))
+                {
+                    player2RowTracker++;
+                }
+
+                if (Board[i, j].CompareTag("Player1"))
+                {
+                    player1ColTracker++;
+                }
+                else if (Board[i, j].CompareTag("Player2"))
+                {
+                    player2ColTracker++;
+                }
+            }
+            if (player1RowTracker == 5 || player1ColTracker == 5)
+            {
+                player1WinTracker++;
+            }
+            else if (player2RowTracker == 5 || player2ColTracker == 5)
+            {
+                player2WinTracker++;
+            }
+            player1RowTracker = 0;
+            player2RowTracker = 0;
+            player1ColTracker = 0;
+            player2ColTracker = 0;
+        }
+
+        if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+        {
+            return true;
+        }
+        else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+        {
+            return true;
+        }
+        else if (player1WinTracker > 0 && player2WinTracker > 0)
+        {
+            didOpponentWin = true;
+            return true;
+        }
+        return false;
     }
 
     //private GameObject GenerateSinglePiece(int row, int col)

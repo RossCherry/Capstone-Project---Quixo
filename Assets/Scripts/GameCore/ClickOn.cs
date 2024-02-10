@@ -32,11 +32,6 @@ public class ClickOn : MonoBehaviour
         ClickMe();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void ClickMe()
     {
         if(currentlySelected == true || possibleMove == true) 

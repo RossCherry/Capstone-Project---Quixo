@@ -7,6 +7,7 @@ TagManager:
   - Blank
   - Player1
   - Player2
+  - GameBoard
   layers:
   - Default
   - TransparentFX

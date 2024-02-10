@@ -10,8 +10,6 @@ public class GamePiece : MonoBehaviour
     public GameBoard board;
     public GameObject piece;
     public bool isBlank = true;
-    public bool isPlayer1;
-
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +17,9 @@ public class GamePiece : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-      
-    }
+   
 
-    public bool CheckPickedPiece()
+    public bool CheckPickedPiece(bool isPlayerOne)
     {
         //Is piece an edge piece
         if ((row == 0 || row == 4) || (col == 0 || col == 4))
@@ -36,12 +30,12 @@ public class GamePiece : MonoBehaviour
                 return true;
             }
             //Is it the correct persons piece
-            else if (board.isPlayerOne && piece.CompareTag("Player1"))
+            else if (isPlayerOne && piece.CompareTag("Player1"))
             {
                 return true;
             }
             //Is it the correct persons piece
-            else if (!board.isPlayerOne && piece.CompareTag("Player2"))
+            else if (!isPlayerOne && piece.CompareTag("Player2"))
             {
                 return true;
             }
@@ -125,6 +119,7 @@ public class GamePiece : MonoBehaviour
         if (isPlayerOneTurn)
         {
             transform.tag = "Player1";
+            //gameObject.GetComponent<MeshRenderer>().material = 
         }
         else
         {
