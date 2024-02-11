@@ -17,7 +17,8 @@ public class OptionsViewModel : MonoBehaviour
             {
                 GameObject optionsViewModel = new GameObject("OptionsViewModel");
                 instance = optionsViewModel.AddComponent<OptionsViewModel>();
-                //instance = new OptionsViewModel();
+
+                // Prevent the OptionsViewModel from being destroyed when loading a new scene
                 DontDestroyOnLoad(instance.gameObject);
             }
             
