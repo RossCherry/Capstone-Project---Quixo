@@ -50,15 +50,29 @@ public class OptionsViewModel : MonoBehaviour
         }
     }
 
+    public bool IsChatEnabled
+    {
+        get
+        {
+            return options.IsChatEnabled;
+        }
+        set
+        {
+            options.IsChatEnabled = value;
+        }
+    }
+
     public void SaveOptions()
     {        
         // Get the values from the options menu
         IsMusicOn = GameObject.Find("Music Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
         IsSoundEffectsOn = GameObject.Find("Sound Effects Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
+        IsChatEnabled = GameObject.Find("Chat Enabled Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
 
         // Save options to PlayerPrefs
         PlayerPrefs.SetInt("IsMusicOn", IsMusicOn ? 1 : 0);
         PlayerPrefs.SetInt("IsSoundEffectsOn", IsSoundEffectsOn ? 1 : 0);
+        PlayerPrefs.SetInt("IsChatEnabled", IsChatEnabled ? 1 : 0);
         PlayerPrefs.Save();
     }
 
@@ -67,17 +81,20 @@ public class OptionsViewModel : MonoBehaviour
         // Load saved options from PlayerPrefs
         IsMusicOn = PlayerPrefs.GetInt("IsMusicOn", 1) == 1;
         IsSoundEffectsOn = PlayerPrefs.GetInt("IsSoundEffectsOn", 1) == 1;
+        IsChatEnabled = PlayerPrefs.GetInt("IsChatEnabled", 1) == 1;
         GameObject.Find("Music Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn = IsMusicOn;
         GameObject.Find("Sound Effects Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn = IsSoundEffectsOn;
+        GameObject.Find("Chat Enabled Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn = IsChatEnabled;
     }
 
     public void OnClose()
     {
         bool isMusicOnCheckbox = GameObject.Find("Music Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
         bool isSoundEffectsOnCheckbox = GameObject.Find("Sound Effects Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
+        bool isChatEnabledCheckbox = GameObject.Find("Chat Enabled Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;
 
         // Check if there are any changes
-        if (IsMusicOn != isMusicOnCheckbox || IsSoundEffectsOn != isSoundEffectsOnCheckbox)
+        if (IsMusicOn != isMusicOnCheckbox || IsSoundEffectsOn != isSoundEffectsOnCheckbox || IsChatEnabled != isChatEnabledCheckbox)
         {
             // Get the parent object for the confirmation dialog (inactive objects cannot be located by GameObject.Find)
             GameObject optionsObject = GameObject.Find("Options");
