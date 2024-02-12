@@ -206,8 +206,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: PlaySinglePlayerHard
         m_Mode: 1
         m_Arguments:
@@ -1191,8 +1191,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: PlaySinglePlayerEasy
         m_Mode: 1
         m_Arguments:
@@ -2331,8 +2331,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -2476,8 +2476,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: Help
         m_Mode: 1
         m_Arguments:
@@ -3248,8 +3248,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: PlayMultiplayerOverNetwork
         m_Mode: 1
         m_Arguments:
@@ -4639,8 +4639,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1883371059}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1883371062}
+        m_TargetAssemblyTypeName: Navigation, Assembly-CSharp
         m_MethodName: PlayMultiplayerLocally
         m_Mode: 1
         m_Arguments:
@@ -5857,6 +5857,7 @@ GameObject:
   - component: {fileID: 1883371059}
   - component: {fileID: 1883371060}
   - component: {fileID: 1883371061}
+  - component: {fileID: 1883371062}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5964,6 +5965,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7f5a7249f8a83f4483120a126cce772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1883371062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883371055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651bd853f0d5e164a8ef02885c6ace48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1889974615
@@ -6497,18 +6510,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
