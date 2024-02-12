@@ -119,7 +119,7 @@ public class GamePiece : MonoBehaviour
         if (isPlayerOneTurn)
         {
             transform.tag = "Player1";
-            //gameObject.GetComponent<MeshRenderer>().material = 
+            
         }
         else
         {

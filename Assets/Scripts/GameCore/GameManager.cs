@@ -18,7 +18,8 @@ public class Click : MonoBehaviour
     private bool gameOver = false;
     bool moveInProgress = false;
     bool isAIGame = false;
-
+    bool didPlayer1Win = false;
+    bool isNetworkingGame = false;
     GameObject[] possibleMoves;
     private GameObject selectedObject;
 
@@ -31,6 +32,10 @@ public class Click : MonoBehaviour
         {
             isAIGame = true;
         }
+        //if (gameObject.GetComponent<Networking>() != null)
+        //{
+        //    isNetworkingGame = true;
+        //}
     }
 
     // Update is called once per frame
@@ -41,12 +46,23 @@ public class Click : MonoBehaviour
             moveInProgress = true;
             HandleClick();
         }
-        if (isAIGame && !isPlayerOneTurn && !moveInProgress)
+        if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
         {
+            moveInProgress = true;
             StartCoroutine(WaitForAIMove());
             
         }
-
+        if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
+        {
+            //run networking protocol
+            //if Random.random(Random.Range(0, 1)) == 0
+            //    player1 = Firstperson in room
+            //pass to last in room !isPlayerOneTurn
+        }
+        if (gameOver)
+        {
+            //return a menu screen
+        }
 
     }
 
@@ -202,12 +218,18 @@ public class Click : MonoBehaviour
         //piece.GetComponent<GamePiece>().SetNewPosition();
         //piece.GetComponent<GamePiece>().MovePiece();
 
+        if (isNetworkingGame)
+        {
+            //send piece and move
+        }
+
         gameOver = piece.GetComponent<GamePiece>().board.checkWin(isPlayerOneTurn);
         if (gameOver)
         {
             if (!isPlayerOneTurn && piece.gameObject.GetComponent<GamePiece>().board.didOpponentWin)
             {
                 Debug.Log("Player 1 Wins");
+                didPlayer1Win = true;
             }
             else if((isPlayerOneTurn && piece.gameObject.GetComponent<GamePiece>().board.didOpponentWin))
             {
@@ -216,6 +238,7 @@ public class Click : MonoBehaviour
             else if (isPlayerOneTurn)
             {
                 Debug.Log("Player 1 Wins");
+                didPlayer1Win = true;
             }
             else if (!isPlayerOneTurn)
             {
@@ -231,7 +254,11 @@ public class Click : MonoBehaviour
 
         DeselectObject();
 
-
+            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+            foreach (var aiPiece in AiPieces)
+            {
+                aiPiece.GetComponent<MeshRenderer>().material = Resources.Load("Player2", typeof(Material)) as Material;
+            }
     }
 
     IEnumerator WaitForAIMove()
@@ -239,11 +266,14 @@ public class Click : MonoBehaviour
         KeyValuePair<GamePiece, GamePiece> aiMove = gameObject.GetComponent<AiEasy>().AITurn();
         MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
         isPlayerOneTurn = true;
-        GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
-        foreach (var piece in AiPieces)
-        {
-            piece.GetComponent<MeshRenderer>().material = Resources.Load("Player2", typeof(Material)) as Material;
-        }
+        yield return null;
+    }
+
+    IEnumerator WaitForNetworkingMove()
+    {
+        //get Online Players move();
+        //MovePiece(OnlinePlayer.piece, OnlinePlayer.move);
+        //isPlayerOneTurn = true;
         yield return null;
     }
 

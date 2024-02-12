@@ -128,17 +128,6 @@ public class GameBoard : MonoBehaviour
                 }
             }
         }
-        //Destroy(temp);
-        //UpdateBoard();
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    for (int j = 0; j < 5; j++)
-        //    {
-                
-        //        Debug.Log(Board[j, i] + ": " + i + ", " + j);
-        //    }
-        //    Debug.Log("");
-        //}
     }
 
     public void MovePieces()
