@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: 580d62b0a0614c840803a13c8f203cd6
+guid: 76f7a1fb464b49b4682875c30a91bc11
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - gamePiecePrefab: {fileID: 8477508879413750083, guid: fb0738852274647419300237140e30c3, type: 3}
+  - red: {fileID: 2100000, guid: 485a7e958a905074f9e248d545d507f1, type: 2}
+  - green: {fileID: 2100000, guid: c7bfd496e592c444e9a0c65f0523629d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
