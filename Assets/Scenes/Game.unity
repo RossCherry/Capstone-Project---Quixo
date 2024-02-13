@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580d62b0a0614c840803a13c8f203cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerOne: 1
+  didOpponentWin: 0
 --- !u!4 &14064274
 Transform:
   m_ObjectHideFlags: 0
@@ -311,7 +311,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 75771195}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &83720675
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +454,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 83720675}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &114724394
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +597,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 114724394}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &179417939
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +740,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 179417939}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &235893676
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +883,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 235893676}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &258882908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1026,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 258882908}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &332341565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1169,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 332341565}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &370245870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1312,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 370245870}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &426990909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,7 +1455,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 426990909}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &510757939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,7 +1598,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 510757939}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &592847748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1741,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 592847748}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &610230831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,7 +1884,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 610230831}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &658921807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,7 +2027,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 658921807}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &676620868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,7 +2170,63 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 676620868}
   isBlank: 1
-  isPlayer1: 0
+--- !u!1001 &756388791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6283393
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.193527
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
+      propertyPath: m_Name
+      value: CatInBumper
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58e8a4523d9d4e8428480d526ddf6241, type: 3}
 --- !u!1 &868724903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,7 +2370,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 868724903}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &914829091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,7 +2513,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 914829091}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &978742121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,7 +2656,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 978742121}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1016733131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,7 +2799,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1016733131}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1297842582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +3036,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1304293214}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1378297192
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,7 +3179,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1378297192}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1435189153
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,7 +3322,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1435189153}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1446381817
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,7 +3465,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1446381817}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1497877189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,7 +3608,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1497877189}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1668685119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,7 +3751,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1668685119}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &1701347749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,7 +4003,6 @@ MonoBehaviour:
   board: {fileID: 2005568868}
   piece: {fileID: 1769574730}
   isBlank: 1
-  isPlayer1: 0
 --- !u!1 &2005568865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4060,7 +4092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580d62b0a0614c840803a13c8f203cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerOne: 1
+  didOpponentWin: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4069,3 +4101,4 @@ SceneRoots:
   - {fileID: 1297842584}
   - {fileID: 14064274}
   - {fileID: 2005568866}
+  - {fileID: 756388791}
