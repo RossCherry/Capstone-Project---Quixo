@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class Navigation : MonoBehaviour
 {
+    public void Help()
+    {
+        SceneManager.LoadScene("Help");
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+
+    // TODO: Navigate to the correct scenes once they are created
     public void PlaySinglePlayerEasy()
     {
         SceneManager.LoadSceneAsync("Game");
@@ -13,11 +25,6 @@ public class MainMenu : MonoBehaviour
     public void PlaySinglePlayerHard()
     {
         SceneManager.LoadSceneAsync("Game");
-    }
-
-    public void Help()
-    {
-        SceneManager.LoadSceneAsync("Help");
     }
 
     public void QuitGame()
@@ -35,4 +42,3 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("Game");
     }
 }
-
