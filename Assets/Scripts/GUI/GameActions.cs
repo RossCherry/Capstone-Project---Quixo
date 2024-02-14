@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameActions : MonoBehaviour
 {
+    string networkSceneName = "Network";
     // May need to change depending on how the winner is passed
     public void ShowGameOver(string winner)
     {
@@ -23,16 +26,25 @@ public class GameActions : MonoBehaviour
 
     public void PlayAgain()
     {
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
         // If online, send request to the opponent to play again and wait for their response
-
-        // If offline, just reload the game scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        if (currentScene.name == networkSceneName)
+        {
+            // Send a request to play again
+        }
+        // If offline, just reload the current scene
+        else
+        {
+            SceneManager.LoadScene(currentScene.name);
+        }     
     }
 
     public void RequestDraw()
     {
         // If online, send request to the opponent to draw and wait for their response
 
-        // If offline, send the request to the AI
+        // If offline and AI, send the request to the AI
+
+        // If co-op, draw immediately
     }
 }
