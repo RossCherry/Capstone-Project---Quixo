@@ -257,7 +257,8 @@ public class Click : MonoBehaviour
             GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
             foreach (var aiPiece in AiPieces)
             {
-                aiPiece.GetComponent<MeshRenderer>().material = Resources.Load("Player2", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
             }
     }
 

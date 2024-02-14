@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ClickOn : MonoBehaviour
@@ -28,7 +29,7 @@ public class ClickOn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRend = GetComponent<MeshRenderer>();
+        myRend = gameObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
         ClickMe();
     }
 
@@ -47,13 +48,15 @@ public class ClickOn : MonoBehaviour
         }
         else
         {
-            if (myRend.CompareTag("Player1"))
+            if (gameObject.CompareTag("Player1"))
             {
                 myRend.material = Player1;
+                gameObject.transform.GetChild(1).gameObject.SetActive(true);
             }
-            else if (myRend.CompareTag("Player2"))
+            else if (gameObject.CompareTag("Player2"))
             {
                 myRend.material = Player2;
+                gameObject.transform.GetChild(2).gameObject.SetActive(true);
             }
             else
             {
