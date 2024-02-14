@@ -22,6 +22,7 @@ public class Click : MonoBehaviour
     bool isNetworkingGame = false;
     GameObject[] possibleMoves;
     private GameObject selectedObject;
+    private bool gameOverWindowOpen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -59,9 +60,19 @@ public class Click : MonoBehaviour
             //    player1 = Firstperson in room
             //pass to last in room !isPlayerOneTurn
         }
-        if (gameOver)
+        if (gameOver && !gameOverWindowOpen)
         {
+            gameOverWindowOpen = true;
             //return a menu screen
+            
+            if (didPlayer1Win)
+            {
+                GameActions.ShowGameOver(Outcome.Win, "Player 1");
+            }
+            else
+            {
+                GameActions.ShowGameOver(Outcome.Win, "Player 2");
+            }
         }
 
     }
