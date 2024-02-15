@@ -7,7 +7,6 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     public int counter = 0;
-    public static Tutorial Instance;
     public GameObject game;
     // Start is called before the first frame update
     void Start()
@@ -22,27 +21,22 @@ public class Tutorial : MonoBehaviour
         
     }
 
-    void Awake()
-    {
-        // start of new code
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        // end of new code
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
     public void ResetBoard()
     {
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
             {
+                if (game.GetComponent<GameBoard>().Board[j,i].CompareTag("Player1"))
+                {
+                    game.GetComponent<GameBoard>().Board[j, i].transform.GetChild(1).gameObject.SetActive(false);
+                }
+                else if (game.GetComponent<GameBoard>().Board[j, i].CompareTag("Player2"))
+                {
+                    game.GetComponent<GameBoard>().Board[j, i].transform.GetChild(2).gameObject.SetActive(false);
+                }
                 game.GetComponent<GameBoard>().Board[j, i].tag = "Blank";
+                game.GetComponent<GameBoard>().Board[j, i].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-11-body", typeof(Material)) as Material;
             }
         }
     }

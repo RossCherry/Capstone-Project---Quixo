@@ -58,6 +58,26 @@ public class Click : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext)
+        {
+            tutorial.ResetBoard();
+            tutorial.BothPlayersCanWin();
+            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+            foreach (var aiPiece in AiPieces)
+            {
+                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+            }
+            AiPieces = GameObject.FindGameObjectsWithTag("Player1");
+            foreach (var aiPiece in AiPieces)
+            {
+                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-01-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(1).gameObject.SetActive(true);
+            }
+            hasTutorialSetNext = true;
+            PlayerPrefs.DeleteKey("Tutorial Counter");
+            PlayerPrefs.Save();
+        }
         if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver)
         {
             moveInProgress = true;
@@ -80,18 +100,6 @@ public class Click : MonoBehaviour
 
 
         }
-        if (isTutorial && !moveInProgress && isPlayerOneTurn && !gameOver && !hasTutorialSetNext)
-        {
-            if (Tutorial.Instance != null)
-            {
-                if (Tutorial.Instance.counter == 1)
-                {
-                    tutorial.ResetBoard();
-                    tutorial.BothPlayersCanWin();
-                    hasTutorialSetNext = true;
-                }
-            }
-        }
         if (gameOver && !gameOverWindowOpen)
         {
             gameOverWindowOpen = true;
@@ -108,10 +116,8 @@ public class Click : MonoBehaviour
         }
         if (isTutorial && gameOver)
         {
-            Tutorial.Instance.counter++;
-            hasTutorialSetNext = false;
-            gameOver = false;
-            moveInProgress = false;
+            PlayerPrefs.SetInt("Tutorial Counter", 1);
+            PlayerPrefs.Save();
         }
 
     }
