@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 0cb29787e690d3442bd32c26daf5283f
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Animals_FREE/Scenes/Overview.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Game.unity
@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Help.unity
     guid: 978f1e03b1e78c04b97710e30ccd6a4b
+  - enabled: 1
+    path: Assets/Scenes/AI Game.unity
+    guid: 1ddcc3ff0203d66429fcf1aeb5cc79f5
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 714685f6dd901ae4abe40df27400b420
+  - enabled: 1
+    path: Assets/Scenes/Networking Game.unity
+    guid: 8e768862c70c7e945aa07ec6f45f9930
   m_configObjects: {}

@@ -5,26 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class Navigation : MonoBehaviour
 {
+    public string easyAIScene = "AI Game";
+    public string hardAIScene = "AI Game";
+    public string localMultiplayerScene = "Game";
+    public string networkMultiplayerScene = "Networking Game";
+    public string mainMenuScene = "Main Menu";
+    public string helpScene = "Help";
     public void Help()
     {
-        SceneManager.LoadScene("Help");
+        SceneManager.LoadScene(helpScene);
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(mainMenuScene);
     }
 
 
     // TODO: Navigate to the correct scenes once they are created
     public void PlaySinglePlayerEasy()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync(easyAIScene);
     }
 
     public void PlaySinglePlayerHard()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync(hardAIScene);
     }
 
     public void QuitGame()
@@ -34,11 +40,11 @@ public class Navigation : MonoBehaviour
 
     public void PlayMultiplayerLocally()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync(localMultiplayerScene);
     }
 
     public void PlayMultiplayerOverNetwork()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync(networkMultiplayerScene);
     }
 }
