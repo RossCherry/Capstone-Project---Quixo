@@ -7,6 +7,9 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Photon.Pun;
+
+//[RequireComponent(typeof(PhotonView))]
 
 public class Click : MonoBehaviour
 {
@@ -22,7 +25,12 @@ public class Click : MonoBehaviour
     bool isNetworkingGame = false;
     GameObject[] possibleMoves;
     private GameObject selectedObject;
+    //private PhotonView photonView;
     private bool gameOverWindowOpen = false;
+    private bool isTutorial = false;
+    private Tutorial tutorial;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +41,21 @@ public class Click : MonoBehaviour
         {
             isAIGame = true;
         }
-        //if (gameObject.GetComponent<Networking>() != null)
-        //{
-        //    isNetworkingGame = true;
-        //}
+        if (gameObject.GetComponent<NetworkManager>() != null)
+        {
+            isNetworkingGame = true;
+            //photonView = gameObject.GetComponent<PhotonView>();
+        }
+        if (GetComponent<Tutorial>() != null)
+        {
+            tutorial = GetComponent<Tutorial>();
+            isTutorial = true;
+            if (Tutorial.counter == 1)
+            {
+                tutorial.ResetBoard();
+                tutorial.BothPlayersCanWin();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -55,10 +74,22 @@ public class Click : MonoBehaviour
         }
         if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
         {
+            
             //run networking protocol
+            
             //if Random.random(Random.Range(0, 1)) == 0
             //    player1 = Firstperson in room
             //pass to last in room !isPlayerOneTurn
+
+
+        }
+        if (isTutorial && !isPlayerOneTurn && !moveInProgress)
+        {
+            if (gameOver)
+            {
+                Tutorial.counter++;
+            }
+            
         }
         if (gameOver && !gameOverWindowOpen)
         {
@@ -232,6 +263,7 @@ public class Click : MonoBehaviour
         if (isNetworkingGame)
         {
             //send piece and move
+            //photonView.RPC(nameof(RPC_OnMovePiece), RpcTarget.AllBuffered, new object[] { piece, move });
         }
 
         gameOver = piece.GetComponent<GamePiece>().board.checkWin(isPlayerOneTurn);
@@ -288,5 +320,11 @@ public class Click : MonoBehaviour
         //isPlayerOneTurn = true;
         yield return null;
     }
+
+    //[PunRPC]
+    //private void RPC_OnMovePiece(GamePiece piece, GameObject move)
+    //{
+
+    //}
 
 }
