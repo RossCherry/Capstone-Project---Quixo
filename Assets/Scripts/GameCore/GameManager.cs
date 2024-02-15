@@ -29,6 +29,7 @@ public class Click : MonoBehaviour
     private bool gameOverWindowOpen = false;
     private bool isTutorial = false;
     private Tutorial tutorial;
+    private bool hasTutorialSetNext = false;
 
 
 
@@ -50,11 +51,7 @@ public class Click : MonoBehaviour
         {
             tutorial = GetComponent<Tutorial>();
             isTutorial = true;
-            if (Tutorial.counter == 1)
-            {
-                tutorial.ResetBoard();
-                tutorial.BothPlayersCanWin();
-            }
+            
         }
     }
 
@@ -83,13 +80,28 @@ public class Click : MonoBehaviour
 
 
         }
-        if (isTutorial && !isPlayerOneTurn && !moveInProgress)
+        if (isTutorial && !moveInProgress)
         {
             if (gameOver)
             {
-                Tutorial.counter++;
+                Tutorial.Instance.counter++;
+                hasTutorialSetNext = false;
+                gameOver = false;
+                moveInProgress = false;
             }
             
+        }
+        if (isTutorial && !moveInProgress && isPlayerOneTurn && !gameOver && !hasTutorialSetNext)
+        {
+            if (Tutorial.Instance != null)
+            {
+                if (Tutorial.Instance.counter == 1)
+                {
+                    tutorial.ResetBoard();
+                    tutorial.BothPlayersCanWin();
+                    hasTutorialSetNext = true;
+                }
+            }
         }
         if (gameOver && !gameOverWindowOpen)
         {

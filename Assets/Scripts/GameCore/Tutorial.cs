@@ -1,16 +1,19 @@
 using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    public static int counter = 0;
+    public int counter = 0;
+    public static Tutorial Instance;
     public GameObject game;
     // Start is called before the first frame update
     void Start()
     {
         game = GameObject.FindGameObjectWithTag("GameBoard");
+
     }
 
     // Update is called once per frame
@@ -21,6 +24,15 @@ public class Tutorial : MonoBehaviour
 
     void Awake()
     {
+        // start of new code
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        // end of new code
+
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
