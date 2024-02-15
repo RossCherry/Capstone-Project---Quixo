@@ -80,17 +80,6 @@ public class Click : MonoBehaviour
 
 
         }
-        if (isTutorial && !moveInProgress)
-        {
-            if (gameOver)
-            {
-                Tutorial.Instance.counter++;
-                hasTutorialSetNext = false;
-                gameOver = false;
-                moveInProgress = false;
-            }
-            
-        }
         if (isTutorial && !moveInProgress && isPlayerOneTurn && !gameOver && !hasTutorialSetNext)
         {
             if (Tutorial.Instance != null)
@@ -116,6 +105,13 @@ public class Click : MonoBehaviour
             {
                 GameActions.ShowGameOver(Outcome.Win, "Player 2");
             }
+        }
+        if (isTutorial && gameOver)
+        {
+            Tutorial.Instance.counter++;
+            hasTutorialSetNext = false;
+            gameOver = false;
+            moveInProgress = false;
         }
 
     }
