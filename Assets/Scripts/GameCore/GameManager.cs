@@ -9,8 +9,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Photon.Pun;
 
-//[RequireComponent(typeof(PhotonView))]
-
 public class Click : MonoBehaviour
 {
     [SerializeField]
@@ -25,7 +23,6 @@ public class Click : MonoBehaviour
     bool isNetworkingGame = false;
     GameObject[] possibleMoves;
     private GameObject selectedObject;
-    //private PhotonView photonView;
     private bool gameOverWindowOpen = false;
     private bool isTutorial = false;
     private Tutorial tutorial;
@@ -45,7 +42,6 @@ public class Click : MonoBehaviour
         if (gameObject.GetComponent<NetworkManager>() != null)
         {
             isNetworkingGame = true;
-            //photonView = gameObject.GetComponent<PhotonView>();
         }
         if (GetComponent<Tutorial>() != null)
         {
@@ -264,7 +260,7 @@ public class Click : MonoBehaviour
 
         return result;
     }
-    void MovePiece(GameObject piece, GameObject move)
+    public void MovePiece(GameObject piece, GameObject move)
     {
         piece.GetComponent<GamePiece>().SetPlayer(isPlayerOneTurn);
 
@@ -277,7 +273,6 @@ public class Click : MonoBehaviour
         if (isNetworkingGame)
         {
             //send piece and move
-            //photonView.RPC(nameof(RPC_OnMovePiece), RpcTarget.AllBuffered, new object[] { piece, move });
         }
 
         gameOver = piece.GetComponent<GamePiece>().board.checkWin(isPlayerOneTurn);
@@ -334,11 +329,5 @@ public class Click : MonoBehaviour
         //isPlayerOneTurn = true;
         yield return null;
     }
-
-    //[PunRPC]
-    //private void RPC_OnMovePiece(GamePiece piece, GameObject move)
-    //{
-
-    //}
 
 }
