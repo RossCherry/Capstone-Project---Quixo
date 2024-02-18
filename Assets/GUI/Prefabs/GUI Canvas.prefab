@@ -503,6 +503,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5307771962277994399, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1697375125657445016}
+    - target: {fileID: 5307771962277994399, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 5396283847502937526, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -640,6 +648,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
+--- !u!1 &1697375125657445016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8862315644037577369, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
+  m_PrefabInstance: {fileID: 7886661325418027009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7113250387178834076 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1136133313680773277, guid: c6790ec1abc3cbf4fb7df074fdda56c5, type: 3}
