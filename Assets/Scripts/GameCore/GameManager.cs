@@ -317,6 +317,8 @@ public class Click : MonoBehaviour
     IEnumerator WaitForAIMove()
     {
         KeyValuePair<GamePiece, GamePiece> aiMove = gameObject.GetComponent<AiEasy>().AITurn();
+        Debug.Log("Moving Piece: (" + aiMove.Key.row + "," + aiMove.Key.col + ")");
+        Debug.Log("Here: (" + aiMove.Value.row + "," + aiMove.Value.col + ")");
         MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
         isPlayerOneTurn = true;
         yield return null;
