@@ -55,6 +55,17 @@ public class GameActions : MonoBehaviour
         }   
     }
 
+    // Not currently working
+    public static void ToggleOptionsMenuEnabled(bool isEnabled)
+    {
+        GameObject optionsMenu = GameObject.Find("Options Menu");
+        if (optionsMenu != null)
+        {
+            // Keep the options menu open but disable the buttons
+            // THIS LINE IS THE ISSUE optionsMenu.GetComponent<GameObject>().GetComponent<CanvasGroup>().interactable = isEnabled;
+        }
+    }
+
     public void PlayAgain()
     {
         UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
