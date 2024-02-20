@@ -162,6 +162,7 @@ public class GamePiece : MonoBehaviour
         }
 
         transform.position = targetPosition; // Ensure the final position is exact
+        Click.isCoroutineRunning = false;
     }
 
    

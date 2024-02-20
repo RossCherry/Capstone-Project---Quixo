@@ -27,6 +27,7 @@ public class Click : MonoBehaviour
     private bool isTutorial = false;
     private Tutorial tutorial;
     private bool hasTutorialSetNext = false;
+    public static bool isCoroutineRunning = false;
 
 
     // Start is called before the first frame update
@@ -75,18 +76,18 @@ public class Click : MonoBehaviour
         }
         if (GameActions.GameEnabled)
         {
-            if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver)
+            if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver && !isCoroutineRunning)
             {
                 moveInProgress = true;
                 HandleClick();
             }
-            if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
+            if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver && !isCoroutineRunning)
             {
                 moveInProgress = true;
                 StartCoroutine(WaitForAIMove());
 
             }
-            if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
+            if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver && !isCoroutineRunning)
             {
 
                 //run networking protocol
@@ -216,6 +217,7 @@ public class Click : MonoBehaviour
 
     IEnumerator WaitForValidMove(GameObject piece)
     {
+        isCoroutineRunning = true;
         bool validMove = false;
         bool waitingForClick = true;
         ClickOn clickOnScript = null;
