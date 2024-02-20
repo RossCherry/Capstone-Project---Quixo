@@ -99,11 +99,11 @@ public class Click : MonoBehaviour
 
             }
         }
-        // Deselect Pieces when the GUI is activated
-        else if (selectedObject != null)
-        {
-            UnhighlightPossibleMoves();
-        }
+        //// Deselect Pieces when the GUI is activated
+        //else if (selectedObject != null)
+        //{
+        //    UnhighlightPossibleMoves();
+        //}
         
         if (gameOver && !gameOverWindowOpen)
         {
@@ -265,6 +265,7 @@ public class Click : MonoBehaviour
         else
         {
             DeselectObject();
+            isCoroutineRunning = false;
             moveInProgress = false;
         }
 
