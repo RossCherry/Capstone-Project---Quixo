@@ -339,6 +339,7 @@ public class Click : MonoBehaviour
 
     IEnumerator WaitForAIMove()
     {
+        isCoroutineRunning = true;
         KeyValuePair<GamePiece, GamePiece> aiMove = gameObject.GetComponent<AiEasy>().AITurn();
         Debug.Log("Moving Piece: (" + aiMove.Key.row + "," + aiMove.Key.col + ")");
         Debug.Log("Here: (" + aiMove.Value.row + "," + aiMove.Value.col + ")");
