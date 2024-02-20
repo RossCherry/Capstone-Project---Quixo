@@ -101,7 +101,7 @@ public class Click : MonoBehaviour
         // Deselect Pieces when the GUI is activated
         else if (selectedObject != null)
         {
-            DeselectObject();
+            UnhighlightPossibleMoves();
         }
         
         if (gameOver && !gameOverWindowOpen)
@@ -200,6 +200,20 @@ public class Click : MonoBehaviour
             possibleMoves[i].GetComponent<ClickOn>().ClickMe();
         }
     }
+
+    void UnhighlightPossibleMoves()
+    {
+        if (possibleMoves != null)
+        {
+            DeselectObject();
+
+            // Remove all entries from the possible moves array without setting it to null
+            possibleMoves = new GameObject[0];
+            HighlightPossibleMoves();
+        }
+        
+    }        
+
     IEnumerator WaitForValidMove(GameObject piece)
     {
         bool validMove = false;
