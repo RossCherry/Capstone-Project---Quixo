@@ -39,8 +39,20 @@ public class GameActions : MonoBehaviour
                 GameObject outcomeText = panel.transform.Find("Outcome Text").gameObject;
 
                 outcomeText.GetComponent<TextMeshProUGUI>().text = outcomeMessage;
+
+                // Disable the request draw button if the game is over
+                DisableRequestDrawButton();
             }
         }       
+    }
+
+    private static void DisableRequestDrawButton()
+    {
+        GameObject requestDrawButton = GameObject.Find("Request Draw Button");
+        if (requestDrawButton != null)
+        {
+            requestDrawButton.GetComponent<Button>().interactable = false;
+        }   
     }
 
     public void PlayAgain()
