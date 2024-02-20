@@ -99,11 +99,11 @@ public class Click : MonoBehaviour
 
             }
         }
-        // Deselect Pieces when the GUI is activated
-        else if (selectedObject != null)
-        {
-            UnhighlightPossibleMoves();
-        }
+        //// Deselect Pieces when the GUI is activated
+        //else if (selectedObject != null)
+        //{
+        //    UnhighlightPossibleMoves();
+        //}
         
         if (gameOver && !gameOverWindowOpen)
         {
@@ -265,6 +265,7 @@ public class Click : MonoBehaviour
         else
         {
             DeselectObject();
+            isCoroutineRunning = false;
             moveInProgress = false;
         }
 
@@ -339,6 +340,7 @@ public class Click : MonoBehaviour
 
     IEnumerator WaitForAIMove()
     {
+        isCoroutineRunning = true;
         KeyValuePair<GamePiece, GamePiece> aiMove = gameObject.GetComponent<AiEasy>().AITurn();
         Debug.Log("Moving Piece: (" + aiMove.Key.row + "," + aiMove.Key.col + ")");
         Debug.Log("Here: (" + aiMove.Value.row + "," + aiMove.Value.col + ")");

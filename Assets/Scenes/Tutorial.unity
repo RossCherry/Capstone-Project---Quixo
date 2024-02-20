@@ -3839,7 +3839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8649945865608969734, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: col
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8649945865608969734, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: board
