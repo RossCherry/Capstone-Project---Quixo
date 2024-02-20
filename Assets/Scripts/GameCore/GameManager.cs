@@ -29,7 +29,6 @@ public class Click : MonoBehaviour
     private bool hasTutorialSetNext = false;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -74,28 +73,37 @@ public class Click : MonoBehaviour
             PlayerPrefs.DeleteKey("Tutorial Counter");
             PlayerPrefs.Save();
         }
-        if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver)
+        if (GameActions.GameEnabled)
         {
-            moveInProgress = true;
-            HandleClick();
-        }
-        if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
-        {
-            moveInProgress = true;
-            StartCoroutine(WaitForAIMove());
-            
-        }
-        if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
-        {
-            
-            //run networking protocol
-            
-            //if Random.random(Random.Range(0, 1)) == 0
-            //    player1 = Firstperson in room
-            //pass to last in room !isPlayerOneTurn
+            if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver)
+            {
+                moveInProgress = true;
+                HandleClick();
+            }
+            if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
+            {
+                moveInProgress = true;
+                StartCoroutine(WaitForAIMove());
+
+            }
+            if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver)
+            {
+
+                //run networking protocol
+
+                //if Random.random(Random.Range(0, 1)) == 0
+                //    player1 = Firstperson in room
+                //pass to last in room !isPlayerOneTurn
 
 
+            }
         }
+        // Deselect Pieces when the GUI is activated
+        else if (selectedObject != null)
+        {
+            DeselectObject();
+        }
+        
         if (gameOver && !gameOverWindowOpen)
         {
             gameOverWindowOpen = true;
@@ -115,7 +123,6 @@ public class Click : MonoBehaviour
             PlayerPrefs.SetInt("Tutorial Counter", 1);
             PlayerPrefs.Save();
         }
-
     }
 
     void HandleClick()

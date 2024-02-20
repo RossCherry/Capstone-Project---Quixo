@@ -17,7 +17,14 @@ public enum Outcome
 public class GameActions : MonoBehaviour
 {
     string networkSceneName = "Network";
-    //public GameObject gameOverDialog;
+    
+    private static bool gameEnabled = true;
+
+    public static bool GameEnabled
+    {
+        get { return gameEnabled; }
+        set { gameEnabled = value; }
+    }
 
     // May need to change depending on how the winner is passed
     public static void ShowGameOver(Outcome outcome, string winner = "")
@@ -89,5 +96,19 @@ public class GameActions : MonoBehaviour
 
         // If co-op, draw immediately
         ShowGameOver(Outcome.Draw);
+    }
+
+    public void DisableGame()
+    {
+        // Disable the game board
+        GameObject gameBoard = GameObject.Find("Game Board");
+        if (gameBoard != null)
+        {
+            // Prevent the user from interacting with the game board GameObject
+            gameBoard.GetComponent<CanvasGroup>().interactable = false;
+
+            GameEnabled = false;
+            
+        }
     }
 }
