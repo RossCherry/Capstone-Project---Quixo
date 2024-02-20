@@ -97,18 +97,4 @@ public class GameActions : MonoBehaviour
         // If co-op, draw immediately
         ShowGameOver(Outcome.Draw);
     }
-
-    public void DisableGame()
-    {
-        // Disable the game board
-        GameObject gameBoard = GameObject.Find("Game Board");
-        if (gameBoard != null)
-        {
-            // Prevent the user from interacting with the game board GameObject
-            gameBoard.GetComponent<CanvasGroup>().interactable = false;
-
-            GameEnabled = false;
-            
-        }
-    }
 }
