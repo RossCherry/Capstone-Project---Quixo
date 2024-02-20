@@ -27,7 +27,7 @@ public class Tutorial : MonoBehaviour
         {
             for (int j = 0; j < 5; j++)
             {
-                if (game.GetComponent<GameBoard>().Board[j,i].CompareTag("Player1"))
+                if (game.GetComponent<GameBoard>().Board[j, i].CompareTag("Player1"))
                 {
                     game.GetComponent<GameBoard>().Board[j, i].transform.GetChild(1).gameObject.SetActive(false);
                 }
