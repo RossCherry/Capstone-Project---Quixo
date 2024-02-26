@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -62,20 +61,9 @@ public class GameActions : MonoBehaviour
         }   
     }
 
-    // Not currently working
-    public static void ToggleOptionsMenuEnabled(bool isEnabled)
-    {
-        GameObject optionsMenu = GameObject.Find("Options Menu");
-        if (optionsMenu != null)
-        {
-            // Keep the options menu open but disable the buttons
-            // THIS LINE IS THE ISSUE optionsMenu.GetComponent<GameObject>().GetComponent<CanvasGroup>().interactable = isEnabled;
-        }
-    }
-
     public void PlayAgain()
     {
-        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+        Scene currentScene = SceneManager.GetActiveScene();
         // If online, send request to the opponent to play again and wait for their response
         if (currentScene.name == networkSceneName)
         {
@@ -91,6 +79,7 @@ public class GameActions : MonoBehaviour
     public void RequestDraw()
     {
         // If online, send request to the opponent to draw and wait for their response
+        // Checks if it is the current player's turn
 
         // If offline and AI, send the request to the AI
 
