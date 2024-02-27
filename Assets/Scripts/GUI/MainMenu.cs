@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayMultiplayerOverNetwork()
     {
-        SceneManager.LoadSceneAsync("Game");
+        SceneManager.LoadSceneAsync("Networking Game");
     }
 }
 

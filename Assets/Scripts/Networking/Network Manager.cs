@@ -16,17 +16,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
-
     public void Connect()
     {
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);  //not sure about parameters
+            PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);  
         }
         else
         {
+            PhotonNetwork.GameVersion = "0.0.1";
             PhotonNetwork.ConnectUsingSettings();
-            //PhotonNetwork.GameVersion = gameVersion;
         }
     }
 
@@ -82,6 +81,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //???
     }
 
+    public void OnLeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Debug.Log($"Player left the room.");
+    }
+
+    public void OnDisconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
 
     public bool IsRoomFull()
     {
