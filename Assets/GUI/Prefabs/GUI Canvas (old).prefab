@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5645430238622169402}
   - component: {fileID: -3351799525102858315}
   m_Layer: 6
-  m_Name: GUI Canvas
+  m_Name: GUI Canvas (old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8962608943848296105
 MonoBehaviour:
   m_ObjectHideFlags: 0
