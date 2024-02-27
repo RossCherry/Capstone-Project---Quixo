@@ -16,12 +16,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
-
-    public void Start()
+    public void Connect()
     {
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);  //not sure about parameters
+            PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);  
         }
         else
         {
