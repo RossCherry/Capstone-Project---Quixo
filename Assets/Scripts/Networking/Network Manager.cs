@@ -17,7 +17,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 
-    public void Connect()
+    public void Start()
     {
         if (PhotonNetwork.IsConnected)
         {
@@ -25,8 +25,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            PhotonNetwork.GameVersion = "0.0.1";
             PhotonNetwork.ConnectUsingSettings();
-            //PhotonNetwork.GameVersion = gameVersion;
         }
     }
 
@@ -82,6 +82,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //???
     }
 
+    public void OnLeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Debug.Log($"Player left the room.");
+    }
+
+    public void OnDisconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
 
     public bool IsRoomFull()
     {

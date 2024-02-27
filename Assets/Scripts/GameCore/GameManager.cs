@@ -42,6 +42,7 @@ public class Click : MonoBehaviour
         if (gameObject.GetComponent<NetworkManager>() != null)
         {
             isNetworkingGame = true;
+            gameObject.GetComponent<NetworkManager>().Start();
         }
         if (GetComponent<Tutorial>() != null)
         {
