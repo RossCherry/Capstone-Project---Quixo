@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private Tutorial tutorial;
     private bool hasTutorialSetNext = false;
     public static bool isCoroutineRunning = false;
-
+    public bool isPlayerOneCats = true;
     bool onlyDoOnce = true;
 
     // Start is called before the first frame update
@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             tutorial = GetComponent<Tutorial>();
             typeOfGame = "tutorial";
 
+        }
+        if (!isPlayerOneCats)
+        {
+            isPlayerOneTurn = false;
         }
     }
 
@@ -333,7 +337,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void MakePieceMove(GameObject piece, GameObject move)
     {
         Debug.Log(piece.ToString());
-        piece.GetComponent<GamePiece>().SetPlayer(isPlayerOneTurn);
+        if (isPlayerOneCats)
+        {
+            if (isPlayerOneTurn)
+            {
+                piece.GetComponent<GamePiece>().SetPlayer(false);
+            }
+            else
+            {
+                piece.GetComponent<GamePiece>().SetPlayer(true);
+            }
+        }
+        else 
+        {
+            piece.GetComponent<GamePiece>().SetPlayer(isPlayerOneTurn);
+
+        }
 
         piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
 
@@ -372,11 +391,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (typeOfGame == "easy" || typeOfGame == "hard")
         {
-            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
-            foreach (var aiPiece in AiPieces)
+            if (isPlayerOneCats)
             {
-                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
-                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+                GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+                foreach (var aiPiece in AiPieces)
+                {
+                    aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+                    aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+                }
+            } 
+            else 
+            {
+                GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player1");
+                foreach (var aiPiece in AiPieces)
+                {
+                    aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-02-body", typeof(Material)) as Material;
+                    aiPiece.transform.GetChild(1).gameObject.SetActive(true);
+                }
             }
         }
     }
