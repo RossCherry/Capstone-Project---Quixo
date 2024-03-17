@@ -8,23 +8,30 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using Photon.Pun;
+using ExitGames.Client.Photon;
+using Photon.Realtime;
 
-public class Click : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
+    private new PhotonView photonView;
+    //private static PhotonView photonView = new PhotonView();
     [SerializeField]
     private LayerMask objects;
 
+    //instead of multiple booleans it now uses a single string to determin the type of game
+    string typeOfGame;
+
     public bool isPlayerOneTurn = true;
-    private bool validMove;
-    private bool gameOver = false;
+    public bool isPlayerOne = true;
+
+    GameObject[] possibleMoves = null;
+    private GameObject selectedObject = null;
     bool moveInProgress = false;
-    bool isAIGame = false;
-    bool didPlayer1Win = false;
-    bool isNetworkingGame = false;
-    GameObject[] possibleMoves;
-    private GameObject selectedObject;
+
+    private bool gameOver = false;
     private bool gameOverWindowOpen = false;
-    private bool isTutorial = false;
+    bool didPlayer1Win = false;
+
     private Tutorial tutorial;
     private bool hasTutorialSetNext = false;
     public static bool isCoroutineRunning = false;
@@ -33,42 +40,40 @@ public class Click : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedObject = null;
-        possibleMoves = null;
         if (gameObject.GetComponent<AiEasy>() != null)
         {
-            isAIGame = true;
+            typeOfGame = "easy";
         }
         if (gameObject.GetComponent<NetworkManager>() != null)
         {
-            isNetworkingGame = true;
-            //gameObject.GetComponent<NetworkManager>().Start();
+            photonView = gameObject.GetComponent<PhotonView>();
+            typeOfGame = "network";
         }
         if (GetComponent<Tutorial>() != null)
         {
             tutorial = GetComponent<Tutorial>();
-            isTutorial = true;
-            
+            typeOfGame = "tutorial";
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext)
+        if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext && typeOfGame == "tutorial")
         {
             tutorial.ResetBoard();
             tutorial.BothPlayersCanWin();
             GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
             foreach (var aiPiece in AiPieces)
             {
-                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
                 aiPiece.transform.GetChild(2).gameObject.SetActive(true);
             }
             AiPieces = GameObject.FindGameObjectsWithTag("Player1");
             foreach (var aiPiece in AiPieces)
             {
-                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-01-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-01-body", typeof(Material)) as Material;
                 aiPiece.transform.GetChild(1).gameObject.SetActive(true);
             }
             hasTutorialSetNext = true;
@@ -77,27 +82,39 @@ public class Click : MonoBehaviour
         }
         if (GameActions.GameEnabled)
         {
-            if (Input.GetMouseButtonDown(0) && !moveInProgress && !gameOver && !isCoroutineRunning)
+            if (!moveInProgress && !gameOver && !isCoroutineRunning)
             {
-                moveInProgress = true;
-                HandleClick();
-            }
-            if (isAIGame && !isPlayerOneTurn && !moveInProgress && !gameOver && !isCoroutineRunning)
-            {
-                moveInProgress = true;
-                StartCoroutine(WaitForAIMove());
+                
+                //AI GAME
+                if (typeOfGame == "easy" && !isPlayerOneTurn)
+                {
+                    moveInProgress = true;
+                    StartCoroutine(WaitForAIMove());
 
-            }
-            if (isNetworkingGame && !isPlayerOneTurn && !moveInProgress && !gameOver && !isCoroutineRunning)
-            {
+                }
+                //LOCAL PLAY
+                else if (Input.GetMouseButtonDown(0) && typeOfGame != "network")
+                {
+                    moveInProgress = true;
+                    HandleClick();
+                }
 
-                //run networking protocol
-
-                //if Random.random(Random.Range(0, 1)) == 0
-                //    player1 = Firstperson in room
-                //pass to last in room !isPlayerOneTurn
-
-
+                //NETWORKING GAME
+                //TODO what happens if one quits
+                if (typeOfGame == "network")
+                {
+                    isPlayerOne = GetComponent<NetworkManager>().getIsPlayerOne();
+                    if (Input.GetMouseButtonDown(0) && isPlayerOneTurn && isPlayerOne)
+                    {
+                        moveInProgress = true;
+                        HandleClick();
+                    }
+                    else if(Input.GetMouseButtonDown(0) && !isPlayerOneTurn && !isPlayerOne)
+                    {
+                        moveInProgress = true;
+                        HandleClick();
+                    }
+                }
             }
         }
         //// Deselect Pieces when the GUI is activated
@@ -105,12 +122,12 @@ public class Click : MonoBehaviour
         {
             UnhighlightPossibleMoves();
         }
-        
+
         if (gameOver && !gameOverWindowOpen)
         {
             gameOverWindowOpen = true;
             //return a menu screen
-            
+
             if (didPlayer1Win)
             {
                 GameActions.ShowGameOver(Outcome.Win, "Player 1");
@@ -120,7 +137,7 @@ public class Click : MonoBehaviour
                 GameActions.ShowGameOver(Outcome.Win, "Player 2");
             }
         }
-        if (isTutorial && gameOver)
+        if (typeOfGame == "tutorial" && gameOver)
         {
             PlayerPrefs.SetInt("Tutorial Counter", 1);
             PlayerPrefs.Save();
@@ -129,15 +146,15 @@ public class Click : MonoBehaviour
 
     void HandleClick()
     {
-        RaycastHit rayHit;
         GamePiece piece;
+        bool validMove;
 
         //If mouse is clicked, fire a raycast at where ever the mouse is pointing and store it in rayHit. It will only hit things in the objects layer
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 100, objects))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 100, objects))
         {
             ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn>();
 
-            validMove = clickOnScript.gameObject.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+            validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
 
             if (validMove)
             {
@@ -155,11 +172,11 @@ public class Click : MonoBehaviour
                 piece = selectedObject.GetComponent<GamePiece>();
                 possibleMoves = piece.PossibleMoves();
 
-                
+
 
                 HighlightPossibleMoves();
                 //FINISHED HIGHLIGHTING POSSIBLE MOVES
-              
+
                 //START OF MOVE PIECE
                 StartCoroutine(WaitForValidMove(clickOnScript.GetComponent<GamePiece>().piece));
 
@@ -170,15 +187,15 @@ public class Click : MonoBehaviour
                 DeselectObject();
                 moveInProgress = false;
             }
-            
+
         }
         else
         {
-            
+
             moveInProgress = false;
         }
 
-        
+
     }
     void DeselectObject()
     {
@@ -202,7 +219,6 @@ public class Click : MonoBehaviour
             possibleMoves[i].GetComponent<ClickOn>().ClickMe();
         }
     }
-
     void UnhighlightPossibleMoves()
     {
         if (possibleMoves != null)
@@ -213,9 +229,8 @@ public class Click : MonoBehaviour
             possibleMoves = new GameObject[0];
             HighlightPossibleMoves();
         }
-        
-    }        
 
+    }
     IEnumerator WaitForValidMove(GameObject piece)
     {
         isCoroutineRunning = true;
@@ -228,32 +243,30 @@ public class Click : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                RaycastHit rayHit;
-
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 100, objects))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 100, objects))
                 {
                     clickOnScript = rayHit.collider.GetComponent<ClickOn>();
 
-                    if(clickOnScript != null && clickOnScript.possibleMove) 
+                    if (clickOnScript != null && clickOnScript.possibleMove)
                     {
                         validMove = ValidateMove(clickOnScript);
                         waitingForClick = !validMove;
-                       
-                        
+
+
                     }
-                    else if (counter > 0) 
+                    else if (counter > 0)
                     {
                         waitingForClick = false;
                     }
                 }
-                
+
             }
-            for(int i = 0; i < possibleMoves.Length;i++)
+            for (int i = 0; i < possibleMoves.Length; i++)
             {
                 possibleMoves[i].GetComponent<ClickOn>().possibleMove = true;
                 possibleMoves[i].GetComponent<ClickOn>().ClickMe();
             }
-            
+
             counter++;
             yield return null;
         }
@@ -275,9 +288,9 @@ public class Click : MonoBehaviour
     {
         bool result = false;
 
-        for(int i = 0; i < possibleMoves.Length; i++)
+        for (int i = 0; i < possibleMoves.Length; i++)
         {
-            if (possibleMoves[i].gameObject.GetComponent<GamePiece>().piece == clickOnScript.gameObject.GetComponent<GamePiece>().piece)
+            if (possibleMoves[i].GetComponent<GamePiece>().piece == clickOnScript.GetComponent<GamePiece>().piece)
             {
                 result = true;
             }
@@ -287,28 +300,47 @@ public class Click : MonoBehaviour
     }
     public void MovePiece(GameObject piece, GameObject move)
     {
+        if (typeOfGame == "network")
+        {
+            int pieceRow = piece.GetComponent<GamePiece>().row;
+            int pieceCol = piece.GetComponent<GamePiece>().col;
+            int moveRow = move.GetComponent<GamePiece>().row;
+            int moveCol = move.GetComponent<GamePiece>().col; 
+            photonView.RPC("RPC_MovePiece", RpcTarget.All, pieceRow, pieceCol, moveRow, moveCol);
+        }
+        else
+        {            
+            MakePieceMove(piece, move);
+        }
+    }
+
+    [PunRPC]
+    public void RPC_MovePiece(int pieceRow, int pieceCol, int moveRow, int moveCol)
+    {
+        GameObject board = GameObject.Find("GameBoard");
+        GameObject piece = board.GetComponent<GameBoard>().FindPiece(pieceRow, pieceCol);
+        GameObject move = board.GetComponent<GameBoard>().FindPiece(moveRow, moveCol);
+
+        MakePieceMove(piece, move);
+    }
+    public void MakePieceMove(GameObject piece, GameObject move)
+    {
+        Debug.Log(piece.ToString());
         piece.GetComponent<GamePiece>().SetPlayer(isPlayerOneTurn);
 
-        piece.GetComponent<GamePiece>().board.movePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
+        piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
 
         piece.GetComponent<GamePiece>().board.MovePieces();
-        //piece.GetComponent<GamePiece>().SetNewPosition();
-        //piece.GetComponent<GamePiece>().MovePiece();
 
-        if (isNetworkingGame)
-        {
-            //send piece and move
-        }
-
-        gameOver = piece.GetComponent<GamePiece>().board.checkWin(isPlayerOneTurn);
+        gameOver = piece.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
         if (gameOver)
         {
-            if (!isPlayerOneTurn && piece.gameObject.GetComponent<GamePiece>().board.didOpponentWin)
+            if (!isPlayerOneTurn && piece.GetComponent<GamePiece>().board.didOpponentWin)
             {
                 Debug.Log("Player 1 Wins");
                 didPlayer1Win = true;
             }
-            else if((isPlayerOneTurn && piece.gameObject.GetComponent<GamePiece>().board.didOpponentWin))
+            else if ((isPlayerOneTurn && piece.GetComponent<GamePiece>().board.didOpponentWin))
             {
                 Debug.Log("Player 2 Wins");
             }
@@ -324,21 +356,20 @@ public class Click : MonoBehaviour
         }
         else
         {
-            
+
             moveInProgress = false;
             isPlayerOneTurn = !isPlayerOneTurn;
         }
 
         DeselectObject();
 
-            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
-            foreach (var aiPiece in AiPieces)
-            {
-                aiPiece.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
-                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
-            }
+        GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+        foreach (var aiPiece in AiPieces)
+        {
+            aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+            aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+        }
     }
-
     IEnumerator WaitForAIMove()
     {
         isCoroutineRunning = true;
@@ -350,12 +381,14 @@ public class Click : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator WaitForNetworkingMove()
-    {
-        //get Online Players move();
-        //MovePiece(OnlinePlayer.piece, OnlinePlayer.move);
-        //isPlayerOneTurn = true;
-        yield return null;
-    }
+
+
+    //IEnumerator WaitForNetworkingMove()
+    //{
+    //    //get Online Players move();
+    //    //MovePiece(OnlinePlayer.piece, OnlinePlayer.move);
+    //    //isPlayerOneTurn = true;
+    //    yield return null;
+    //}
 
 }

@@ -5,9 +5,9 @@ using Photon.Pun;
 
 [RequireComponent(typeof(PhotonView))]
 
-public class NetworkingGameManager : MonoBehaviour
+public class NetworkingGameManager : GameManager
 {
-    private PhotonView photonView;
+    private new PhotonView photonView;
 
     private void Start()
     {
@@ -22,6 +22,6 @@ public class NetworkingGameManager : MonoBehaviour
     [PunRPC]
     private void RPC_ReceiveMove(GameObject piece, GameObject move)
     {
-        GameObject.Find("GameManager").GetComponent<Click>().MovePiece(piece, move);
+        GameObject.Find("GameManager").GetComponent<GameManager>().MovePiece(piece, move);
     }
 }

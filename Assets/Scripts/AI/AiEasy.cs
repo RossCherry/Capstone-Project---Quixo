@@ -49,7 +49,7 @@ public class AiEasy : MonoBehaviour
             {
                 if (c == 0 || r == 0 || c == 4 || r == 4)
                 {
-                    if(gameObject.GetComponent<Click>().isPlayerOneTurn)
+                    if(gameObject.GetComponent<GameManager>().isPlayerOneTurn)
                 {
                         if (Board[c, r].tag == "Player1" || Board[c, r].tag == "Blank")
                         {
@@ -150,7 +150,7 @@ public class AiEasy : MonoBehaviour
             }
         }
 
-        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+        if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
             var sameRow = X.FindAll(t => t.row == move.row);
             var sameCol = X.FindAll(t => t.col == move.col);
@@ -207,7 +207,7 @@ public class AiEasy : MonoBehaviour
         {
             if (moves[i].row >= 0 || moves[i].col >= 0)
             {
-                if (moves[i].CheckPickedPiece((gameObject.GetComponent<Click>().isPlayerOneTurn)))
+                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
                 {
                     //Console.WriteLine("Piece:");
                     //Console.Write(moves[i].row + ", ");

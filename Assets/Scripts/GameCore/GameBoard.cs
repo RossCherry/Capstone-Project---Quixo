@@ -48,7 +48,7 @@ public class GameBoard : MonoBehaviour
         //}
     }
 
-    public bool isCornerPiece(GameObject piece)
+    public bool IsCornerPiece(GameObject piece)
     {
         bool result = false;
         for(int row = 0; row < ROW_COUNT_X; row++)
@@ -80,7 +80,7 @@ public class GameBoard : MonoBehaviour
         return result;
     }
 
-    public void movePiece(GamePiece piece, GamePiece move)
+    public void MovePiece(GamePiece piece, GamePiece move)
     {
         GameObject temp;
         //Shift is row based
@@ -168,7 +168,7 @@ public class GameBoard : MonoBehaviour
         return new Vector3(x, 0, y);
     }
 
-    public bool checkWin(bool isPlayerOnesTurn)
+    public bool CheckWin(bool isPlayerOnesTurn)
     {
         int player1WinTracker = 0;
         int player2WinTracker = 0;
@@ -272,6 +272,11 @@ public class GameBoard : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public GameObject FindPiece(int row, int col)
+    {
+        return Board[col, row];
     }
 
     //private GameObject GenerateSinglePiece(int row, int col)

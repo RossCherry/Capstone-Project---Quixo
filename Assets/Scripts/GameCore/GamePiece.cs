@@ -50,7 +50,7 @@ public class GamePiece : MonoBehaviour
         GameObject[] result;
         bool isCorner = false;
 
-        if(board.isCornerPiece(piece))
+        if(board.IsCornerPiece(piece))
         {
             isCorner = true;
             result = new GameObject[2];
@@ -162,8 +162,10 @@ public class GamePiece : MonoBehaviour
         }
 
         transform.position = targetPosition; // Ensure the final position is exact
-        Click.isCoroutineRunning = false;
+        GameManager.isCoroutineRunning = false;
     }
+
+   
 
    
 
