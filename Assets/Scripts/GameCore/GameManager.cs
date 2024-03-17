@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void MakePieceMove(GameObject piece, GameObject move)
     {
         Debug.Log(piece.ToString());
-        if (isPlayerOneCats)
+        if (!isPlayerOneCats)
         {
             if (isPlayerOneTurn)
             {
