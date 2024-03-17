@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool hasTutorialSetNext = false;
     public static bool isCoroutineRunning = false;
 
+    bool onlyDoOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //TODO what happens if one quits
                 if (typeOfGame == "network")
                 {
+                    if (onlyDoOnce && !isPlayerOneTurn && !isPlayerOne)
+                    {
+                        onlyDoOnce = false;
+                        UpdateColors();
+                    }
                     isPlayerOne = GetComponent<NetworkManager>().getIsPlayerOne();
                     if (Input.GetMouseButtonDown(0) && isPlayerOneTurn && isPlayerOne)
                     {
@@ -111,8 +117,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                     else if(Input.GetMouseButtonDown(0) && !isPlayerOneTurn && !isPlayerOne)
                     {
-                        moveInProgress = true;
+                        moveInProgress = true;                        
                         HandleClick();
+                        onlyDoOnce = true;
                     }
                 }
             }
@@ -363,11 +370,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         DeselectObject();
 
-        GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
-        foreach (var aiPiece in AiPieces)
+        if (typeOfGame == "easy" || typeOfGame == "hard")
         {
-            aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
-            aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+            foreach (var aiPiece in AiPieces)
+            {
+                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+            }
         }
     }
     IEnumerator WaitForAIMove()
@@ -381,7 +391,21 @@ public class GameManager : MonoBehaviourPunCallbacks
         yield return null;
     }
 
-
+    void UpdateColors()
+    {
+        GameObject[] p1Pieces = GameObject.FindGameObjectsWithTag("Player1");
+        foreach (var p1Piece in p1Pieces)
+        {
+            p1Piece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-02-body", typeof(Material)) as Material;
+            p1Piece.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        GameObject[] p2Pieces = GameObject.FindGameObjectsWithTag("Player2");
+        foreach (var p2Piece in p2Pieces)
+        {
+            p2Piece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+            p2Piece.transform.GetChild(2).gameObject.SetActive(true);
+        }
+    }
 
     //IEnumerator WaitForNetworkingMove()
     //{
