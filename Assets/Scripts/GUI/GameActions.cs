@@ -58,7 +58,11 @@ public class GameActions : MonoBehaviour
         if (requestDrawButton != null)
         {
             requestDrawButton.GetComponent<Button>().interactable = false;
-        }   
+        }
+        else
+        {
+            Debug.Log("Request Draw Button not found");
+        }
     }
 
     public void PlayAgain()
