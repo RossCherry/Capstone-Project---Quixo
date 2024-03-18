@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 
 
-public class AiEasy : MonoBehaviour
+public class AiHard : MonoBehaviour
 {
 
 
@@ -210,8 +210,8 @@ public class AiEasy : MonoBehaviour
             {
                 if (c == 0 || r == 0 || c == 4 || r == 4)
                 {
-                    if(gameObject.GetComponent<GameManager>().isPlayerOneTurn)
-                {
+                    if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+                    {
                         if (Board[c, r].tag == "Player1" || Board[c, r].tag == "Blank")
                         {
                             //Console.WriteLine("X(" + row + "," + col + ")");
@@ -236,55 +236,6 @@ public class AiEasy : MonoBehaviour
             }
         }
 
-        //while (myEnumerator.MoveNext())
-        //{
-        //    if (rows < cols)
-        //    {
-        //        rows++;
-        //        col++;
-        //    }
-        //    else
-        //    {
-        //        rows = 1;
-        //        col = 0;
-        //        row++;
-        //    }
-
-        //    //Check if the piece is an outer piece
-        //    if (col == 0 || row == 0 || col == cols - 1 || row == cols - 1)
-        //    {
-        //        //Check which pieces are of the player or blank
-        //        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
-        //        {
-        //            if (Board[row, col].tag == "Player1" || Board[row, col].tag == "Blank")
-        //            {
-        //                //Console.WriteLine("X(" + row + "," + col + ")");
-        //                temp.row = row;
-        //                temp.col = col;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (Board[row, col].tag == "Player2" || Board[row, col].tag == "Blank")
-        //            {
-        //                //Console.WriteLine("O(" + row + "," + col + ")");
-        //                temp.row = row;
-        //                temp.col = col;
-        //            }
-        //        }
-        //        //insert the coord into the resulting array
-        //        avaMoves.Add(temp);
-        //        counter++;
-        //    }
-        //}
-        //Here I'm initializing the rest of the coords missing in the array to (-1,-1)
-        //Ideally I would like to just resize the array to have the same size as the amount of available moves
-        //for (int i = counter; i < 16; i++)
-        //{
-        //    temp.row = -1;
-        //    temp.col = -1;
-        //    avaMoves[i] = temp;
-        //}
         return avaMoves.ToArray();
     }
 
@@ -318,14 +269,14 @@ public class AiEasy : MonoBehaviour
         //Debug.Log("-------------------------------------------------------------------");
         piece.SetPlayer(gameObject.GetComponent<Click>().isPlayerOneTurn);
         movePiece(piece, move);
-        //Debug.Log("Moving Piece: 1(" + piece.col + "," + piece.row + ")");
-        //Debug.Log("Here: 1(" + move.col + "," + move.row + ")");
-        //Debug.Log("-------------------------------------------------------------------");
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Debug.Log(tempGame[i, 0].GetComponent<GamePiece>().tag + " " + tempGame[i, 1].GetComponent<GamePiece>().tag + " " + tempGame[i, 2].GetComponent<GamePiece>().tag + " " + tempGame[i, 3].GetComponent<GamePiece>().tag + " " + tempGame[i, 4].GetComponent<GamePiece>().tag);
-        //}
-        //Debug.Log("-------------------------------------------------------------------");
+        Debug.Log("Moving Piece: 1(" + piece.col + "," + piece.row + ")");
+        Debug.Log("Here: 1(" + move.col + "," + move.row + ")");
+        Debug.Log("-------------------------------------------------------------------");
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log(tempGame[i, 0].GetComponent<GamePiece>().tag + " " + tempGame[i, 1].GetComponent<GamePiece>().tag + " " + tempGame[i, 2].GetComponent<GamePiece>().tag + " " + tempGame[i, 3].GetComponent<GamePiece>().tag + " " + tempGame[i, 4].GetComponent<GamePiece>().tag);
+        }
+        Debug.Log("-------------------------------------------------------------------");
 
 
         for (int r = 0; r < tempGame.GetLength(0); r++)
@@ -566,7 +517,7 @@ public class AiEasy : MonoBehaviour
             }
         }
 
-        if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
+        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
         {
             var sameRow = X.FindAll(t => t.row == move.row);
             var sameCol = X.FindAll(t => t.col == move.col);
@@ -678,15 +629,15 @@ public class AiEasy : MonoBehaviour
         movePiece(move, piece);
         tempGame[piece.col, piece.row].GetComponent<GamePiece>().isBlank = true;
         tempGame[piece.col, piece.row].GetComponent<GamePiece>().transform.tag = tag;
-        //Debug.Log("Moving Piece: 2(" + move.col + "," + move.row + ")");
-        //Debug.Log("Here: 2(" + piece.col + "," + piece.row + ")");
-        //Debug.Log("-------------------------------------------------------------------");
+        Debug.Log("Moving Piece: 2(" + move.col + "," + move.row + ")");
+        Debug.Log("Here: 2(" + piece.col + "," + piece.row + ")");
+        Debug.Log("-------------------------------------------------------------------");
 
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
-        //}
-        //Debug.Log("-------------------------------------------------------------------");
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
+        }
+        Debug.Log("-------------------------------------------------------------------");
 
         //Debug.Log("-------------------------------------------------------------------");
         for (int r = 0; r < tempGame.GetLength(0); r++)
@@ -701,7 +652,13 @@ public class AiEasy : MonoBehaviour
         //Debug.Log("-------------------------------------------------------------------");
 
 
-
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                //Board[i, j] = tempGame[i, j];
+            }
+        }
 
 
         //move.row = mr;
@@ -723,17 +680,11 @@ public class AiEasy : MonoBehaviour
         {
             if (moves[i].row >= 0 || moves[i].col >= 0)
             {
-                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                if (moves[i].CheckPickedPiece((gameObject.GetComponent<Click>().isPlayerOneTurn)))
                 {
-                    //Console.WriteLine("Piece:");
-                    //Console.Write(moves[i].row + ", ");
-                    //Console.WriteLine(moves[i].col);
                     GameObject[] posMoves = moves[i].PossibleMoves();
-                    //Console.WriteLine("Moves:");
                     for (int j = 0; j < posMoves.Length; j++)
                     {
-                        //Console.Write(posMoves[j].row + ", ");
-                        //Console.WriteLine(posMoves[j].col);
                         moveCounter++;
                         int value = 1;
                         GamePiece curMove = posMoves[j].GetComponent<GamePiece>();
@@ -747,10 +698,139 @@ public class AiEasy : MonoBehaviour
                 }
             }
         }
-        //var bestMoves = values.MaxsBy(t => t.Item3);
+        List<Tuple<GamePiece, GamePiece, int>> NewBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
+        foreach (var move in values)
+        {
+            //Board = game.GetComponent<GameBoard>().Board;
 
-        List<Tuple<GamePiece, GamePiece, int>> bestMoves = new List<Tuple<GamePiece, GamePiece, int>>();
-        values.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+            for (int i = 0; i < 5; i++)
+            {
+                Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
+            }
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+            KeyValuePair<int, int> tempPiece = new KeyValuePair<int, int>(move.Item1.row, move.Item1.col);
+            KeyValuePair<int, int> tempMove = new KeyValuePair<int, int>(move.Item2.row, move.Item2.col);
+            List<GamePiece> tg = new List<GamePiece>();
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    tempGame[i, j] = Board[i, j];
+                    tg.Add(tempGame[i, j].GetComponent<GamePiece>());
+                }
+            }
+            string tag = move.Item1.tag;
+
+            move.Item1.SetPlayer(gameObject.GetComponent<Click>().isPlayerOneTurn);
+            gameObject.GetComponent<Click>().isPlayerOneTurn = !gameObject.GetComponent<Click>().isPlayerOneTurn;
+            movePiece(move.Item1, move.Item2);
+            Debug.Log("Moving Piece: p1(" + move.Item1.col + "," + move.Item1.row + ")");
+            Debug.Log("Here: p1(" + move.Item2.col + "," + move.Item2.row + ")");
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+            for (int i = 0; i < 5; i++)
+            {
+                Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
+            }
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+
+            for (int r = 0; r < tempGame.GetLength(0); r++)
+            {
+                for (int c = 0; c < tempGame.GetLength(0); c++)
+                {
+                    //tempGame[r, c].GetComponent<GamePiece>().row = c;
+                    //tempGame[r, c].GetComponent<GamePiece>().col = r;
+                    //Debug.Log(r + ", " + c + " (" + tempGame[r,c].GetComponent<GamePiece>().col + ", " + tempGame[r, c].GetComponent<GamePiece>().row + "): " + tempGame[r, c].tag);
+                }
+            }
+
+
+            List<Tuple<GamePiece, GamePiece, int>> eValues = new List<Tuple<GamePiece, GamePiece, int>>();
+            GamePiece[] eMoves = AvailablePieces();
+            for (int i = 0; i < eMoves.Length; i++)
+            {
+                if (eMoves[i].row >= 0 || eMoves[i].col >= 0)
+                {
+                    if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<Click>().isPlayerOneTurn)))
+                    {
+                        //Console.WriteLine("Piece:");
+                        //Console.Write(moves[i].row + ", ");
+                        //Console.WriteLine(moves[i].col);
+                        GameObject[] posMoves = eMoves[i].PossibleMoves();
+                        //Console.WriteLine("Moves:");
+                        for (int j = 0; j < posMoves.Length; j++)
+                        {
+                            //Console.Write(posMoves[j].row + ", ");
+                            //Console.WriteLine(posMoves[j].col);
+                            moveCounter++;
+                            int value = 1;
+                            GamePiece curMove = posMoves[j].GetComponent<GamePiece>();
+                            if (Board[eMoves[i].col, eMoves[i].row].tag == "Blank")
+                            {
+                                value += 100;
+                            }
+                            value += CheckBoardValue(eMoves[i], posMoves[j].GetComponent<GamePiece>());
+                            eValues.Add(new Tuple<GamePiece, GamePiece, int>(eMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
+                        }
+                    }
+                }
+            }
+            //Debug.Log(eValues.Max(t => t.Item3));
+            int newValue = move.Item3 - eValues.Max(t => t.Item3);
+            NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2.GetComponent<GamePiece>(), newValue));
+
+
+            gameObject.GetComponent<Click>().isPlayerOneTurn = !gameObject.GetComponent<Click>().isPlayerOneTurn;
+
+
+            int mr = move.Item2.row;
+            move.Item2.row = tempMove.Key;
+            int mc = move.Item2.col;
+            move.Item2.col = tempMove.Value;
+            int pr = move.Item1.row;
+            move.Item1.row = tempPiece.Key;
+            int pc = move.Item1.col;
+            move.Item1.col = tempPiece.Value;
+
+
+
+            movePiece(move.Item2, move.Item1);
+            tempGame[move.Item1.col, move.Item1.row].GetComponent<GamePiece>().isBlank = true;
+            tempGame[move.Item1.col, move.Item1.row].GetComponent<GamePiece>().transform.tag = tag;
+            Debug.Log("Moving Piece: pr2(" + move.Item2.col + "," + move.Item2.row + ")");
+            Debug.Log("Here: pr2(" + move.Item1.col + "," + move.Item1.row + ")");
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+            for (int i = 0; i < 5; i++)
+            {
+                Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
+            }
+            Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            for (int r = 0; r < tempGame.GetLength(0); r++)
+            {
+                for (int c = 0; c < tempGame.GetLength(0); c++)
+                {
+                    tempGame[r, c].GetComponent<GamePiece>().row = c;
+                    tempGame[r, c].GetComponent<GamePiece>().col = r;
+                    //Debug.Log(r + ", " + c + " (" + tempGame[r, c].GetComponent<GamePiece>().col + ", " + tempGame[r, c].GetComponent<GamePiece>().row + "): " + tempGame[r, c].tag);
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Board[i, j] = tempGame[i, j];
+                }
+            }
+
+        }
+
+        NewBestValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
         {
             //if (x.Item3 == y.Item3) return 0;
             //else if (x.Item3 > y.Item3) return -1;
@@ -766,23 +846,17 @@ public class AiEasy : MonoBehaviour
                 biggestVal = move.Item3;
             }
         }
-        bestMoves = values.Where(value => value.Item3 == biggestVal).ToList();
-        Debug.Log("-------------------------------------------------------------------");
-        foreach (var move in values)
-        {
-            Debug.Log("Moving Piece: (" + move.Item1.row + "," + move.Item1.col + ")");
-            Debug.Log("Here: (" + move.Item2.row + "," + move.Item2.col + ")");
-            Debug.Log("Value: " + move.Item3);
-        }
-        Debug.Log("-------------------------------------------------------------------");
+        //Debug.Log("-------------------------------------------------------------------");
+        //foreach (var move in values)
+        //{
+        //    Debug.Log("Moving Piece: (" + move.Item1.row + "," + move.Item1.col + ")");
+        //    Debug.Log("Here: (" + move.Item2.row + "," + move.Item2.col + ")");
+        //    Debug.Log("Value: " + move.Item3);
+        //}
+        //Debug.Log("-------------------------------------------------------------------");
         System.Random rnd = new System.Random();
-        var bestMove = bestMoves.ToArray();
-        int index = rnd.Next() % (bestMoves.Count());
-        //game.FlipBlock(bestMove[index].Item1);
-        //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
-        //Console.WriteLine("# Moves: " + moveCounter);
 
-        return new KeyValuePair<GamePiece, GamePiece>(bestMove[index].Item1, bestMove[index].Item2);
+        return new KeyValuePair<GamePiece, GamePiece>(NewBestValues[0].Item1, NewBestValues[0].Item2);
     }
 
 

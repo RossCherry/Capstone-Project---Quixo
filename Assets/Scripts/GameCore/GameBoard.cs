@@ -82,6 +82,15 @@ public class GameBoard : MonoBehaviour
 
     public void MovePiece(GamePiece piece, GamePiece move)
     {
+        //if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+        //{
+        //    Debug.Log("Player 1");
+        //}
+        //else
+        //{
+        //    Debug.Log("Player 2");
+        //}
+        Debug.Log("Move: (" + piece.row + ", " + piece.col + ") to (" + move.row + ", " + move.col + ")");
         GameObject temp;
         //Shift is row based
         if(piece.row != move.row)
