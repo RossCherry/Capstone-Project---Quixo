@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             typeOfGame = "easy";
         }
+        if (gameObject.GetComponent<AiHard>() != null)
+        {
+            typeOfGame = "hard";
+        }
         if (gameObject.GetComponent<NetworkManager>() != null)
         {
             photonView = gameObject.GetComponent<PhotonView>();
@@ -91,11 +95,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 
                 //AI GAME
-                if (typeOfGame == "easy" && !isPlayerOneTurn)
+                if ((typeOfGame == "easy" || typeOfGame == "hard") && !isPlayerOneTurn)
                 {
                     moveInProgress = true;
                     StartCoroutine(WaitForAIMove());
-
                 }
                 //LOCAL PLAY
                 else if (Input.GetMouseButtonDown(0) && typeOfGame != "network")
@@ -414,7 +417,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator WaitForAIMove()
     {
         isCoroutineRunning = true;
-        KeyValuePair<GamePiece, GamePiece> aiMove = gameObject.GetComponent<AiEasy>().AITurn();
+        KeyValuePair<GamePiece, GamePiece> aiMove;
+        if (typeOfGame == "easy")
+        {
+            aiMove = gameObject.GetComponent<AiEasy>().AITurn();
+        }
+        else
+        {
+            aiMove = gameObject.GetComponent<AiHard>().AITurn();
+        }
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
         MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
         isPlayerOneTurn = true;
