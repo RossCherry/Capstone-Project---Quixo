@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private Tutorial tutorial;
     private bool hasTutorialSetNext = false;
     public static bool isCoroutineRunning = false;
-    public bool isPlayerOneCats = true;
+    public static bool isPlayerOneCats = true;
     bool onlyDoOnce = true;
 
     // Start is called before the first frame update
