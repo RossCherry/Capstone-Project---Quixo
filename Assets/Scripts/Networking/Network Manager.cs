@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Pun.Demo.PunBasics;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     private const string TEAM = "team";
     private const int MAX_PLAYERS = 2;
+    bool isPlayerOne = true;
 
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+        DontDestroyOnLoad(this.gameObject);
     }
 
 
@@ -35,17 +38,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to server. Joining a room.");
-        PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);
+        PhotonNetwork.JoinRandomOrCreateRoom();
+        //PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);
 
     }
 
     public override void OnJoinRandomFailed(short code, string reason)
     {
         Debug.Log($"Joining room failed. Reason: {reason}. Creating new room");
-        PhotonNetwork.CreateRoom(null, new RoomOptions                                          //first parameter is the name of the room (null is fine)
-        {
-            MaxPlayers = MAX_PLAYERS
-        });
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = MAX_PLAYERS };
+        PhotonNetwork.CreateRoom(null, roomOptions);
     }
 
     public override void OnJoinedRoom()
@@ -60,11 +62,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         //set the local player in the base controller class with their team
         //call StartNewGame from the base game controller class
+
+        //set player team
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            isPlayerOne = true;
+            
+        }
+        else
+        {
+           // GameManager.setPlayer(false);
+           isPlayerOne = false;
+        }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player player)
     {
-        Debug.Log($"Player {newPlayer.ActorNumber} joined the room.");
+        Debug.Log($"Player {player.ActorNumber} joined the room.");
     }
 
     public override void OnDisconnected(DisconnectCause reason)
@@ -95,6 +109,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public bool IsRoomFull()
     {
         return PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers;
+    }
+
+    public bool getIsPlayerOne()
+    { 
+        return isPlayerOne;
     }
 
 }

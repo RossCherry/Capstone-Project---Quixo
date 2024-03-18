@@ -197,7 +197,7 @@ MonoBehaviour:
   Hover: {fileID: 2100000, guid: b37db156cba8b1944b1a5b76884006d0, type: 2}
   Blank: {fileID: 2100000, guid: 0d6898f564d94c54da6de1cf6e19507e, type: 2}
   Moves: {fileID: 2100000, guid: c7bfd496e592c444e9a0c65f0523629d, type: 2}
-  Player1: {fileID: 2100000, guid: a5147df1431aef944abb3778aacafd52, type: 2}
+  Player1: {fileID: 2100000, guid: a1ad33ba78a85b547aaa95804de035a5, type: 2}
   Player2: {fileID: 2100000, guid: e3f23dbfe557c994ea67847f2f47cf02, type: 2}
   currentlySelected: 0
   possibleMove: 0
