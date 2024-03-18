@@ -316,7 +316,7 @@ public class AiEasy : MonoBehaviour
         //    }
         //}
         //Debug.Log("-------------------------------------------------------------------");
-        piece.SetPlayer(gameObject.GetComponent<Click>().isPlayerOneTurn);
+        piece.SetPlayer(gameObject.GetComponent<GameManager>().isPlayerOneTurn);
         movePiece(piece, move);
         //Debug.Log("Moving Piece: 1(" + piece.col + "," + piece.row + ")");
         //Debug.Log("Here: 1(" + move.col + "," + move.row + ")");
@@ -363,7 +363,7 @@ public class AiEasy : MonoBehaviour
         //    Debug.Log("O Piece: (" + cube.col + "," + cube.row + ")");
         //}
         //Debug.Log("-------------------------------------------------------------------");
-        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+        if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
             foreach (var xPiece in X)
             {
@@ -671,7 +671,7 @@ public class AiEasy : MonoBehaviour
         piece.row = tempPiece.Key;
         int pc = piece.col;
         piece.col = tempPiece.Value;
-        if (checkWin(gameObject.GetComponent<Click>().isPlayerOneTurn) && !didOpponentWin)
+        if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
         {
             value += 1000000;
         }

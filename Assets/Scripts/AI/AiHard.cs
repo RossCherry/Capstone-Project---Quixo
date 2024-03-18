@@ -210,7 +210,7 @@ public class AiHard : MonoBehaviour
             {
                 if (c == 0 || r == 0 || c == 4 || r == 4)
                 {
-                    if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+                    if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
                     {
                         if (Board[c, r].tag == "Player1" || Board[c, r].tag == "Blank")
                         {
@@ -267,7 +267,7 @@ public class AiHard : MonoBehaviour
         //    }
         //}
         //Debug.Log("-------------------------------------------------------------------");
-        piece.SetPlayer(gameObject.GetComponent<Click>().isPlayerOneTurn);
+        piece.SetPlayer(gameObject.GetComponent<GameManager>().isPlayerOneTurn);
         movePiece(piece, move);
         Debug.Log("Moving Piece: 1(" + piece.col + "," + piece.row + ")");
         Debug.Log("Here: 1(" + move.col + "," + move.row + ")");
@@ -314,7 +314,7 @@ public class AiHard : MonoBehaviour
         //    Debug.Log("O Piece: (" + cube.col + "," + cube.row + ")");
         //}
         //Debug.Log("-------------------------------------------------------------------");
-        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+        if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
             foreach (var xPiece in X)
             {
@@ -517,7 +517,7 @@ public class AiHard : MonoBehaviour
             }
         }
 
-        if (gameObject.GetComponent<Click>().isPlayerOneTurn)
+        if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
             var sameRow = X.FindAll(t => t.row == move.row);
             var sameCol = X.FindAll(t => t.col == move.col);
@@ -622,7 +622,7 @@ public class AiHard : MonoBehaviour
         piece.row = tempPiece.Key;
         int pc = piece.col;
         piece.col = tempPiece.Value;
-        if (checkWin(gameObject.GetComponent<Click>().isPlayerOneTurn) && !didOpponentWin)
+        if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
         {
             value += 1000000;
         }
@@ -680,7 +680,7 @@ public class AiHard : MonoBehaviour
         {
             if (moves[i].row >= 0 || moves[i].col >= 0)
             {
-                if (moves[i].CheckPickedPiece((gameObject.GetComponent<Click>().isPlayerOneTurn)))
+                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
                 {
                     GameObject[] posMoves = moves[i].PossibleMoves();
                     for (int j = 0; j < posMoves.Length; j++)
@@ -724,8 +724,8 @@ public class AiHard : MonoBehaviour
             }
             string tag = move.Item1.tag;
 
-            move.Item1.SetPlayer(gameObject.GetComponent<Click>().isPlayerOneTurn);
-            gameObject.GetComponent<Click>().isPlayerOneTurn = !gameObject.GetComponent<Click>().isPlayerOneTurn;
+            move.Item1.SetPlayer(gameObject.GetComponent<GameManager>().isPlayerOneTurn);
+            gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
             movePiece(move.Item1, move.Item2);
             Debug.Log("Moving Piece: p1(" + move.Item1.col + "," + move.Item1.row + ")");
             Debug.Log("Here: p1(" + move.Item2.col + "," + move.Item2.row + ")");
@@ -755,7 +755,7 @@ public class AiHard : MonoBehaviour
             {
                 if (eMoves[i].row >= 0 || eMoves[i].col >= 0)
                 {
-                    if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<Click>().isPlayerOneTurn)))
+                    if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
                     {
                         //Console.WriteLine("Piece:");
                         //Console.Write(moves[i].row + ", ");
@@ -784,7 +784,7 @@ public class AiHard : MonoBehaviour
             NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2.GetComponent<GamePiece>(), newValue));
 
 
-            gameObject.GetComponent<Click>().isPlayerOneTurn = !gameObject.GetComponent<Click>().isPlayerOneTurn;
+            gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
 
 
             int mr = move.Item2.row;
