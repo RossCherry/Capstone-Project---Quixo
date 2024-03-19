@@ -1,4 +1,5 @@
 using Photon.Chat;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using UnityEngine.UIElements;
 
 public class Chat : MonoBehaviour
 {
+    private new PhotonView photonView;
+
     Dictionary<string, List<string>> chatMessagesDict;
     List<string> chatCategoriesList;
 
@@ -238,9 +241,35 @@ public class Chat : MonoBehaviour
         }
     }
 
+
     public void SendChatMessage(string message)
     {
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (currentScene == "Networking Game")
+        {
+            photonView = gameObject.GetComponent<PhotonView>();
+            photonView.RPC("RPC_SendMessage", RpcTarget.All, message);
+        }
+        else
+        {
+            DisplayChatMessage(message);
+        }
+    }
+
+    [PunRPC]
+    public void RPC_SendMessage(string message)
+    {
+        DisplayChatMessage(message);
+    }
+
+    public void DisplayChatMessage(string message)
+    {
+        //DISPLAY MESSAGE ON SCREEN
         Debug.Log("Sending message: " + message);
+        GameObject GameGUI = GameObject.Find("Game GUI");
+        GameObject OptionsMenu = GameGUI.transform.Find("Options Menu").gameObject;
+        OptionsMenu.SetActive(true);
+
     }    
 
     private void HighlightSelectedCategory(string selectedCategory, bool selected)
