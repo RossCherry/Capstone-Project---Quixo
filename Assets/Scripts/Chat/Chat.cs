@@ -36,19 +36,32 @@ public class Chat : MonoBehaviour
 
     private void RegisterMessagesCallbacks()
     {
-        GameObject chat = GameObject.Find("Chat");
-        GameObject messagesPanel = chat.transform.Find("Messages Panel").gameObject;
-
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        // Chat 
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerEnter;
-        entry.callback.AddListener((data) => { OnMessagesHover((PointerEventData)data); });
-        EventTrigger eventTrigger = messagesPanel.gameObject.AddComponent<EventTrigger>();
+        entry.callback.AddListener((data) => { OnChatHover((PointerEventData)data); });
+        EventTrigger eventTrigger = Chat.AddComponent<EventTrigger>();
         eventTrigger.triggers.Add(entry);
 
         EventTrigger.Entry exitEntry = new EventTrigger.Entry();
         exitEntry.eventID = EventTriggerType.PointerExit;
-        exitEntry.callback.AddListener((data) => { OnMessagesExit((PointerEventData)data); });
+        exitEntry.callback.AddListener((data) => { OnChatExit((PointerEventData)data); });
         eventTrigger.triggers.Add(exitEntry);
+
+        // Chat panel
+        GameObject chatPannel = Chat.transform.Find("Chat Panel").gameObject;
+        EventTrigger.Entry chatPanelEntry = new EventTrigger.Entry();
+        chatPanelEntry.eventID = EventTriggerType.PointerEnter;
+        chatPanelEntry.callback.AddListener((data) => { OnChatPanelHover((PointerEventData)data); });
+        EventTrigger chatPanelEventTrigger = chatPannel.AddComponent<EventTrigger>();
+        chatPanelEventTrigger.triggers.Add(chatPanelEntry);
+
+        EventTrigger.Entry chatPanelExitEntry = new EventTrigger.Entry();
+        chatPanelExitEntry.eventID = EventTriggerType.PointerExit;
+        chatPanelExitEntry.callback.AddListener((data) => { OnChatPanelExit((PointerEventData)data); });
+        chatPanelEventTrigger.triggers.Add(chatPanelExitEntry);
     }
 
     public void PopulateChatCategories()
@@ -128,8 +141,8 @@ public class Chat : MonoBehaviour
                 // Increment yPosition
                 yPosition -= ySpacing;
 
-                Debug.Log("Width of the text object: " + textRectTransform.rect.width);
-                Debug.Log("Width of the button object: " + rectTransform.rect.width);   
+                //Debug.Log("Width of the text object: " + textRectTransform.rect.width);
+                //Debug.Log("Width of the button object: " + rectTransform.rect.width);   
             }
         }       
     }
@@ -158,7 +171,7 @@ public class Chat : MonoBehaviour
         // Add the chat messages to the Content
         foreach (string message in chatMessages)
         {
-            Debug.Log("Adding message: " + message);
+            //Debug.Log("Adding message: " + message);
             // Create a new GameObject for the button
             GameObject messageButton = new GameObject("MessageButton_" + message);
             RectTransform rectTransform = messageButton.AddComponent<RectTransform>();
@@ -214,69 +227,21 @@ public class Chat : MonoBehaviour
             exitEntry.callback.AddListener((data) => { OnPointerExitMessages((PointerEventData)data); });
             eventTrigger.triggers.Add(exitEntry);
 
+            // Click event
+            EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+            clickEntry.eventID = EventTriggerType.PointerClick;
+            clickEntry.callback.AddListener((data) => { OnMessageClick((PointerEventData)data); });
+            eventTrigger.triggers.Add(clickEntry);
+
             // Decrement yPosition
             yPosition -= ySpacing;
         }
     }
 
-    private void OnPointerExit(PointerEventData data)
+    public void SendChatMessage(string message)
     {
-        Debug.Log("Pointer exited");
-
-        // Set the color of the button to the default color
-        HighlightSelectedCategory(selectedCategory, false);
-
-        // Hide the Messages panel
-        //HideMessagesPanel();
-    }
-
-    private void OnPointerExitMessages(PointerEventData data)
-    {
-        Debug.Log("Pointer exited messages");
-
-        //string selectedMessage = data.pointerEnter.GetComponent<TMPro.TextMeshProUGUI>().text;
-
-        // Set the color of the button to the default color
-        HighlightSelectedMessage(selectedMessage, false);
-    }
-    
-    private void OnPointerEnter(PointerEventData data)
-    {
-        Debug.Log(data.pointerEnter.name);
-        // Get the button that is being hovered over
-        GameObject buttonText = data.pointerEnter;
-
-        // Set the selected category
-        selectedCategory = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
-        Debug.Log("Selected category: " + selectedCategory);
-
-        // Highlight the selected category
-        HighlightSelectedCategory(selectedCategory, true);
-
-        // Show the Messages panel and populate the chat messages
-        GameObject Chat = GameObject.Find("Chat");
-        GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
-        GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
-        GameObject Content = Viewport.transform.Find("Content").gameObject;
-        MessagesScrollView.SetActive(true);
-
-        // Clear the chat messages content
-        ClearChatMessages(Content);
-
-        // Populate the chat messages
-        PopulateChatMessages(Content, selectedCategory);
-    }
-
-    private void OnPointerEnterMessage(PointerEventData data)
-    {
-        Debug.Log(data.pointerEnter.name);
-        // Get the button that is being hovered over
-        GameObject buttonText = data.pointerEnter;
-
-        selectedMessage = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
-        // Highlight the selected category
-        HighlightSelectedMessage(selectedMessage, true);
-    }
+        Debug.Log("Sending message: " + message);
+    }    
 
     private void HighlightSelectedCategory(string selectedCategory, bool selected)
     {
@@ -289,6 +254,16 @@ public class Chat : MonoBehaviour
         // Get the image attached to the button and set the color
         UnityEngine.UI.Image buttonImage = button.GetComponent<UnityEngine.UI.Image>();
         buttonImage.color = selected ? selectedButtonColor : defaultButtonColor;
+
+        // set the rest of the buttons to default color
+        foreach (Transform child in chatCategories.transform)
+        {
+            if (child.gameObject != button)
+            {
+                UnityEngine.UI.Image image = child.gameObject.GetComponent<UnityEngine.UI.Image>();
+                image.color = defaultButtonColor;
+            }
+        }
     }
 
     private void HighlightSelectedMessage(string selectedMessage, bool selected)
@@ -314,8 +289,6 @@ public class Chat : MonoBehaviour
         }
     }
 
-
-
     private List<string> GetChatMessages(string selectedCategory)
     {
         return selectedCategory switch
@@ -327,29 +300,97 @@ public class Chat : MonoBehaviour
             _ => chatMessagesDict["Other"],
         };
     }
-
-    private void ChatCategoryButtonClicked(string category)
+    private void HideMessagesPanel()
     {
-        Debug.Log("Button clicked for category: " + category);
-        // Implement your desired functionality here
+        GameObject messagesPanel = GameObject.Find("Messages Scroll View");
+        messagesPanel.SetActive(false);
     }
 
-    public void OnMessagesHover(PointerEventData data)
+    // Event handlers
+    private void OnPointerExit(PointerEventData data)
+    {
+        // Set the color of the button to the default color
+        //HighlightSelectedCategory(selectedCategory, false);
+    }
+
+    private void OnPointerExitMessages(PointerEventData data)
+    {
+        Debug.Log("Pointer exited messages");
+
+        // Set the color of the button to the default color
+        HighlightSelectedMessage(selectedMessage, false);
+    }
+
+    private void OnPointerEnter(PointerEventData data)
+    {
+        Debug.Log(data.pointerEnter.name);
+        // Get the button that is being hovered over
+        GameObject buttonText = data.pointerEnter;
+
+        // Set the selected category
+        selectedCategory = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
+        Debug.Log("Selected category: " + selectedCategory);
+
+        // Highlight the selected category
+        HighlightSelectedCategory(selectedCategory, true);
+
+        // Show the Messages panel and populate the chat messages
+        GameObject Chat = GameObject.Find("Chat");
+        GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
+        GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
+        GameObject Content = Viewport.transform.Find("Content").gameObject;
+        MessagesScrollView.SetActive(true);
+
+        // Clear the chat messages content
+        ClearChatMessages(Content);
+
+        // Populate the chat messages
+        PopulateChatMessages(Content, selectedCategory);
+
+        // Set the selected message
+        selectedMessage = data.pointerEnter.GetComponent<TMPro.TextMeshProUGUI>().text;
+    }
+
+    private void OnPointerEnterMessage(PointerEventData data)
+    {
+        Debug.Log(data.pointerEnter.name);
+        // Get the button that is being hovered over
+        GameObject buttonText = data.pointerEnter;
+
+        selectedMessage = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
+        // Highlight the selected category
+        HighlightSelectedMessage(selectedMessage, true);
+    }
+    public void OnChatHover(PointerEventData data)
+    {
+        Debug.Log("Pointer entered messages");
+        HighlightSelectedCategory(selectedCategory, true);
+    }
+
+    public void OnChatExit(PointerEventData data)
+    {
+        HighlightSelectedCategory(selectedCategory, false);
+        // Hide the Messages panel
+        HideMessagesPanel();
+        selectedMessage = "";
+    }
+
+    public void OnChatPanelHover(PointerEventData data)
     {
         HighlightSelectedCategory(selectedCategory, true);
     }
 
-    public void OnMessagesExit(PointerEventData data)
+    public void OnChatPanelExit(PointerEventData data)
     {
-        HighlightSelectedCategory(selectedCategory, false);
-
-        // Hide the Messages panel
-        //HideMessagesPanel();
+        //HighlightSelectedCategory(selectedCategory, false);
     }
 
-    private void HideMessagesPanel()
+    // Event handler for when a chat message is clicked
+    public void OnMessageClick(PointerEventData data)
     {
-        GameObject messagesPanel = GameObject.Find("Messages Panel");
-        messagesPanel.SetActive(false);
+        // Get the selected message
+        string selectedMessage = data.pointerEnter.GetComponent<TMPro.TextMeshProUGUI>().text;
+
+        SendChatMessage(selectedMessage);
     }
 }
