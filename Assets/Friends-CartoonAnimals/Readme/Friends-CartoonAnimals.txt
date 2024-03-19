@@ -1,0 +1,12 @@
+Friends - Cartoon Animals
+
+
+"Friends - Cartoon Animals" is a package of 3D characters and a prop. The animation types of the characters are humanoid. They have original animations.
+
+Requirement
+Unity version 2019.4.0 or higher
+
+
+Cacaoin3d
+https://cacaoin3d.seesaa.net/
+cacaoin3d@gmail.com
