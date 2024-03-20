@@ -10,7 +10,8 @@ public enum Outcome
 {
     Win,
     Loss,
-    Draw
+    Draw,
+    OpponentDisconnected
 }
 
 public class GameActions : MonoBehaviour
@@ -38,6 +39,7 @@ public class GameActions : MonoBehaviour
             {
                 string outcomeMessage;
                 outcomeMessage = outcome == Outcome.Draw ? "It's a draw!" : winner + " wins!";
+                outcomeMessage = outcome == Outcome.OpponentDisconnected ? "Your opponent disconnected. You win!" : outcomeMessage;
 
                 gameOverDialog.gameObject.SetActive(true);
                 // Show the outcome message
@@ -168,5 +170,10 @@ public class GameActions : MonoBehaviour
         // If online, send a message to the opponent that the draw was declined
 
         // If AI, possibly communicate with the AI to continue the game
+    }
+
+    public void OpponentDisconnected()
+    {
+        ShowGameOver(Outcome.OpponentDisconnected);
     }
 }
