@@ -86,6 +86,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.LogWarningFormat($"OnDisconnected() was called by PUN with reason: {reason}.");
     }
 
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        Debug.LogWarningFormat("Opponent left the game.");
+        GameActions.OpponentDisconnected();
+    }
+
     #endregion
 
 
@@ -95,15 +101,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //???
     }
 
-    public void OnLeaveRoom()
+    public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
         Debug.Log($"Player left the room.");
     }
 
-    public void OnDisconnect()
+    public void Disconnect()
     {
         PhotonNetwork.Disconnect();
+        Debug.Log("Disconnected");
     }
 
     public bool IsRoomFull()
@@ -115,5 +122,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     { 
         return isPlayerOne;
     }
+
+    
 
 }

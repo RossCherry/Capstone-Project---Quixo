@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ public enum Outcome
 
 public class GameActions : MonoBehaviour
 {
-    string networkSceneName = "Network";
+    private new PhotonView photonView;
+
+    string networkSceneName = "Networking Game";
     
     private static bool gameEnabled = true;
 
@@ -101,6 +104,14 @@ public class GameActions : MonoBehaviour
         {
             DrawRequestedDialog.SetActive(false);
         }
+
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject OpponentDeniedDrawDialogue = Dialogs.transform.Find("Opponent Denied Draw Dialog").gameObject;
+        if (OpponentDeniedDrawDialogue != null)
+        {
+            Debug.Log("Here");
+            OpponentDeniedDrawDialogue.SetActive(true);
+        }
     }
 
     public void PlayAgain()
@@ -120,14 +131,44 @@ public class GameActions : MonoBehaviour
 
     public void RequestDraw()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == networkSceneName)
+        {
+            photonView = gameObject.GetComponent<PhotonView>();
+            photonView.RPC("RPC_RequestDraw", RpcTarget.Others);
+
+            //display draw requested dialogue
+            GameObject Dialogs = GameObject.Find("Dialogs");
+            GameObject DrawRequestedDialog = Dialogs.transform.Find("Draw Requested Dialog").gameObject;
+            if (DrawRequestedDialog != null)
+            {
+                DrawRequestedDialog.SetActive(true);
+            }
+
+
+        }
         // If online, send request to the opponent to draw and wait for their response
         // Checks if it is the current player's turn
 
         // If offline and AI, send the request to the AI
 
         // If co-op, draw immediately
-        ShowGameOver(Outcome.Draw);
+        else
+        {
+            ShowGameOver(Outcome.Draw);
+        }
+
+        //Networking and AI: after sending the request, display waiting for opponent's response
+
     }
+
+
+    [PunRPC]
+    public void RPC_RequestDraw()
+    {
+        OpponentRequestedDraw();
+    }
+
 
     public void OpponentRequestedDraw()
     {
@@ -142,6 +183,27 @@ public class GameActions : MonoBehaviour
         }
 
         enabled = false;
+    }
+
+
+    public void sendAccept()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == networkSceneName)
+        {
+            photonView = gameObject.GetComponent<PhotonView>();
+            photonView.RPC("RPC_Accept", RpcTarget.All);
+        }
+        else
+        {
+            AcceptDraw();
+        }
+    }
+
+    [PunRPC]
+    public void RPC_Accept()
+    {
+        AcceptDraw();
     }
 
     public void AcceptDraw()
@@ -159,6 +221,29 @@ public class GameActions : MonoBehaviour
 
     }
 
+
+    public void sendDecline()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == networkSceneName)
+        {
+            photonView = gameObject.GetComponent<PhotonView>();
+            photonView.RPC("RPC_Decline", RpcTarget.Others);
+            DeclineDraw();
+        }
+        else
+        {
+            DeclineDraw();
+        }
+    }
+    
+
+    [PunRPC]
+    public void RPC_Decline()
+    {
+        OpponentDeclinedDraw();
+    }
+
     public void DeclineDraw()
     {
         GameObject OpponentRequestedDrawDialog = GameObject.Find("Opponent Requested Draw Dialog");
@@ -172,7 +257,7 @@ public class GameActions : MonoBehaviour
         // If AI, possibly communicate with the AI to continue the game
     }
 
-    public void OpponentDisconnected()
+    public static void OpponentDisconnected()
     {
         ShowGameOver(Outcome.OpponentDisconnected);
     }

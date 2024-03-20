@@ -44,6 +44,10 @@ MonoBehaviour:
   - RPC_MovePiece
   - RPC_Chat
   - RPC_SendMessage
+  - RPC_RequestDraw
+  - RPC_DrawResponse
+  - RPC_Accept
+  - RPC_Decline
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
