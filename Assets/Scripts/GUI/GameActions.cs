@@ -65,6 +65,42 @@ public class GameActions : MonoBehaviour
         }
     }
 
+    public void CancelDrawRequest()
+    {
+        GameObject DrawRequestedDialog = GameObject.Find("Draw Requested Dialog");
+        if (DrawRequestedDialog != null)
+        {
+            DrawRequestedDialog.SetActive(false);
+        }
+
+        // If online, send a message to the opponent that the draw was cancelled
+
+        enabled = true;
+    }
+
+    public void OpponentAcceptedDraw()
+    {
+        // Disable the Draw Requested Dialog
+        GameObject DrawRequestedDialog = GameObject.Find("Draw Requested Dialog");
+        if (DrawRequestedDialog != null)
+        {
+            DrawRequestedDialog.SetActive(false);
+        }
+
+        // Show the game over screen with the draw message
+        ShowGameOver(Outcome.Draw);
+    }
+
+    public void OpponentDeclinedDraw()
+    {
+        // Disable the Draw Requested Dialog
+        GameObject DrawRequestedDialog = GameObject.Find("Draw Requested Dialog");
+        if (DrawRequestedDialog != null)
+        {
+            DrawRequestedDialog.SetActive(false);
+        }
+    }
+
     public void PlayAgain()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -89,5 +125,48 @@ public class GameActions : MonoBehaviour
 
         // If co-op, draw immediately
         ShowGameOver(Outcome.Draw);
+    }
+
+    public void OpponentRequestedDraw()
+    {
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        if (Dialogs != null)
+        {
+            GameObject OpponentRequestedDrawDialog = Dialogs.transform.Find("Opponent Requested Draw Dialog").gameObject;
+            if (OpponentRequestedDrawDialog != null)
+            {
+                OpponentRequestedDrawDialog.SetActive(true);
+            }
+        }
+
+        enabled = false;
+    }
+
+    public void AcceptDraw()
+    {
+        GameObject OpponentRequestedDrawDialog = GameObject.Find("Opponent Requested Draw Dialog");
+        if (OpponentRequestedDrawDialog != null)
+        {
+            OpponentRequestedDrawDialog.SetActive(false);
+        }
+
+        // Show the game over screen with the draw message
+        ShowGameOver(Outcome.Draw);
+
+        // If online, send a message to the opponent that the draw was accepted
+
+    }
+
+    public void DeclineDraw()
+    {
+        GameObject OpponentRequestedDrawDialog = GameObject.Find("Opponent Requested Draw Dialog");
+        if (OpponentRequestedDrawDialog != null)
+        {
+            OpponentRequestedDrawDialog.SetActive(false);
+        }
+        enabled = true;
+        // If online, send a message to the opponent that the draw was declined
+
+        // If AI, possibly communicate with the AI to continue the game
     }
 }
