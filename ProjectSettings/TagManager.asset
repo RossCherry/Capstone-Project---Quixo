@@ -8,6 +8,7 @@ TagManager:
   - Player1
   - Player2
   - GameBoard
+  - npcs
   layers:
   - Default
   - TransparentFX
