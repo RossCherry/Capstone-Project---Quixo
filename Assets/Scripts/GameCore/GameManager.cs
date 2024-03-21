@@ -60,6 +60,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             typeOfGame = "tutorial";
 
         }
+
+        // Get the starting player
+        if (PlayerPrefs.GetInt("IsPlayerOne", 1) == 1)
+        {
+            isPlayerOneCats = true;
+        }
+        else
+        {
+            isPlayerOneCats = false;
+        }
         if (!isPlayerOneCats)
         {
             isPlayerOneTurn = false;
@@ -192,7 +202,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                     possibleMoves = piece.PossibleMoves();
 
 
-
                     HighlightPossibleMoves();
                     //FINISHED HIGHLIGHTING POSSIBLE MOVES
 
@@ -207,16 +216,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                     moveInProgress = false;
                 }
             }
-
         }
         else
         {
 
             moveInProgress = false;
         }
-
-
     }
+
     void DeselectObject()
     {
         selectedObject.GetComponent<ClickOn>().currentlySelected = false;
@@ -249,7 +256,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             possibleMoves = new GameObject[0];
             HighlightPossibleMoves();
         }
-
     }
     IEnumerator WaitForValidMove(GameObject piece)
     {
@@ -473,5 +479,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 animator.SetBool("isClicked", notIsClicked);
             }
         }
+    }
+
+    public void SetStartingPlayer(bool isCats)
+    {
+        PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
+        isPlayerOne = isCats;
+        isPlayerOneTurn = isCats;
     }
 }
