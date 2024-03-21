@@ -167,7 +167,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3531139221906083870}
-    m_Position: {x: 440.89618, y: 231.1513, z: 0}
+    m_Position: {x: 440, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 637139931523799207}
     m_Position: {x: 440, y: 280, z: 0}
@@ -176,7 +176,7 @@ AnimatorStateMachine:
     m_Position: {x: 440, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6171223017786636899}
-    m_Position: {x: 440, y: 380, z: 0}
+    m_Position: {x: 750, y: 310, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2584687667998694838}
     m_Position: {x: 440, y: 430, z: 0}
@@ -258,7 +258,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 02_Idle_Cat_Copy
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []

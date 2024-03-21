@@ -130,6 +130,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            if (Input.GetMouseButtonDown(0))
+            {
+                HandleNpcClick();
+            }
         }
         //// Deselect Pieces when the GUI is activated
         else if (selectedObject != null)
@@ -167,39 +171,41 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 100, objects))
         {
             ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn>();
-
-            validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
-
-            if (validMove)
+            if (clickOnScript != null)
             {
-                if (selectedObject != null)
+                validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+
+                if (validMove)
+                {
+                    if (selectedObject != null)
+                    {
+                        DeselectObject();
+                    }
+
+                    selectedObject = clickOnScript.gameObject;
+
+                    clickOnScript.currentlySelected = true;
+                    clickOnScript.ClickMe();
+
+                    //START OF HIGHLIGHTING POSSIBLE MOVES
+                    piece = selectedObject.GetComponent<GamePiece>();
+                    possibleMoves = piece.PossibleMoves();
+
+
+
+                    HighlightPossibleMoves();
+                    //FINISHED HIGHLIGHTING POSSIBLE MOVES
+
+                    //START OF MOVE PIECE
+                    StartCoroutine(WaitForValidMove(clickOnScript.GetComponent<GamePiece>().piece));
+
+                    //FINISHING MOVE PIECE
+                }
+                else
                 {
                     DeselectObject();
+                    moveInProgress = false;
                 }
-
-                selectedObject = clickOnScript.gameObject;
-
-                clickOnScript.currentlySelected = true;
-                clickOnScript.ClickMe();
-
-                //START OF HIGHLIGHTING POSSIBLE MOVES
-                piece = selectedObject.GetComponent<GamePiece>();
-                possibleMoves = piece.PossibleMoves();
-
-
-
-                HighlightPossibleMoves();
-                //FINISHED HIGHLIGHTING POSSIBLE MOVES
-
-                //START OF MOVE PIECE
-                StartCoroutine(WaitForValidMove(clickOnScript.GetComponent<GamePiece>().piece));
-
-                //FINISHING MOVE PIECE
-            }
-            else
-            {
-                DeselectObject();
-                moveInProgress = false;
             }
 
         }
@@ -455,5 +461,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     //    //isPlayerOneTurn = true;
     //    yield return null;
     //}
-
+    void HandleNpcClick()
+    {
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 2000, objects))
+        {
+            if (rayHit.collider.CompareTag("npcs"))
+            {
+                Animator animator;
+                animator = rayHit.collider.GetComponent<Animator>();
+                bool notIsClicked = !animator.GetBool("isClicked");
+                animator.SetBool("isClicked", notIsClicked);
+            }
+        }
+    }
 }
