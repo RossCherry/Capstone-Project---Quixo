@@ -28,6 +28,108 @@ public class AiEasy : MonoBehaviour
         game = GameObject.FindGameObjectWithTag("GameBoard");
     }
 
+    public bool IsCornerPiece(GameObject piece)
+    {
+        bool result = false;
+        for (int row = 0; row < 5; row++)
+        {
+            for (int col = 0; col < 5; col++)
+            {
+                if (tempGame[col, row].GetComponent<GamePiece>().piece == piece)
+                {
+                    if (row == 0 && col == 0)
+                    {
+                        result = true;
+                    }
+                    if (row == 0 && col == 4)
+                    {
+                        result = true;
+                    }
+                    if (row == 4 && col == 0)
+                    {
+                        result = true;
+                    }
+                    if (row == 4 && col == 4)
+                    {
+                        result = true;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    public GameObject[] PossibleMoves(GameObject piece)
+    {
+        GameObject[] result;
+        bool isCorner = false;
+
+        if (IsCornerPiece(piece))
+        {
+            isCorner = true;
+            result = new GameObject[2];
+        }
+        else
+        {
+            result = new GameObject[3];
+        }
+
+        if (isCorner)
+        {
+            if (piece.GetComponent<GamePiece>().row == 0)
+            {
+                result[0] = tempGame[piece.GetComponent<GamePiece>().col, 4];
+            }
+            else
+            {
+                result[0] = tempGame[piece.GetComponent<GamePiece>().col, 0];
+            }
+
+            if (piece.GetComponent<GamePiece>().col == 0)
+            {
+                result[1] = tempGame[4, piece.GetComponent<GamePiece>().row];
+            }
+            else
+            {
+                result[1] = tempGame[0, piece.GetComponent<GamePiece>().row];
+            }
+        }
+        else
+        {
+            if (piece.GetComponent<GamePiece>().row != 0 && piece.GetComponent<GamePiece>().row != 4)
+            {
+                result[0] = tempGame[piece.GetComponent<GamePiece>().col, 0];
+                result[1] = tempGame[piece.GetComponent<GamePiece>().col, 4];
+                if (piece.GetComponent<GamePiece>().col == 0)
+                {
+                    result[2] = tempGame[4, piece.GetComponent<GamePiece>().row];
+                }
+                else
+                {
+                    result[2] = tempGame[0, piece.GetComponent<GamePiece>().row];
+                }
+            }
+            else
+            {
+                result[0] = tempGame[0, piece.GetComponent<GamePiece>().row];
+                result[1] = tempGame[4, piece.GetComponent<GamePiece>().row];
+                if (piece.GetComponent<GamePiece>().row == 0)
+                {
+                    result[2] = tempGame[piece.GetComponent<GamePiece>().col, 4];
+                }
+                else
+                {
+                    result[2] = tempGame[piece.GetComponent<GamePiece>().col, 0];
+                }
+            }
+        }
+
+        return result;
+    }
+
+
     public void movePiece(GamePiece piece, GamePiece move)
     {
         GameObject temp;
@@ -184,8 +286,6 @@ public class AiEasy : MonoBehaviour
         return false;
     }
 
-
-
     GamePiece[] AvailablePieces()
     {
         //I Initialize the Array size to 16 because that's the max amount of moves we can ever have
@@ -306,7 +406,7 @@ public class AiEasy : MonoBehaviour
         }
         List<GamePiece> X = new List<GamePiece>();
         List<GamePiece> O = new List<GamePiece>();
-        //tempGame.FlipBlock(piece);
+
         //Debug.Log("-------------------------------------------------------------------");
         //for (int r = 0; r < tempGame.GetLength(0); r++)
         //{
@@ -603,7 +703,7 @@ public class AiEasy : MonoBehaviour
             var ediag2 = O.FindAll(t => t.col + t.row == 4 && (t.col == move.col || t.row == move.row));
             if (ediag1.Count >= 4 || ediag2.Count >= 4 || eRow0.Count >= 4 || eRow1.Count >= 4 || eRow2.Count >= 4 || eRow3.Count >= 4 || eRow4.Count >= 4 || eCol0.Count >= 4 || eCol1.Count >= 4 || eCol2.Count >= 4 || eCol3.Count >= 4 || eCol4.Count >= 4)
             {
-                value -= 10000;
+                value -= 1000;
             }
             else
             {
@@ -647,7 +747,9 @@ public class AiEasy : MonoBehaviour
             var ediag2 = X.FindAll(t => t.col + t.row == 4 && (t.col == move.col || t.row == move.row));
             if (ediag1.Count >= 4 || ediag2.Count >= 4 || eRow0.Count >= 4 || eRow1.Count >= 4 || eRow2.Count >= 4 || eRow3.Count >= 4 || eRow4.Count >= 4 || eCol0.Count >= 4 || eCol1.Count >= 4 || eCol2.Count >= 4 || eCol3.Count >= 4 || eCol4.Count >= 4)
             {
-                value -= 10000;
+                //Debug.Log("Loosing Move: (" + move.col + "," + move.row + ") to (" + piece.col + ", " + piece.row + ")");
+                //Debug.Log("-------------------------------------------------------------------");
+                value -= 1000;
             }
             else
             {
@@ -673,13 +775,30 @@ public class AiEasy : MonoBehaviour
         piece.col = tempPiece.Value;
         if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
         {
+            Debug.Log("Winning Move: (" + move.col + "," + move.row + ") to (" + piece.col + ", " + piece.row + ")");
+            Debug.Log("-------------------------------------------------------------------");
             value += 1000000;
         }
+        if (didOpponentWin)
+        {
+            value -= 1000000;
+        }
+        if (checkWin(!gameObject.GetComponent<GameManager>().isPlayerOneTurn))
+        {
+            value -= 1000000;
+        }
         movePiece(move, piece);
-        tempGame[piece.col, piece.row].GetComponent<GamePiece>().isBlank = true;
-        tempGame[piece.col, piece.row].GetComponent<GamePiece>().transform.tag = tag;
         //Debug.Log("Moving Piece: 2(" + move.col + "," + move.row + ")");
         //Debug.Log("Here: 2(" + piece.col + "," + piece.row + ")");
+        //Debug.Log("-------------------------------------------------------------------");
+
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Debug.Log(tempGame[i, 0].tag + " " + tempGame[i, 1].tag + " " + tempGame[i, 2].tag + " " + tempGame[i, 3].tag + " " + tempGame[i, 4].tag);
+        //}
+        //Debug.Log("-------------------------------------------------------------------");
+        tempGame[piece.col, piece.row].GetComponent<GamePiece>().isBlank = true;
+        tempGame[piece.col, piece.row].GetComponent<GamePiece>().transform.tag = tag;
         //Debug.Log("-------------------------------------------------------------------");
 
         //for (int i = 0; i < 5; i++)
@@ -715,7 +834,13 @@ public class AiEasy : MonoBehaviour
     public KeyValuePair<GamePiece, GamePiece> AITurn()
     {
         Board = game.GetComponent<GameBoard>().Board;
-
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                tempGame[i, j] = Board[i, j];
+            }
+        }
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
         GamePiece[] moves = AvailablePieces();
@@ -728,7 +853,7 @@ public class AiEasy : MonoBehaviour
                     //Console.WriteLine("Piece:");
                     //Console.Write(moves[i].row + ", ");
                     //Console.WriteLine(moves[i].col);
-                    GameObject[] posMoves = moves[i].PossibleMoves();
+                    GameObject[] posMoves = PossibleMoves(moves[i].GameObject());
                     //Console.WriteLine("Moves:");
                     for (int j = 0; j < posMoves.Length; j++)
                     {
@@ -770,8 +895,7 @@ public class AiEasy : MonoBehaviour
         Debug.Log("-------------------------------------------------------------------");
         foreach (var move in values)
         {
-            Debug.Log("Moving Piece: (" + move.Item1.row + "," + move.Item1.col + ")");
-            Debug.Log("Here: (" + move.Item2.row + "," + move.Item2.col + ")");
+            Debug.Log("Move: (" + move.Item1.col + "," + move.Item1.row + ") to (" + move.Item2.col + ", " + move.Item2.row + ")");
             Debug.Log("Value: " + move.Item3);
         }
         Debug.Log("-------------------------------------------------------------------");
