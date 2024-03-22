@@ -271,30 +271,58 @@ public class Chat : MonoBehaviour
         GameObject OptionsMenu = GameGUI.transform.Find("Options Menu").gameObject;
         OptionsMenu.SetActive(true);
         */
+        string chatBubbleName = GetPlayer() ? "Chat Bubble Cats" : "Chat Bubble Dogs";
+        GameObject Chat = GameObject.Find("Chat");
+        GameObject ChatBubble = Chat.transform.Find(chatBubbleName).gameObject;
+        ChatBubble.SetActive(true);
+        GameObject ChatBubblePanel = ChatBubble.transform.Find("Chat Bubble Panel").gameObject;
+        GameObject ChatText = ChatBubblePanel.transform.Find("Chat Text").gameObject;
+
+        ChatText.GetComponent<TMPro.TextMeshProUGUI>().text = message;
+
+        // TODO: Add a timer to hide the chat bubble
+
 
     }    
+
+    private bool GetPlayer()
+    {
+        return GameManager.isPlayerOne;
+    }
 
     private void HighlightSelectedCategory(string selectedCategory, bool selected)
     {
         // Get the button for the selected category
         GameObject chat = GameObject.Find("Chat");
         GameObject chatPannel = chat.transform.Find("Chat Panel").gameObject;
-        GameObject chatCategories = chatPannel.transform.Find("Chat Categories").gameObject;
-        GameObject button = chatCategories.transform.Find("Button_" + selectedCategory).gameObject;
-
-        // Get the image attached to the button and set the color
-        UnityEngine.UI.Image buttonImage = button.GetComponent<UnityEngine.UI.Image>();
-        buttonImage.color = selected ? selectedButtonColor : defaultButtonColor;
-
-        // set the rest of the buttons to default color
-        foreach (Transform child in chatCategories.transform)
+        if (chatPannel != null)
         {
-            if (child.gameObject != button)
+            GameObject chatCategories = chatPannel.transform.Find("Chat Categories").gameObject;
+            if (chatCategories != null && selectedCategory != "")
             {
-                UnityEngine.UI.Image image = child.gameObject.GetComponent<UnityEngine.UI.Image>();
-                image.color = defaultButtonColor;
+                GameObject button = chatCategories.transform.Find("Button_" + selectedCategory).gameObject;
+                if (button != null)
+                {
+                    // Get the image attached to the button and set the color
+                    UnityEngine.UI.Image buttonImage = button.GetComponent<UnityEngine.UI.Image>();
+                    buttonImage.color = selected ? selectedButtonColor : defaultButtonColor;
+
+                    // set the rest of the buttons to default color
+                    foreach (Transform child in chatCategories.transform)
+                    {
+                        if (child.gameObject != button)
+                        {
+                            UnityEngine.UI.Image image = child.gameObject.GetComponent<UnityEngine.UI.Image>();
+                            image.color = defaultButtonColor;
+                        }
+                    }
+                }
+
+                
             }
+            
         }
+        
     }
 
     private void HighlightSelectedMessage(string selectedMessage, bool selected)
@@ -334,7 +362,10 @@ public class Chat : MonoBehaviour
     private void HideMessagesPanel()
     {
         GameObject messagesPanel = GameObject.Find("Messages Scroll View");
-        messagesPanel.SetActive(false);
+        if (messagesPanel != null)
+        {
+            messagesPanel.SetActive(false);
+        }
     }
 
     // Event handlers

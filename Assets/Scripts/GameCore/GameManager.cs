@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     string typeOfGame;
 
     public bool isPlayerOneTurn = true;
-    public bool isPlayerOne = true;
+    public static bool isPlayerOne = true;
 
     GameObject[] possibleMoves = null;
     private GameObject selectedObject = null;
