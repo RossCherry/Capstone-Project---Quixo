@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class Navigation : MonoBehaviour
 {
     public string easyAIScene = "AI Game";
@@ -13,6 +14,7 @@ public class Navigation : MonoBehaviour
     public string helpScene = "Help";
 
     private bool isEasyAI = true;
+    string selectedScene = "";
 
     public bool IsEasyAI
     {
@@ -26,9 +28,35 @@ public class Navigation : MonoBehaviour
         }
     }
 
+    public string SelectedScene
+    {
+        get
+        {
+            return selectedScene;
+        }
+        set
+        {
+            selectedScene = value;
+        }
+    }
+
+
     public void LoadAIGame()
     {
         SceneManager.LoadScene(isEasyAI ? easyAIScene : hardAIScene);
+    }
+
+    public void LoadSelectedScene()
+    {
+        if (selectedScene == networkMultiplayerScene)
+        {
+            SceneManager.LoadScene(selectedScene);
+        }
+        else
+        {
+            LoadAIGame();
+        }
+        
     }
     public void Help()
     {
@@ -40,8 +68,6 @@ public class Navigation : MonoBehaviour
         SceneManager.LoadScene(mainMenuScene);
     }
 
-
-    // TODO: Navigate to the correct scenes once they are created
     public void PlaySinglePlayerEasy()
     {
         SceneManager.LoadSceneAsync(easyAIScene);

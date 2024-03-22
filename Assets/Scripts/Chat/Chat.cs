@@ -152,7 +152,6 @@ public class Chat : MonoBehaviour
 
     private void PopulateChatMessages(GameObject chatMessagesContent, string selectedCategory)
     {
-        Debug.Log("PopulateChatMessages Entered");
         GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
@@ -266,9 +265,12 @@ public class Chat : MonoBehaviour
     {
         //DISPLAY MESSAGE ON SCREEN
         Debug.Log("Sending message: " + message);
+
+        /*
         GameObject GameGUI = GameObject.Find("Game GUI");
         GameObject OptionsMenu = GameGUI.transform.Find("Options Menu").gameObject;
         OptionsMenu.SetActive(true);
+        */
 
     }    
 
@@ -344,7 +346,7 @@ public class Chat : MonoBehaviour
 
     private void OnPointerExitMessages(PointerEventData data)
     {
-        Debug.Log("Pointer exited messages");
+        //Debug.Log("Pointer exited messages");
 
         // Set the color of the button to the default color
         HighlightSelectedMessage(selectedMessage, false);
@@ -352,13 +354,13 @@ public class Chat : MonoBehaviour
 
     private void OnPointerEnter(PointerEventData data)
     {
-        Debug.Log(data.pointerEnter.name);
+        //Debug.Log(data.pointerEnter.name);
         // Get the button that is being hovered over
         GameObject buttonText = data.pointerEnter;
 
         // Set the selected category
         selectedCategory = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
-        Debug.Log("Selected category: " + selectedCategory);
+        //Debug.Log("Selected category: " + selectedCategory);
 
         // Highlight the selected category
         HighlightSelectedCategory(selectedCategory, true);
@@ -382,7 +384,7 @@ public class Chat : MonoBehaviour
 
     private void OnPointerEnterMessage(PointerEventData data)
     {
-        Debug.Log(data.pointerEnter.name);
+        //Debug.Log(data.pointerEnter.name);
         // Get the button that is being hovered over
         GameObject buttonText = data.pointerEnter;
 
@@ -392,7 +394,7 @@ public class Chat : MonoBehaviour
     }
     public void OnChatHover(PointerEventData data)
     {
-        Debug.Log("Pointer entered messages");
+        //Debug.Log("Pointer entered messages");
         HighlightSelectedCategory(selectedCategory, true);
     }
 
