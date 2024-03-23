@@ -35,7 +35,7 @@ public class GUI_Manager : MonoBehaviour
         }
     }
 
-    public void ShowTeamSelectionPanel()
+    public static void ShowTeamSelectionPanel()
     {
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject ChooseTeamPanel = MainMenu.transform.Find("Choose Team Panel").gameObject;
