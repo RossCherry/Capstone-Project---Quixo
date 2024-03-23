@@ -14,7 +14,6 @@ using Photon.Realtime;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private new PhotonView photonView;
-    //private static PhotonView photonView = new PhotonView();
     [SerializeField]
     private LayerMask objects;
 
@@ -483,10 +482,41 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
+
+    public void TeamSelection(bool isCats)
+    {
+        if (typeOfGame == "network")
+        {
+            OnTeamSelectClick(isCats);
+        }
+        else
+        {
+            SetStartingPlayer(isCats);
+        }
+    }
+
     public void SetStartingPlayer(bool isCats)
     {
         PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
         isPlayerOne = isCats;
         isPlayerOneTurn = isCats;
+    }
+
+
+
+    public void OnTeamSelectClick(bool isCats)
+    {
+        //set my team
+        SetStartingPlayer(isCats);
+
+        //send opponent's team
+        photonView = gameObject.GetComponent<PhotonView>();
+        photonView.RPC("RPC_TeamSelect", RpcTarget.OthersBuffered, !isCats);
+    }
+
+    [PunRPC]
+    public void RPC_TeamSelect(bool isCats)
+    {
+        SetStartingPlayer(isCats);
     }
 }
