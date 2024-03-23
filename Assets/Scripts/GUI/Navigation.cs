@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Navigation : MonoBehaviour
 {
-    public string easyAIScene = "AI Game";
-    public string hardAIScene = "AI Hard";
+    public static string easyAIScene = "AI Game";
+    public static string hardAIScene = "AI Hard";
     public string localMultiplayerScene = "Game";
-    public string networkMultiplayerScene = "Networking Game";
+    public static string networkMultiplayerScene = "Networking Game";
     public string mainMenuScene = "Main Menu";
     public string helpScene = "Help";
 
-    private bool isEasyAI = true;
-    string selectedScene = "";
+    private static bool isEasyAI = true;
+    static string selectedScene = "";
 
     public bool IsEasyAI
     {
@@ -28,7 +28,7 @@ public class Navigation : MonoBehaviour
         }
     }
 
-    public string SelectedScene
+    public static string SelectedScene
     {
         get
         {
@@ -41,12 +41,12 @@ public class Navigation : MonoBehaviour
     }
 
 
-    public void LoadAIGame()
+    public static void LoadAIGame()
     {
         SceneManager.LoadScene(isEasyAI ? easyAIScene : hardAIScene);
     }
 
-    public void LoadSelectedScene()
+    public static void LoadSelectedScene()
     {
         if (selectedScene == networkMultiplayerScene)
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6579,7 +6579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016295798722007731, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_Name
-      value: Waiting for Team Selection Panel
+      value: Waiting For Team Selection Panel
       objectReference: {fileID: 0}
     - target: {fileID: 4016295798722007731, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_IsActive
@@ -6986,7 +6986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016295798722007731, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_Name
-      value: Waiting for Opponent Panel
+      value: Waiting For Opponent Panel
       objectReference: {fileID: 0}
     - target: {fileID: 4016295798722007731, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_IsActive
@@ -7585,7 +7585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7593,7 +7593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
@@ -7606,7 +7606,7 @@ PrefabInstance:
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1883371059}
+      objectReference: {fileID: 389800380}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -7621,11 +7621,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetStartingPlayer
+      value: TeamSelect
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadSelectedScene
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -7637,7 +7637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Navigation, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 735982216083981328, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -7717,7 +7717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7725,7 +7725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
@@ -7742,7 +7742,7 @@ PrefabInstance:
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1883371059}
+      objectReference: {fileID: 389800380}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -7769,11 +7769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetStartingPlayer
+      value: TeamSelect
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadSelectedScene
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -7789,7 +7789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Navigation, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7368450729410866841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -8282,6 +8282,7 @@ GameObject:
   - component: {fileID: 1883371059}
   - component: {fileID: 1883371060}
   - component: {fileID: 1883371061}
+  - component: {fileID: 1883371062}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8367,10 +8368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca1935b6487f3a499dfd2caf0bf7510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyAIScene: AI Game
-  hardAIScene: AI Game
   localMultiplayerScene: Game
-  networkMultiplayerScene: Networking Game
   mainMenuScene: Main Menu
   helpScene: Help
 --- !u!114 &1883371060
@@ -8401,6 +8399,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   isPlayerOneTurn: 1
+--- !u!114 &1883371062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883371055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1888423104
 GameObject:
   m_ObjectHideFlags: 0

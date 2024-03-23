@@ -39,7 +39,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connected to server. Joining a room.");
         PhotonNetwork.JoinRandomOrCreateRoom();
-
     }
 
     public override void OnJoinRandomFailed(short code, string reason)
@@ -61,11 +60,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             if (GameManager.teamIsSet == false)
             {
-                //show the waiting for team selection screen
+                GUI_Manager.ShowWaitingForTeamSelectionPanel();
             }
             else
             {
-             
+                //start game
+                Navigation.LoadSelectedScene();
             }
         }
 
@@ -75,6 +75,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player player)
     {
         Debug.Log($"Player {player.ActorNumber} joined the room.");
+        if(IsRoomFull() )
+        {
+            if (GUI_Manager.IsWaitingForOpponentPanelActive())
+            {
+                GUI_Manager.HideWaitingForOpponentPanel();
+                //start game
+                Navigation.LoadSelectedScene();
+            }
+        }
     }
 
 
@@ -104,20 +113,41 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Disconnected");
     }
 
-    public bool IsRoomFull()
+    public static bool IsRoomFull()
     {
-        return PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers;
-    }
-
-    public void checkToStartGame()
-    {
-        if(!IsRoomFull())
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
-            GUI_Manager.ShowWaitingForOpponentPanel();
+            return true;
         }
         else
         {
-            //start the game
+            return false;
+        }
+    }
+
+    public static void checkToStartGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("RPC sent");
+            if (!IsRoomFull())
+            {
+                GUI_Manager.ShowWaitingForOpponentPanel();
+            }
+            else
+            {
+                //start the game
+                Navigation.LoadSelectedScene();
+            }
+        }
+        else
+        {
+            if (GUI_Manager.IsWaitingForTeamSelectionPanelActive())
+            {
+                GUI_Manager.HideWaitingForTeamSelectionPanel();
+                //start game
+                Navigation.LoadSelectedScene();
+            }
         }
     }
 

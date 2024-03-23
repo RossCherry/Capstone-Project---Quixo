@@ -48,6 +48,7 @@ MonoBehaviour:
   - RPC_DrawResponse
   - RPC_Accept
   - RPC_Decline
+  - RPC_TeamSelect
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

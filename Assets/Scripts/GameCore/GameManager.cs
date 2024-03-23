@@ -17,11 +17,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private LayerMask objects;
 
-    //instead of multiple booleans it now uses a single string to determin the type of game
+    //instead of multiple booleans it now uses a single string to determine the type of game
     string typeOfGame;
 
     public bool isPlayerOneTurn = true;
     public static bool isPlayerOne = true;
+    public static bool teamIsSet = false;
 
     GameObject[] possibleMoves = null;
     private GameObject selectedObject = null;
@@ -60,24 +61,29 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
 
-        // Get the starting player
-        if (PlayerPrefs.GetInt("IsPlayerOne", 1) == 1)
+        if(typeOfGame != "network")
         {
-            isPlayerOneCats = true;
+            // Get the starting player
+            if (PlayerPrefs.GetInt("IsPlayerOne", 1) == 1)
+            {
+                isPlayerOneCats = true;
+            }
+            else
+            {
+                isPlayerOneCats = false;
+            }
+            if (!isPlayerOneCats)
+            {
+                isPlayerOneTurn = false;
+            }
         }
-        else
-        {
-            isPlayerOneCats = false;
-        }
-        if (!isPlayerOneCats)
-        {
-            isPlayerOneTurn = false;
-        }
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext && typeOfGame == "tutorial")
         {
             tutorial.ResetBoard();
@@ -117,19 +123,15 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
 
                 //NETWORKING GAME
-                //TODO what happens if one quits
                 if (typeOfGame == "network")
                 {
-                    if (onlyDoOnce && !isPlayerOneTurn && !isPlayerOne)
-                    {
-                        onlyDoOnce = false;
-                        UpdateColors();
-                    }
-                    isPlayerOne = GetComponent<NetworkManager>().getIsPlayerOne();
+                    UpdateColors();
+                    //isPlayerOne = GetComponent<NetworkManager>().getIsPlayerOne();
                     if (Input.GetMouseButtonDown(0) && isPlayerOneTurn && isPlayerOne)
                     {
                         moveInProgress = true;
                         HandleClick();
+                        onlyDoOnce = true;
                     }
                     else if(Input.GetMouseButtonDown(0) && !isPlayerOneTurn && !isPlayerOne)
                     {
@@ -459,13 +461,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    //IEnumerator WaitForNetworkingMove()
-    //{
-    //    //get Online Players move();
-    //    //MovePiece(OnlinePlayer.piece, OnlinePlayer.move);
-    //    //isPlayerOneTurn = true;
-    //    yield return null;
-    //}
     void HandleNpcClick()
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 2000, objects))
@@ -483,15 +478,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
 
-    public void TeamSelection(bool isCats)
+    public void TeamSelect(bool isCats)
     {
-        if (typeOfGame == "network")
+        Debug.Log("TeamSelect() called");
+        if (Navigation.SelectedScene == "Networking Game")
         {
             OnTeamSelected(isCats);
         }
         else
         {
             SetStartingPlayer(isCats);
+            Navigation.LoadSelectedScene();
         }
     }
 
@@ -499,26 +496,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
         isPlayerOne = isCats;
-        isPlayerOneTurn = isCats;
+        //isPlayerOneTurn = true;
+        teamIsSet = true;
     }
 
 
-
+    //Only called by master client
     public void OnTeamSelected(bool isCats)
     {
         //set my team
         SetStartingPlayer(isCats);
-
         //send opponent's team
         photonView = gameObject.GetComponent<PhotonView>();
         photonView.RPC("RPC_TeamSelect", RpcTarget.OthersBuffered, !isCats);
-        NetworkManager networkManager = gameObject.GetComponent<NetworkManager>();
-        networkManager.checkToStartGame();
+        
+        NetworkManager.checkToStartGame();
     }
 
+    //Only called by non-master client
     [PunRPC]
     public void RPC_TeamSelect(bool isCats)
     {
         SetStartingPlayer(isCats);
+        Debug.Log($"isCats = {isCats}");
+
+        NetworkManager.checkToStartGame();
     }
 }
