@@ -85,26 +85,26 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         
-        if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext && typeOfGame == "tutorial")
-        {
-            tutorial.ResetBoard();
-            tutorial.BothPlayersCanWin();
-            GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
-            foreach (var aiPiece in AiPieces)
-            {
-                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
-                aiPiece.transform.GetChild(2).gameObject.SetActive(true);
-            }
-            AiPieces = GameObject.FindGameObjectsWithTag("Player1");
-            foreach (var aiPiece in AiPieces)
-            {
-                aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-01-body", typeof(Material)) as Material;
-                aiPiece.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            hasTutorialSetNext = true;
-            PlayerPrefs.DeleteKey("Tutorial Counter");
-            PlayerPrefs.Save();
-        }
+        //if (PlayerPrefs.GetInt("Tutorial Counter", 0) == 1 && !hasTutorialSetNext && typeOfGame == "tutorial")
+        //{
+        //    tutorial.ResetBoard();
+        //    tutorial.BothPlayersCanWin();
+        //    GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player2");
+        //    foreach (var aiPiece in AiPieces)
+        //    {
+        //        aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
+        //        aiPiece.transform.GetChild(2).gameObject.SetActive(true);
+        //    }
+        //    AiPieces = GameObject.FindGameObjectsWithTag("Player1");
+        //    foreach (var aiPiece in AiPieces)
+        //    {
+        //        aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-01-body", typeof(Material)) as Material;
+        //        aiPiece.transform.GetChild(1).gameObject.SetActive(true);
+        //    }
+        //    hasTutorialSetNext = true;
+        //    PlayerPrefs.DeleteKey("Tutorial Counter");
+        //    PlayerPrefs.Save();
+        //}
         if (GameActions.GameEnabled)
         {
             if (!moveInProgress && !gameOver && !isCoroutineRunning)
@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameActions.ShowGameOver(Outcome.Win, "Player 2");
             }
         }
+<<<<<<< Updated upstream
         if (typeOfGame == "tutorial" && gameOver)
         {
             PlayerPrefs.SetInt("Tutorial Counter", 1);
@@ -174,6 +175,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         GUI_Manager.ShowCurrentPlayer();
+=======
+        //if (typeOfGame == "tutorial" && gameOver)
+        //{
+        //    PlayerPrefs.SetInt("Tutorial Counter", 1);
+        //    PlayerPrefs.Save();
+        //}
+>>>>>>> Stashed changes
     }
 
     void HandleClick()
@@ -360,16 +368,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (isPlayerOneTurn)
             {
-                piece.GetComponent<GamePiece>().SetPlayer(false);
+                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
             }
             else
             {
-                piece.GetComponent<GamePiece>().SetPlayer(true);
+                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
             }
         }
         else 
         {
-            piece.GetComponent<GamePiece>().SetPlayer(isPlayerOneTurn);
+            if (isPlayerOneTurn)
+            {
+                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+            }
+            else
+            {
+                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+            }
 
         }
 
@@ -497,7 +512,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SetStartingPlayer(bool isCats)
     {
-        PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
+        if(typeOfGame != "network")
+        {
+            PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
+        }
         isPlayerOne = isCats;
         //isPlayerOneTurn = true;
         teamIsSet = true;
