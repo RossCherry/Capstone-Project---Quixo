@@ -41,4 +41,11 @@ public class GUI_Manager : MonoBehaviour
         GameObject ChooseTeamPanel = MainMenu.transform.Find("Choose Team Panel").gameObject;
         ChooseTeamPanel.SetActive(true);
     }
+
+    public static void ShowWaitingForOpponentPanel()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject WaitingForOpponentPanel = MainMenu.transform.Find("Waiting For Opponent Panel").gameObject;
+        WaitingForOpponentPanel.SetActive(true);
+    }
 }
