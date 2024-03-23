@@ -39,7 +39,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connected to server. Joining a room.");
         PhotonNetwork.JoinRandomOrCreateRoom();
-        //PhotonNetwork.JoinRandomRoom(new ExitGames.Client.Photon.Hashtable(), MAX_PLAYERS);
 
     }
 
@@ -53,27 +52,36 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"Player {PhotonNetwork.LocalPlayer.ActorNumber} joined a room.");
-        //gameInitializer.CreateMultiplayerBoard();
-        //SetPlayerTeam();
-        //gameInitializer.InitializeMultiplayerController();
+        
 
-        //????
-        //PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
-
-        //set the local player in the base controller class with their team
-        //call StartNewGame from the base game controller class
-
-        //set player team
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-        {
-            isPlayerOne = true;
+        ////set player team
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        //{
+        //    isPlayerOne = true;
             
+        //}
+        //else
+        //{
+        //   isPlayerOne = false;
+        //}
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            GUI_Manager.ShowTeamSelectionPanel();
         }
         else
         {
-           // GameManager.setPlayer(false);
-           isPlayerOne = false;
+            //if (!teamIsSet)
+            //{
+                //show the waiting for team selection screen
+            //}
+            //else
+            //{
+            //  start
+            //}
         }
+
+
     }
 
     public override void OnPlayerEnteredRoom(Player player)
@@ -118,9 +126,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         return PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 
-    public bool getIsPlayerOne()
-    { 
-        return isPlayerOne;
+    public void checkToStartGame()
+    {
+        if(!IsRoomFull())
+        {
+            //activate the waiting for other player screen
+        }
+        else
+        {
+            //start the game
+        }
     }
 
     
