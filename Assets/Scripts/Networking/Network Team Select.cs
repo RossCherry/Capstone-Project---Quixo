@@ -22,16 +22,5 @@ public class NetworkTeamSelect : MonoBehaviour
         
     }
 
-    public void OnTeamSelectClick(bool isCats) 
-    {
-        bool myTeam = false;
-        bool opponentTeam = true;
-        //set my team
-        photonView = gameObject.GetComponent<PhotonView>();
-        photonView.RPC("RPC_TeamSelect", RpcTarget.OthersBuffered, opponentTeam);
-        if(PhotonNetwork.CurrentRoom.PlayerCount > 1)
-        {
-
-        }
-    }
+    
 }

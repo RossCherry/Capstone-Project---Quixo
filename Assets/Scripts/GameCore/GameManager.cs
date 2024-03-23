@@ -487,7 +487,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (typeOfGame == "network")
         {
-            OnTeamSelectClick(isCats);
+            OnTeamSelected(isCats);
         }
         else
         {
@@ -504,7 +504,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
 
-    public void OnTeamSelectClick(bool isCats)
+    public void OnTeamSelected(bool isCats)
     {
         //set my team
         SetStartingPlayer(isCats);
@@ -512,6 +512,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         //send opponent's team
         photonView = gameObject.GetComponent<PhotonView>();
         photonView.RPC("RPC_TeamSelect", RpcTarget.OthersBuffered, !isCats);
+        NetworkManager networkManager = gameObject.GetComponent<NetworkManager>();
+        networkManager.checkToStartGame();
     }
 
     [PunRPC]

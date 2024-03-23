@@ -52,18 +52,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"Player {PhotonNetwork.LocalPlayer.ActorNumber} joined a room.");
-        
-
-        ////set player team
-        //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-        //{
-        //    isPlayerOne = true;
-            
-        //}
-        //else
-        //{
-        //   isPlayerOne = false;
-        //}
 
         if(PhotonNetwork.IsMasterClient)
         {
@@ -71,14 +59,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            //if (!teamIsSet)
-            //{
+            if (GameManager.teamIsSet == false)
+            {
                 //show the waiting for team selection screen
-            //}
-            //else
-            //{
-            //  start
-            //}
+            }
+            else
+            {
+             
+            }
         }
 
 
@@ -88,6 +76,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"Player {player.ActorNumber} joined the room.");
     }
+
 
     public override void OnDisconnected(DisconnectCause reason)
     {
@@ -102,12 +91,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-
-
-    public void SetPlayerTeam(int team)
-    {
-        //???
-    }
 
     public void LeaveRoom()
     {
@@ -130,7 +113,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if(!IsRoomFull())
         {
-            //activate the waiting for other player screen
+            GUI_Manager.ShowWaitingForOpponentPanel();
         }
         else
         {
