@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GUI_Manager : MonoBehaviour
 {
+    public static Color catColor = new Color(194 / 255f, 35 / 255f, 35 / 255f);
+    public static Color dogColor = new Color(35 / 255f, 35 / 255f, 194 / 255f);
     // Start is called before the first frame update
     void Start()
     {
@@ -82,5 +85,47 @@ public class GUI_Manager : MonoBehaviour
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject WaitingForTeamSelectionPanel = MainMenu.transform.Find("Waiting For Team Selection Panel").gameObject;
         WaitingForTeamSelectionPanel.SetActive(false);
+    }
+
+    public static void ShowUserTeam()
+    {
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            // Get if Cats or Dogs
+            string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+
+            // Set the text to inform the user of their team
+            GameObject Dialogs = GameObject.Find("Dialogs");
+            GameObject UserTeamPanel = Dialogs.transform.Find("User Team Panel").gameObject;
+            GameObject Panel = UserTeamPanel.transform.Find("Panel").gameObject;
+            GameObject Text = Panel.transform.Find("Text").gameObject;
+
+            if (userTeam == null)
+            {
+                Debug.Log("User team is null");
+            }
+            if (Text == null)
+            {
+                Debug.Log("Text is null");
+            }
+            Text.GetComponent<TextMeshProUGUI>().text = "You are on the " + userTeam + " team!";
+        }        
+    }
+
+    public static void ShowCurrentPlayer()
+    {
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+            string currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
+
+            GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
+            GameObject CurrentPlayerText = CurrentPlayerPanel.transform.Find("Current Player Text").gameObject;
+            CurrentPlayerText.GetComponent<TextMeshProUGUI>().text = currentPlayer;
+
+            // Set the color of the text
+            CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
+        }
+                
     }
 }

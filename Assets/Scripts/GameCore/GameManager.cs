@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
        
+        GUI_Manager.ShowUserTeam();
     }
 
     // Update is called once per frame
@@ -171,6 +172,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             PlayerPrefs.SetInt("Tutorial Counter", 1);
             PlayerPrefs.Save();
         }
+
+        GUI_Manager.ShowCurrentPlayer();
     }
 
     void HandleClick()
