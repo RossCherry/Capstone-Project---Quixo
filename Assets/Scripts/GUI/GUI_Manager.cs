@@ -34,4 +34,11 @@ public class GUI_Manager : MonoBehaviour
             }
         }
     }
+
+    public void ShowTeamSelectionPanel()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject ChooseTeamPanel = MainMenu.transform.Find("Choose Team Panel").gameObject;
+        ChooseTeamPanel.SetActive(true);
+    }
 }
