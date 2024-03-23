@@ -471,6 +471,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 2000, objects))
         {
+            moveInProgress = false;
             if (rayHit.collider.CompareTag("npcs"))
             {
                 Animator animator;
@@ -479,6 +480,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 animator.SetBool("isClicked", notIsClicked);
             }
         }
+        
     }
 
     public void SetStartingPlayer(bool isCats)

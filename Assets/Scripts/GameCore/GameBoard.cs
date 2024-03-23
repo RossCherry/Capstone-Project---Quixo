@@ -36,16 +36,6 @@ public class GameBoard : MonoBehaviour
                 index++;
             }
         }
-
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    for (int j = 0; j < 5; j++)
-        //    {
-                
-        //        Debug.Log(Board[j, i] + ": " + i + ", " + j);
-        //    }
-        //    Debug.Log("");
-        //}
     }
 
     public bool IsCornerPiece(GameObject piece)
@@ -136,6 +126,23 @@ public class GameBoard : MonoBehaviour
                     Board[i + 1, piece.row] = temp;
                 }
             }
+        }
+
+        //MovePiece(piece, move.row, move.col);
+    }
+
+    public void MovePiece(GamePiece piece, int row, int col)
+    {
+
+        
+        piece.MovePiece(row, col);
+        //foreach (Transform child in transform)
+        //{
+        //    child.GetComponent<GamePiece>().MovePiece();
+        //}
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<GamePiece>().SetNewPosition();
         }
     }
 

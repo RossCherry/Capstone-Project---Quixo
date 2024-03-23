@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+
 //using TreeEditor;
 using UnityEngine;
 
@@ -10,6 +12,12 @@ public class GamePiece : MonoBehaviour
     public GameBoard board;
     public GameObject piece;
     public bool isBlank = true;
+
+    private Vector3 targetPosition1 = Vector3.zero;
+    private Vector3 targetPosition2 = Vector3.zero;
+    private Vector3 targetPosition3 = Vector3.zero;
+    private Vector3 targetPosition4 = Vector3.zero;
+    private Vector3 targetPosition5 = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -143,10 +151,131 @@ public class GamePiece : MonoBehaviour
         }
     }
 
+    public void MovePiece(int newRow, int newCol)
+    {
+        SetTargetPosition(newRow, newCol);
+
+        StartCoroutine(MovePieceSmoothly());
+        
+
+    }
+
     public void MovePiece()
     {
-        Vector3 targetPosition = new Vector3(col * 2, 0, row * -2);
+        Vector3 targetPosition = new Vector3(col * 2, .25f, row * -2);
         StartCoroutine(MovePieceSmoothly(targetPosition));
+    }
+
+    //public void MovePieceSmoothly(Vector3 targetPosition)
+    //{
+    //    float speed = 1f;
+    //    this.transform.position = Vector3.MoveTowards(this.transform.position, targetPosition, speed);
+    //}
+
+    private void SetTargetPosition(int newRow, int newCol)
+    {
+        if(isCornerPiece(newRow, newCol) && !isCornerPiece(row, col))
+        {
+            if(row == 0)
+            {
+                targetPosition1 = new Vector3(col * 2, .25f, 2);
+
+                if (col < 3)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, 2);
+                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, 2);
+                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+            else if (row == 4)
+            {
+                targetPosition1 = new Vector3(col * 2, .25f, -10);
+
+                if (newCol == 0)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, -10);
+                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, -10);
+                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+            else if (col == 0)
+            {
+                targetPosition1 = new Vector3(-2, .25f, row * -2);
+
+                if(row < 3)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, -10);
+                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(-2, .25f, -10);
+                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+            else if (col == 4)
+            {
+
+            }
+        }
+        else
+        {
+            if (row == 0)
+            {
+                targetPosition1 = new Vector3(col * 2, .25f, 2);
+
+                if (col < 3)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, 2);
+                    targetPosition3 = new Vector3(-2, .25f, -10);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, -10);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, 2);
+                    targetPosition3 = new Vector3(10, .25f, -10);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, -10);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+            else if (row == 4)
+            {
+                targetPosition1 = new Vector3(col * 2, .25f, -10);
+
+                if (col < 3)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, -10);
+                    targetPosition3 = new Vector3(-2, .25f, 2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, 2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, -10);
+                    targetPosition3 = new Vector3(10, .25f, 2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, 2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+        }
+       
     }
 
     IEnumerator MovePieceSmoothly(Vector3 targetPosition)
@@ -165,9 +294,94 @@ public class GamePiece : MonoBehaviour
         GameManager.isCoroutineRunning = false;
     }
 
-   
+    IEnumerator MovePieceSmoothly()
+    {
+        float elapsedTime = 0f;
+        Vector3 startingPosition = transform.position;
 
-   
+        while (elapsedTime < 1f)
+        {
+            transform.position = Vector3.Lerp(startingPosition, targetPosition1, elapsedTime);
+            elapsedTime += Time.deltaTime * 1;
+            yield return null;
+        }
+        transform.position = targetPosition1;
+        startingPosition = targetPosition1;
+
+        elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            transform.position = Vector3.Lerp(startingPosition, targetPosition2, elapsedTime);
+            elapsedTime += Time.deltaTime * 1;
+            yield return null;
+        }
+        transform.position = targetPosition2;
+        startingPosition = targetPosition2;
+
+        elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            transform.position = Vector3.Lerp(startingPosition, targetPosition3, elapsedTime);
+            elapsedTime += Time.deltaTime * 1;
+            yield return null;
+        }
+        transform.position = targetPosition3;
+        startingPosition = targetPosition3;
+
+        elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            transform.position = Vector3.Lerp(startingPosition, targetPosition4, elapsedTime);
+            elapsedTime += Time.deltaTime * 1;
+            yield return null;
+        }
+        transform.position = targetPosition4;
+        startingPosition = targetPosition4;
+
+        if (targetPosition5 != Vector3.zero)
+        {
+            elapsedTime = 0f;
+            while (elapsedTime < 1f)
+            {
+                transform.position = Vector3.Lerp(startingPosition, targetPosition5, elapsedTime);
+                elapsedTime += Time.deltaTime * 1;
+                yield return null;
+            }
+            transform.position = targetPosition5;
+        }
+
+        targetPosition1 = Vector3.zero;
+        targetPosition2 = Vector3.zero;
+        targetPosition3 = Vector3.zero;
+        targetPosition4 = Vector3.zero;
+        targetPosition5 = Vector3.zero;
+
+        GameManager.isCoroutineRunning = false;
+    }
+
+    bool isCornerPiece(int ro, int col)
+    {
+        bool result = false;
+        if (row == 0 && col == 0)
+        {
+            result = true;
+        }
+        if (row == 0 && col == 4)
+        {
+            result = true;
+        }
+        if (row == 4 && col == 0)
+        {
+            result = true;
+        }
+        if (row == 4 && col == 4)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+
 
 
 }
