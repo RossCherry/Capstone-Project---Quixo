@@ -167,21 +167,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameActions.ShowGameOver(Outcome.Win, "Player 2");
             }
         }
-<<<<<<< Updated upstream
-        if (typeOfGame == "tutorial" && gameOver)
-        {
-            PlayerPrefs.SetInt("Tutorial Counter", 1);
-            PlayerPrefs.Save();
-        }
-
-        GUI_Manager.ShowCurrentPlayer();
-=======
         //if (typeOfGame == "tutorial" && gameOver)
         //{
         //    PlayerPrefs.SetInt("Tutorial Counter", 1);
         //    PlayerPrefs.Save();
         //}
->>>>>>> Stashed changes
     }
 
     void HandleClick()
