@@ -26,12 +26,23 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         chatMessagesDict = new Dictionary<string, List<string>> {
         { "Greetings", new List<string> { "Hello!", "Hi!", "Howdy!", "Good morning!", "Good afternoon!", "Good evening!", "What's up?", "How are you?" }},
         { "Fun", new List<string> { "This is fun!", "I'm enjoying this!", "Let's go!", "Awesome!", "Cool!" }},
         { "Kind", new List<string> { "Good game!", "Great job!", "Keep it up!", "Nice move!" }},
         { "Smack Talk", new List<string> { "You're going down!", "I'm going to win!", "You're a scud!", "I'm pretty good at this" }},
         { "Other", new List<string> { "Good", "Bad", "Yes", "No", "Oops"  }}
+        */
+
+        chatMessagesDict = new Dictionary<string, List<string>>
+        {
+            { "Greetings", new List<string> { "Meow are you?", "Meow!", "Purrrr!", "Hiss!", "Howl you doing?", "Arf!", "Woof!", "Grrr!" }},
+            { "Happy", new List<string> { "A purr-fect move!", "I'm feline good!", "I'm the cat's meow!", "Meow we're talking!", "Every dog has its day!", "I'm having a ball!", "Hot dog!", "I'm a su-paw star!" }},
+            { "Worried", new List<string> { "Me-owch!", "You've gotta be kitten me!", "This is a cat-astrophe!", "Cut the cat-itude!", "Im-paw-sible!", "Looks like I'm the underdog...", "Oh paw-lease!" }},
+            { "Taunting", new List<string> { "Cat got your tongue?", "How do you like me meow?", "Don't be a scaredy cat!", "Don't terrier self up about it!", "Must be ruff!", "You're barking up the wrong tree!" }},
+            { "Thinking", new List<string> { "Let me put my thinking cat on...", "Stop stressing meowt!", "Let me paws and think...", "Quit hounding me!"  }
+        }        
     };
 
         chatCategoriesList = new List<string>(chatMessagesDict.Keys);
@@ -125,7 +136,7 @@ public class Chat : MonoBehaviour
                 rectTransform.anchorMax = new Vector2(1, 1);
                 rectTransform.pivot = new Vector2(0.5f, 1);   
                 
-                textMeshPro.rectTransform.localScale = new Vector3(1.3f, 1, 1);
+                textMeshPro.rectTransform.localScale = new Vector3(1.4f, 1, 1);
 
                 // Set button properties
                 image.color = defaultButtonColor;
@@ -145,10 +156,7 @@ public class Chat : MonoBehaviour
                 eventTrigger.triggers.Add(exitEntry);
                 
                 // Increment yPosition
-                yPosition -= ySpacing;
-
-                //Debug.Log("Width of the text object: " + textRectTransform.rect.width);
-                //Debug.Log("Width of the button object: " + rectTransform.rect.width);   
+                yPosition -= ySpacing; 
             }
         }       
     }
@@ -164,8 +172,8 @@ public class Chat : MonoBehaviour
         List<string> chatMessages = GetChatMessages(selectedCategory);
 
         // Variables for spacing
-        int yPosition = -290;
-        int ySpacing = 55;
+        int yPosition = -320;
+        int ySpacing = 75;
 
         // Clear existing chat messages
         foreach (Transform child in Content.transform)
@@ -202,8 +210,8 @@ public class Chat : MonoBehaviour
 
             // Set local position, scale, and size delta
             rectTransform.localPosition = new Vector3(120, yPosition, 0);
-            rectTransform.localScale = new Vector3(1.1f, 1, 1);
-            rectTransform.sizeDelta = new Vector2(0, 45);
+            rectTransform.localScale = new Vector3(1.1f, 1.1f, 1);
+            rectTransform.sizeDelta = new Vector2(0, 65);
 
             // Set the anchor properties to stretch horizontally and align to the top
             rectTransform.anchorMin = new Vector2(0, 1);
@@ -212,7 +220,7 @@ public class Chat : MonoBehaviour
 
             // Align the text to the center vertically
             textMeshPro.alignment = TMPro.TextAlignmentOptions.Center;
-            textMeshPro.rectTransform.localScale = new Vector3(1.1f, 1.1f, 1);
+            textMeshPro.rectTransform.localScale = new Vector3(1.1f, 1.3f, 1);
 
             // Set button properties
             image.color = defaultButtonColor;
@@ -326,13 +334,9 @@ public class Chat : MonoBehaviour
                             image.color = defaultButtonColor;
                         }
                     }
-                }
-
-                
-            }
-            
-        }
-        
+                }   
+            }            
+        }        
     }
 
     private void HighlightSelectedMessage(string selectedMessage, bool selected)
@@ -363,10 +367,10 @@ public class Chat : MonoBehaviour
         return selectedCategory switch
         {
             "Greetings" => chatMessagesDict["Greetings"],
-            "Fun" => chatMessagesDict["Fun"],
-            "Kind" => chatMessagesDict["Kind"],
-            "Smack Talk" => chatMessagesDict["Smack Talk"],
-            _ => chatMessagesDict["Other"],
+            "Happy" => chatMessagesDict["Happy"],
+            "Worried" => chatMessagesDict["Worried"],
+            "Taunting" => chatMessagesDict["Taunting"],
+            _ => chatMessagesDict["Thinking"],
         };
     }
     private void HideMessagesPanel()
@@ -376,6 +380,9 @@ public class Chat : MonoBehaviour
         {
             messagesPanel.SetActive(false);
         }
+
+        // Enable the game
+        GameActions.GameEnabled = true;
     }
 
     // Event handlers
@@ -387,15 +394,12 @@ public class Chat : MonoBehaviour
 
     private void OnPointerExitMessages(PointerEventData data)
     {
-        //Debug.Log("Pointer exited messages");
-
         // Set the color of the button to the default color
         HighlightSelectedMessage(selectedMessage, false);
     }
 
     private void OnPointerEnter(PointerEventData data)
     {
-        //Debug.Log(data.pointerEnter.name);
         // Get the button that is being hovered over
         GameObject buttonText = data.pointerEnter;
 
@@ -412,6 +416,7 @@ public class Chat : MonoBehaviour
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
         MessagesScrollView.SetActive(true);
+        GameActions.GameEnabled = false;
 
         // Clear the chat messages content
         ClearChatMessages(Content);
@@ -425,24 +430,24 @@ public class Chat : MonoBehaviour
 
     private void OnPointerEnterMessage(PointerEventData data)
     {
-        //Debug.Log(data.pointerEnter.name);
         // Get the button that is being hovered over
         GameObject buttonText = data.pointerEnter;
 
         selectedMessage = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
+
         // Highlight the selected category
         HighlightSelectedMessage(selectedMessage, true);
     }
     public void OnChatHover(PointerEventData data)
     {
-        //Debug.Log("Pointer entered messages");
         HighlightSelectedCategory(selectedCategory, true);
     }
 
     public void OnChatExit(PointerEventData data)
     {
         HighlightSelectedCategory(selectedCategory, false);
-        // Hide the Messages panel
+
+        // Hide the Messages panel and clear the selected message
         HideMessagesPanel();
         selectedMessage = "";
     }
