@@ -1,3 +1,4 @@
+using Photon.Chat.Demo;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,10 +23,10 @@ public class GamePiece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-   
+
 
     public bool CheckPickedPiece(bool isPlayerOne)
     {
@@ -58,7 +59,7 @@ public class GamePiece : MonoBehaviour
         GameObject[] result;
         bool isCorner = false;
 
-        if(board.IsCornerPiece(piece))
+        if (board.IsCornerPiece(piece))
         {
             isCorner = true;
             result = new GameObject[2];
@@ -79,7 +80,7 @@ public class GamePiece : MonoBehaviour
                 result[0] = board.Board[col, 0];
             }
 
-            if(col == 0)
+            if (col == 0)
             {
                 result[1] = board.Board[4, row];
             }
@@ -90,11 +91,11 @@ public class GamePiece : MonoBehaviour
         }
         else
         {
-            if(row != 0 && row != 4)
+            if (row != 0 && row != 4)
             {
                 result[0] = board.Board[col, 0];
                 result[1] = board.Board[col, 4];
-                if(col == 0)
+                if (col == 0)
                 {
                     result[2] = board.Board[4, row];
                 }
@@ -127,7 +128,7 @@ public class GamePiece : MonoBehaviour
         if (isPlayerOneTurn)
         {
             transform.tag = "Player1";
-            
+
         }
         else
         {
@@ -145,7 +146,7 @@ public class GamePiece : MonoBehaviour
                 {
                     row = j;
                     col = i;
-                    
+
                 }
             }
         }
@@ -156,7 +157,7 @@ public class GamePiece : MonoBehaviour
         SetTargetPosition(newRow, newCol);
 
         StartCoroutine(MovePieceSmoothly());
-        
+
 
     }
 
@@ -174,22 +175,23 @@ public class GamePiece : MonoBehaviour
 
     private void SetTargetPosition(int newRow, int newCol)
     {
-        if(isCornerPiece(newRow, newCol) && !isCornerPiece(row, col))
+        //if where you are moving to is a corner piece and you are not moving a corner piece
+        if (isCornerPiece(newRow, newCol) && !isCornerPiece(row, col))
         {
-            if(row == 0)
+            if (row == 0)
             {
                 targetPosition1 = new Vector3(col * 2, .25f, 2);
 
-                if (col < 3)
+                if (newCol > 3)
                 {
-                    targetPosition2 = new Vector3(-2, .25f, 2);
-                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition2 = new Vector3(10, .25f, 2);
+                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
                 }
                 else
                 {
-                    targetPosition2 = new Vector3(10, .25f, 2);
-                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition2 = new Vector3(-2, .25f, 2);
+                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
                 }
             }
@@ -197,44 +199,61 @@ public class GamePiece : MonoBehaviour
             {
                 targetPosition1 = new Vector3(col * 2, .25f, -10);
 
-                if (newCol == 0)
+                if (newCol > 3)
+                {
+                    targetPosition2 = new Vector3(10, .25f, -10);
+                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+
+                }
+                else
                 {
                     targetPosition2 = new Vector3(-2, .25f, -10);
                     targetPosition3 = new Vector3(-2, .25f, newRow * -2);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
 
-                }
-                else
-                {
-                    targetPosition2 = new Vector3(10, .25f, -10);
-                    targetPosition3 = new Vector3(10, .25f, newRow * -2);
-                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
                 }
             }
             else if (col == 0)
             {
                 targetPosition1 = new Vector3(-2, .25f, row * -2);
 
-                if(row < 3)
+                if (newRow > 3)
                 {
                     targetPosition2 = new Vector3(-2, .25f, -10);
-                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition3 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                    Debug.Log(newRow);
                 }
                 else
                 {
-                    targetPosition2 = new Vector3(-2, .25f, -10);
-                    targetPosition3 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition2 = new Vector3(-2, .25f, 2);
+                    targetPosition3 = new Vector3(newCol * 2, .25f, 2);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                    Debug.Log(newRow);
                 }
             }
             else if (col == 4)
             {
+                targetPosition1 = new Vector3(10, .25f, row * -2);
 
+                if (newRow > 3)
+                {
+                    targetPosition2 = new Vector3(10, .25f, -10);
+                    targetPosition3 = new Vector3(newCol * 2, .25f, -10);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, 2);
+                    targetPosition3 = new Vector3(newCol * 2, .25f, 2);
+                    targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
             }
         }
         else
-        {
+        {//TODO: corners act wierd.
             if (row == 0)
             {
                 targetPosition1 = new Vector3(col * 2, .25f, 2);
@@ -245,6 +264,7 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(-2, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                    Debug.Log(newCol);
                 }
                 else
                 {
@@ -252,6 +272,7 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(10, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                    Debug.Log(newCol);
                 }
             }
             else if (row == 4)
@@ -274,9 +295,49 @@ public class GamePiece : MonoBehaviour
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
                 }
             }
+            else if (col == 0)
+            {
+                targetPosition1 = new Vector3(-2, .25f, row * -2);
+
+                if (row < 3)
+                {
+                    targetPosition2 = new Vector3(-2, .25f, 2);
+                    targetPosition3 = new Vector3(10, .25f, 2);
+                    targetPosition4 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(-2, .25f, -10);
+                    targetPosition3 = new Vector3(10, .25f, -10);
+                    targetPosition4 = new Vector3(10, .25f, newRow * -2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
+            else if (col == 4)
+            {
+                targetPosition1 = new Vector3(10, .25f, row * -2);
+
+                if (row < 3)
+                {
+                    targetPosition2 = new Vector3(10, .25f, 2);
+                    targetPosition3 = new Vector3(-2, .25f, 2);
+                    targetPosition4 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+                }
+                else
+                {
+                    targetPosition2 = new Vector3(10, .25f, -10);
+                    targetPosition3 = new Vector3(-2, .25f, -10);
+                    targetPosition4 = new Vector3(-2, .25f, newRow * -2);
+                    targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
+                }
+            }
         }
-       
     }
+    
 
     IEnumerator MovePieceSmoothly(Vector3 targetPosition)
     {
@@ -359,7 +420,7 @@ public class GamePiece : MonoBehaviour
         GameManager.isCoroutineRunning = false;
     }
 
-    bool isCornerPiece(int ro, int col)
+    bool isCornerPiece(int row, int col)
     {
         bool result = false;
         if (row == 0 && col == 0)
