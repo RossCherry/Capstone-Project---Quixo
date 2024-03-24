@@ -20,6 +20,9 @@ public class Chat : MonoBehaviour
     Color defaultButtonColor = new Color(115 / 255f, 205 / 255f, 235 / 255f, 100 / 255f);
     Color selectedButtonColor = new Color(115 / 255f, 205 / 255f, 235 / 255f, 255f);
 
+    const float chatBubbleDisplayDuration = 4.0f;
+    private Coroutine chatBubbleCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -266,11 +269,6 @@ public class Chat : MonoBehaviour
         //DISPLAY MESSAGE ON SCREEN
         Debug.Log("Sending message: " + message);
 
-        /*
-        GameObject GameGUI = GameObject.Find("Game GUI");
-        GameObject OptionsMenu = GameGUI.transform.Find("Options Menu").gameObject;
-        OptionsMenu.SetActive(true);
-        */
         string chatBubbleName = GetPlayer() ? "Chat Bubble Cats" : "Chat Bubble Dogs";
         GameObject Chat = GameObject.Find("Chat");
         GameObject ChatBubble = Chat.transform.Find(chatBubbleName).gameObject;
@@ -280,10 +278,22 @@ public class Chat : MonoBehaviour
 
         ChatText.GetComponent<TMPro.TextMeshProUGUI>().text = message;
 
-        // TODO: Add a timer to hide the chat bubble
+        // Show the chat bubble for a few seconds then hide it again
+        if (chatBubbleCoroutine != null)
+        {
+            StopCoroutine(chatBubbleCoroutine);
+        }
+        chatBubbleCoroutine = StartCoroutine(HideChatBubbleAfterDelay(ChatBubble));
+    }
 
+    IEnumerator HideChatBubbleAfterDelay(GameObject chatBubble)
+    {
+        // Wait for the specified duration
+        yield return new WaitForSeconds(chatBubbleDisplayDuration);
 
-    }    
+        // Deactivate the chat bubble
+        chatBubble.SetActive(false);
+    }
 
     private bool GetPlayer()
     {

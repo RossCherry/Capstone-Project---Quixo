@@ -2520,10 +2520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca1935b6487f3a499dfd2caf0bf7510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyAIScene: AI Game
-  hardAIScene: AI Game
   localMultiplayerScene: Game
-  networkMultiplayerScene: Networking Game
   mainMenuScene: Main Menu
   helpScene: Help
 --- !u!114 &7180975126736322278
@@ -2892,8 +2889,8 @@ RectTransform:
   - {fileID: 3366641141581650186}
   - {fileID: 2559098978636928568}
   - {fileID: 191851748317439294}
-  - {fileID: 1167003740032935562}
   - {fileID: 8602475545100718957}
+  - {fileID: 1167003740032935562}
   m_Father: {fileID: 551979044708986260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
