@@ -172,6 +172,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         //    PlayerPrefs.SetInt("Tutorial Counter", 1);
         //    PlayerPrefs.Save();
         //}
+
+        GUI_Manager.ShowCurrentPlayer();
     }
 
     void HandleClick()
