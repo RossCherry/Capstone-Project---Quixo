@@ -20,6 +20,12 @@ public class GamePiece : MonoBehaviour
     private Vector3 targetPosition4 = Vector3.zero;
     private Vector3 targetPosition5 = Vector3.zero;
 
+    private Vector3 targetRotation1 = Vector3.zero;
+    private Vector3 targetRotation2 = Vector3.zero;
+    private Vector3 targetRotation3 = Vector3.zero;
+    private Vector3 targetRotation4 = Vector3.zero;
+    private Vector3 targetRotation5 = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -155,10 +161,9 @@ public class GamePiece : MonoBehaviour
     public void MovePiece(int newRow, int newCol)
     {
         SetTargetPosition(newRow, newCol);
+        SetTargetRotation(newRow, newCol);
 
         StartCoroutine(MovePieceSmoothly());
-
-
     }
 
     public void MovePiece()
@@ -176,7 +181,7 @@ public class GamePiece : MonoBehaviour
     private void SetTargetPosition(int newRow, int newCol)
     {
         //if where you are moving to is a corner piece and you are not moving a corner piece
-        if (isCornerPiece(newRow, newCol) && !isCornerPiece(row, col))
+        if (IsCornerPiece(newRow, newCol) && !IsCornerPiece(row, col))
         {
             if (row == 0)
             {
@@ -253,8 +258,8 @@ public class GamePiece : MonoBehaviour
             }
         }
         else
-        {//TODO: corners act wierd.
-            if (row == 0)
+        {
+            if (row == 0 && newRow == 4)
             {
                 targetPosition1 = new Vector3(col * 2, .25f, 2);
 
@@ -264,7 +269,7 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(-2, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
-                    Debug.Log(newCol);
+                    Debug.Log(newRow);
                 }
                 else
                 {
@@ -272,10 +277,10 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(10, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2);
-                    Debug.Log(newCol);
+                    Debug.Log(newRow);
                 }
             }
-            else if (row == 4)
+            else if (row == 4 && newRow == 0)
             {
                 targetPosition1 = new Vector3(col * 2, .25f, -10);
 
@@ -338,10 +343,171 @@ public class GamePiece : MonoBehaviour
         }
     }
     
+    private void SetTargetRotation(int newRow, int newCol)
+    {
+        //if (IsCornerPiece(newRow, newCol) && !IsCornerPiece(row, col))
+        //{
+            if (row == 0)
+            {
+                targetRotation1 = new Vector3(0, 180, 0);
 
+                if (newCol > 3)
+                {
+                    targetRotation2 = new Vector3(0, 90, 0);
+                    targetRotation3 = new Vector3(0, 0, 0);
+                    targetRotation4 = new Vector3(0, 270, 0);
+                }
+                else
+                {
+                    targetRotation2 = new Vector3(0, 270, 0);
+                    targetRotation3 = new Vector3(0, 0, 0);
+                    targetRotation4 = new Vector3(0, 90, 0);
+                }
+            }
+            else if (row == 4)
+            {
+                targetRotation1 = new Vector3(0, 0, 0);
+
+                if (newCol > 3)
+                {
+                    targetRotation2 = new Vector3(0, 90, 0);
+                    targetRotation3 = new Vector3(0, 0, 0);
+                    targetRotation4 = new Vector3(0, 270, 0);
+
+
+                }
+                else
+                {
+                    targetRotation2 = new Vector3(0, 270, 0);
+                    targetRotation3 = new Vector3(0, 0, 0);
+                    targetRotation4 = new Vector3(0, 90, 0);
+
+                }
+            }
+            else if (col == 0)
+            {
+                targetRotation1 = new Vector3(0, 90, 0);
+
+                if (newRow > 3)
+                {
+                    targetRotation2 = new Vector3(0, 180, 0);
+                    targetRotation3 = new Vector3(0, 270, 0);
+                    targetRotation4 = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    targetRotation2 = new Vector3(0, 0, 0);
+                    targetRotation3 = new Vector3(0, 270, 0);
+                    targetRotation4 = new Vector3(0, 180, 0);
+                }
+            }
+            else if (col == 4)
+            {
+                targetRotation1 = new Vector3(0, 270, 0);
+
+                if (newRow > 3)
+                {
+                    targetRotation2 = new Vector3(0, 180, 0);
+                    targetRotation3 = new Vector3(0, 90, 0);
+                    targetRotation4 = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    targetRotation2 = new Vector3(0, 180, 0);
+                    targetRotation3 = new Vector3(0, 90, 0);
+                    targetRotation4 = new Vector3(0, 0, 0);
+                }
+            }
+        //}
+        targetRotation5 = targetRotation1;
+        //else
+        //{
+        //    if (row == 0 && newRow == 4)
+        //    {
+        //        targetRotation1 = new Vector3(0, 180, 0); ;
+
+        //        if (col < 3)
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+        //            Debug.Log(newRow);
+        //        }
+        //        else
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+        //            Debug.Log(newRow);
+        //        }
+        //    }
+        //    else if (row == 4 && newRow == 0)
+        //    {
+        //        targetRotation1 = new Vector3(col * 2, .25f, -10);
+
+        //        if (col < 3)
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+        //        }
+        //        else
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+        //        }
+        //    }
+        //    else if (col == 0)
+        //    {
+        //        targetRotation1 = new Vector3(-2, .25f, row * -2);
+
+        //        if (row < 3)
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+        //        }
+        //        else
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+        //        }
+        //    }
+        //    else if (col == 4)
+        //    {
+        //        targetRotation1 = new Vector3(10, .25f, row * -2);
+
+        //        if (row < 3)
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+
+        //        }
+        //        else
+        //        {
+        //            targetRotation2 = new Vector3(-2, .25f, 2);
+        //            targetRotation3 = new Vector3(-2, .25f, -10);
+        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
+        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
+        //        }
+        //    }
+        //}
+    }
     IEnumerator MovePieceSmoothly(Vector3 targetPosition)
     {
-        float elapsedTime = 0f;
+        float elapsedTime = .25f;
         Vector3 startingPosition = transform.position;
 
         while (elapsedTime < 1f)
@@ -358,57 +524,56 @@ public class GamePiece : MonoBehaviour
     IEnumerator MovePieceSmoothly()
     {
         float elapsedTime = 0f;
+        float speed = 1.5f;
         Vector3 startingPosition = transform.position;
 
+        transform.localEulerAngles = targetRotation1;
         while (elapsedTime < 1f)
         {
             transform.position = Vector3.Lerp(startingPosition, targetPosition1, elapsedTime);
-            elapsedTime += Time.deltaTime * 1;
+            elapsedTime += Time.deltaTime * speed;
             yield return null;
         }
-        transform.position = targetPosition1;
-        startingPosition = targetPosition1;
 
+        transform.localEulerAngles = targetRotation2;
         elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
-            transform.position = Vector3.Lerp(startingPosition, targetPosition2, elapsedTime);
-            elapsedTime += Time.deltaTime * 1;
+            transform.position = Vector3.Lerp(targetPosition1, targetPosition2, elapsedTime);
+            elapsedTime += Time.deltaTime * speed;
             yield return null;
         }
-        transform.position = targetPosition2;
-        startingPosition = targetPosition2;
 
+        transform.localEulerAngles = targetRotation3;
         elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
-            transform.position = Vector3.Lerp(startingPosition, targetPosition3, elapsedTime);
-            elapsedTime += Time.deltaTime * 1;
+            transform.position = Vector3.Lerp(targetPosition2, targetPosition3, elapsedTime);
+            elapsedTime += Time.deltaTime * speed;
             yield return null;
         }
-        transform.position = targetPosition3;
-        startingPosition = targetPosition3;
 
+        transform.localEulerAngles = targetRotation4;
         elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
-            transform.position = Vector3.Lerp(startingPosition, targetPosition4, elapsedTime);
-            elapsedTime += Time.deltaTime * 1;
+            transform.position = Vector3.Lerp(targetPosition3, targetPosition4, elapsedTime);
+            elapsedTime += Time.deltaTime * speed;
             yield return null;
         }
-        transform.position = targetPosition4;
-        startingPosition = targetPosition4;
+        
 
         if (targetPosition5 != Vector3.zero)
         {
+            transform.localEulerAngles = targetRotation5;
             elapsedTime = 0f;
             while (elapsedTime < 1f)
             {
-                transform.position = Vector3.Lerp(startingPosition, targetPosition5, elapsedTime);
-                elapsedTime += Time.deltaTime * 1;
+                transform.position = Vector3.Lerp(targetPosition4, targetPosition5, elapsedTime);
+                elapsedTime += Time.deltaTime * speed;
                 yield return null;
             }
-            transform.position = targetPosition5;
+            //transform.position = targetPosition5;
         }
 
         targetPosition1 = Vector3.zero;
@@ -417,10 +582,12 @@ public class GamePiece : MonoBehaviour
         targetPosition4 = Vector3.zero;
         targetPosition5 = Vector3.zero;
 
+        MoveOtherPieces();
+
         GameManager.isCoroutineRunning = false;
     }
 
-    bool isCornerPiece(int row, int col)
+    bool IsCornerPiece(int row, int col)
     {
         bool result = false;
         if (row == 0 && col == 0)
@@ -442,7 +609,11 @@ public class GamePiece : MonoBehaviour
         return result;
     }
 
-
+    void MoveOtherPieces()
+    {
+        board.SetPieces();
+        board.MoveOtherPieces();
+    }
 
 
 }

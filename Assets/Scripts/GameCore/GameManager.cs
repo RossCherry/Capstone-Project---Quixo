@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
 
-        piece.GetComponent<GamePiece>().board.MovePieces();
+        //piece.GetComponent<GamePiece>().board.MovePieces();
 
         gameOver = piece.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
         if (gameOver)
