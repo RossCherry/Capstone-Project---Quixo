@@ -726,10 +726,39 @@ public class AiHard : MonoBehaviour
                 }
             }
 
-            if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn))
+            if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
             {
                 NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, 100000));
                 Debug.Log("Winning move before analyzing opponent's move");
+                int mr1 = move.Item2.row;
+                move.Item2.row = tempMove.Key;
+                int mc1 = move.Item2.col;
+                move.Item2.col = tempMove.Value;
+                int pr1 = move.Item1.row;
+                move.Item1.row = tempPiece.Key;
+                int pc1 = move.Item1.col;
+                move.Item1.col = tempPiece.Value;
+
+
+                movePiece(move.Item2, move.Item1);
+                tempGame[move.Item1.col, move.Item1.row].GetComponent<GamePiece>().isBlank = true;
+                tempGame[move.Item1.col, move.Item1.row].GetComponent<GamePiece>().transform.tag = tag;
+                for (int r = 0; r < tempGame.GetLength(0); r++)
+                {
+                    for (int c = 0; c < tempGame.GetLength(0); c++)
+                    {
+                        tempGame[r, c].GetComponent<GamePiece>().row = c;
+                        tempGame[r, c].GetComponent<GamePiece>().col = r;
+                    }
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        Board[i, j] = tempGame[i, j];
+                    }
+                }
                 break;
 
             }

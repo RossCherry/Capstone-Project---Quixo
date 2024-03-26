@@ -128,19 +128,7 @@ public class GameBoard : MonoBehaviour
             }
         }
 
-        MovePiece(piece, move.row, move.col);
-    }
-
-    public void MovePiece(GamePiece piece, int row, int col)
-    {
-
-        
-        piece.MovePiece(row, col);
-        
-        
-        
-        //MoveOtherPieces();
-        
+        piece.MovePiece(move.row, move.col);
     }
 
     public void SetPieces()
@@ -154,23 +142,10 @@ public class GameBoard : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            child.GetComponent<GamePiece>().MovePiece();
+            child.GetComponent<GamePiece>().MoveOtherPiece();
         }
     }
 
-    public void MovePieces()
-    {
-        foreach(Transform child in transform)
-        {
-            child.GetComponent<GamePiece>().SetNewPosition();
-        }
-
-        foreach(Transform child in transform)
-        {
-
-            child.GetComponent<GamePiece>().MovePiece();
-        }
-    }
 
     void UpdateBoard()
     {

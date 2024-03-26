@@ -166,17 +166,11 @@ public class GamePiece : MonoBehaviour
         StartCoroutine(MovePieceSmoothly());
     }
 
-    public void MovePiece()
+    public void MoveOtherPiece()
     {
         Vector3 targetPosition = new Vector3(col * 2, .25f, row * -2);
-        StartCoroutine(MovePieceSmoothly(targetPosition));
+        StartCoroutine(MoveOtherPieceSmoothly(targetPosition));
     }
-
-    //public void MovePieceSmoothly(Vector3 targetPosition)
-    //{
-    //    float speed = 1f;
-    //    this.transform.position = Vector3.MoveTowards(this.transform.position, targetPosition, speed);
-    //}
 
     private void SetTargetPosition(int newRow, int newCol)
     {
@@ -345,167 +339,119 @@ public class GamePiece : MonoBehaviour
     
     private void SetTargetRotation(int newRow, int newCol)
     {
-        //if (IsCornerPiece(newRow, newCol) && !IsCornerPiece(row, col))
-        //{
-            if (row == 0)
-            {
-                targetRotation1 = new Vector3(0, 180, 0);
+        if (row == 0 && newRow == 4)
+        {
+            targetRotation1 = new Vector3(0, 0, 0);
 
-                if (newCol > 3)
-                {
-                    targetRotation2 = new Vector3(0, 90, 0);
-                    targetRotation3 = new Vector3(0, 0, 0);
-                    targetRotation4 = new Vector3(0, 270, 0);
-                }
-                else
-                {
-                    targetRotation2 = new Vector3(0, 270, 0);
-                    targetRotation3 = new Vector3(0, 0, 0);
-                    targetRotation4 = new Vector3(0, 90, 0);
-                }
+            if (newCol < 3)
+            {
+                targetRotation2 = new Vector3(0, 270, 0);
+                targetRotation3 = new Vector3(0, 180, 0);
+                targetRotation4 = new Vector3(0, 90, 0);
+
             }
-            else if (row == 4)
+            else
+            {
+                targetRotation2 = new Vector3(0, 90, 0);
+                targetRotation3 = new Vector3(0, 180, 0);
+                targetRotation4 = new Vector3(0, 270, 0);
+
+            }
+        }
+        else if (row == 4 && newRow == 0)
+        {
+            targetRotation1 = new Vector3(0, 180, 0);
+
+            if (newCol < 3)
+            {
+                targetRotation2 = new Vector3(0, 270, 0);
+                targetRotation3 = new Vector3(0, 0, 0);
+                targetRotation4 = new Vector3(0, 90, 0);
+            }
+            else
+            {
+                targetRotation2 = new Vector3(0, 90, 0);
+                targetRotation3 = new Vector3(0, 0, 0);
+                targetRotation4 = new Vector3(0, 270, 0);
+            }
+        }
+        else if (col == 0)
+        {
+            targetRotation1 = new Vector3(0, 270, 0);
+
+            if (newRow < 3)
+            {
+                targetRotation2 = new Vector3(0, 0, 0);
+                targetRotation3 = new Vector3(0, 90, 0);
+                targetRotation4 = new Vector3(0, 180, 0);
+            }
+            else
+            {
+                targetRotation2 = new Vector3(0, 180, 0);
+                targetRotation3 = new Vector3(0, 90, 0);
+                targetRotation4 = new Vector3(0, 0, 0);
+            }
+        }
+        else if (col == 4)
+        {
+            targetRotation1 = new Vector3(0, 90, 0);
+
+            if (newRow < 3)
+            {
+                targetRotation2 = new Vector3(0, 0, 0);
+                targetRotation3 = new Vector3(0, 270, 0);
+                targetRotation4 = new Vector3(0, 180, 0);
+            }
+            else
+            {
+                targetRotation2 = new Vector3(0, 180, 0);
+                targetRotation3 = new Vector3(0, 270, 0);
+                targetRotation4 = new Vector3(0, 0, 0);
+            }
+        }
+        else
+        {
+            if (row == 0)
             {
                 targetRotation1 = new Vector3(0, 0, 0);
 
-                if (newCol > 3)
+                if (newCol < 3)
                 {
-                    targetRotation2 = new Vector3(0, 90, 0);
-                    targetRotation3 = new Vector3(0, 0, 0);
-                    targetRotation4 = new Vector3(0, 270, 0);
-
+                    targetRotation2 = new Vector3(0, 270, 0);
+                    targetRotation3 = new Vector3(0, 180, 0);
+                    targetRotation4 = new Vector3(0, 90, 0);
 
                 }
                 else
+                {
+                    targetRotation2 = new Vector3(0, 90, 0);
+                    targetRotation3 = new Vector3(0, 180, 0);
+                    targetRotation4 = new Vector3(0, 270, 0);
+
+                }
+
+            }
+            else
+            {
+                targetRotation1 = new Vector3(0, 180, 0);
+
+                if (newCol < 3)
                 {
                     targetRotation2 = new Vector3(0, 270, 0);
                     targetRotation3 = new Vector3(0, 0, 0);
                     targetRotation4 = new Vector3(0, 90, 0);
-
-                }
-            }
-            else if (col == 0)
-            {
-                targetRotation1 = new Vector3(0, 90, 0);
-
-                if (newRow > 3)
-                {
-                    targetRotation2 = new Vector3(0, 180, 0);
-                    targetRotation3 = new Vector3(0, 270, 0);
-                    targetRotation4 = new Vector3(0, 0, 0);
                 }
                 else
                 {
-                    targetRotation2 = new Vector3(0, 0, 0);
-                    targetRotation3 = new Vector3(0, 270, 0);
-                    targetRotation4 = new Vector3(0, 180, 0);
+                    targetRotation2 = new Vector3(0, 90, 0);
+                    targetRotation3 = new Vector3(0, 0, 0);
+                    targetRotation4 = new Vector3(0, 270, 0);
                 }
             }
-            else if (col == 4)
-            {
-                targetRotation1 = new Vector3(0, 270, 0);
-
-                if (newRow > 3)
-                {
-                    targetRotation2 = new Vector3(0, 180, 0);
-                    targetRotation3 = new Vector3(0, 90, 0);
-                    targetRotation4 = new Vector3(0, 0, 0);
-                }
-                else
-                {
-                    targetRotation2 = new Vector3(0, 180, 0);
-                    targetRotation3 = new Vector3(0, 90, 0);
-                    targetRotation4 = new Vector3(0, 0, 0);
-                }
-            }
-        //}
+        }
         targetRotation5 = targetRotation1;
-        //else
-        //{
-        //    if (row == 0 && newRow == 4)
-        //    {
-        //        targetRotation1 = new Vector3(0, 180, 0); ;
-
-        //        if (col < 3)
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-        //            Debug.Log(newRow);
-        //        }
-        //        else
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-        //            Debug.Log(newRow);
-        //        }
-        //    }
-        //    else if (row == 4 && newRow == 0)
-        //    {
-        //        targetRotation1 = new Vector3(col * 2, .25f, -10);
-
-        //        if (col < 3)
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-
-        //        }
-        //        else
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-        //        }
-        //    }
-        //    else if (col == 0)
-        //    {
-        //        targetRotation1 = new Vector3(-2, .25f, row * -2);
-
-        //        if (row < 3)
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-
-        //        }
-        //        else
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-        //        }
-        //    }
-        //    else if (col == 4)
-        //    {
-        //        targetRotation1 = new Vector3(10, .25f, row * -2);
-
-        //        if (row < 3)
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-
-        //        }
-        //        else
-        //        {
-        //            targetRotation2 = new Vector3(-2, .25f, 2);
-        //            targetRotation3 = new Vector3(-2, .25f, -10);
-        //            targetRotation4 = new Vector3(newCol * 2, .25f, -10);
-        //            targetRotation5 = new Vector3(newCol * 2, .25f, newRow * -2);
-        //        }
-        //    }
-        //}
     }
-    IEnumerator MovePieceSmoothly(Vector3 targetPosition)
+    IEnumerator MoveOtherPieceSmoothly(Vector3 targetPosition)
     {
         float elapsedTime = .25f;
         Vector3 startingPosition = transform.position;
@@ -531,7 +477,7 @@ public class GamePiece : MonoBehaviour
         while (elapsedTime < 1f)
         {
             transform.position = Vector3.Lerp(startingPosition, targetPosition1, elapsedTime);
-            elapsedTime += Time.deltaTime * speed;
+            elapsedTime += Time.deltaTime * (speed + .5f);
             yield return null;
         }
 
@@ -540,7 +486,7 @@ public class GamePiece : MonoBehaviour
         while (elapsedTime < 1f)
         {
             transform.position = Vector3.Lerp(targetPosition1, targetPosition2, elapsedTime);
-            elapsedTime += Time.deltaTime * speed;
+            elapsedTime += Time.deltaTime * (speed + .5f);
             yield return null;
         }
 
@@ -549,7 +495,7 @@ public class GamePiece : MonoBehaviour
         while (elapsedTime < 1f)
         {
             transform.position = Vector3.Lerp(targetPosition2, targetPosition3, elapsedTime);
-            elapsedTime += Time.deltaTime * speed;
+            elapsedTime += Time.deltaTime * (speed);
             yield return null;
         }
 
@@ -558,7 +504,7 @@ public class GamePiece : MonoBehaviour
         while (elapsedTime < 1f)
         {
             transform.position = Vector3.Lerp(targetPosition3, targetPosition4, elapsedTime);
-            elapsedTime += Time.deltaTime * speed;
+            elapsedTime += Time.deltaTime * (speed + .5f);
             yield return null;
         }
         
@@ -570,7 +516,7 @@ public class GamePiece : MonoBehaviour
             while (elapsedTime < 1f)
             {
                 transform.position = Vector3.Lerp(targetPosition4, targetPosition5, elapsedTime);
-                elapsedTime += Time.deltaTime * speed;
+                elapsedTime += Time.deltaTime * (speed + .5f);
                 yield return null;
             }
             //transform.position = targetPosition5;
