@@ -729,6 +729,7 @@ public class AiHard : MonoBehaviour
             if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
             {
                 NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, 100000));
+                Debug.Log("Winning move before analyzing opponent's move");
                 break;
 
             }

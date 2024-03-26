@@ -777,7 +777,7 @@ public class AiEasy : MonoBehaviour
         {
             Debug.Log("Winning Move: (" + move.col + "," + move.row + ") to (" + piece.col + ", " + piece.row + ")");
             Debug.Log("-------------------------------------------------------------------");
-            value += 1000000;
+            value = 1000000;
         }
         if (didOpponentWin)
         {
@@ -901,12 +901,12 @@ public class AiEasy : MonoBehaviour
         Debug.Log("-------------------------------------------------------------------");
         System.Random rnd = new System.Random();
         var bestMove = bestMoves.ToArray();
-        int index = rnd.Next() % (bestMoves.Count());
+        int index = rnd.Next() % (2);
         //game.FlipBlock(bestMove[index].Item1);
         //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
         //Console.WriteLine("# Moves: " + moveCounter);
 
-        return new KeyValuePair<GamePiece, GamePiece>(bestMove[index].Item1, bestMove[index].Item2);
+        return new KeyValuePair<GamePiece, GamePiece>(values[index].Item1, values[index].Item2);
     }
 
 
