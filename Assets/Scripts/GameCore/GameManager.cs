@@ -192,7 +192,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn>();
             if (clickOnScript != null)
             {
-                validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+                if (!isPlayerOneCats)
+                {
+                    validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(!isPlayerOneTurn);
+                }
+                else
+                {
+                    validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+                }
 
                 if (validMove)
                 {
