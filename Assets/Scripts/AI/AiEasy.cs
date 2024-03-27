@@ -182,6 +182,7 @@ public class AiEasy : MonoBehaviour
 
     public bool checkWin(bool isPlayerOnesTurn)
     {
+        didOpponentWin = false;
         int player1WinTracker = 0;
         int player2WinTracker = 0;
         int player1RowTracker = 0;
@@ -906,7 +907,7 @@ public class AiEasy : MonoBehaviour
         //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
         //Console.WriteLine("# Moves: " + moveCounter);
 
-        return new KeyValuePair<GamePiece, GamePiece>(values[index].Item1, values[index].Item2);
+        return new KeyValuePair<GamePiece, GamePiece>(values[0].Item1, values[0].Item2);
     }
 
 
