@@ -91,6 +91,7 @@ public class GUI_Manager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Main Menu")
         {
+            GameActions.GameEnabled = false;
             // Get if Cats or Dogs
             string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
 

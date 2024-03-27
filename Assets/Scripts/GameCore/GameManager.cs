@@ -10,7 +10,8 @@ using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
 using Photon.Realtime;
-using System.Xml;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -46,23 +47,27 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             typeOfGame = "easy";
         }
-        if (gameObject.GetComponent<AiHard>() != null)
+        else if (gameObject.GetComponent<AiHard>() != null)
         {
             typeOfGame = "hard";
         }
-        if (gameObject.GetComponent<NetworkManager>() != null)
+        else if (gameObject.GetComponent<NetworkManager>() != null)
         {
             photonView = gameObject.GetComponent<PhotonView>();
             typeOfGame = "network";
         }
-        if (GetComponent<Tutorial>() != null)
+        else if (GetComponent<Tutorial>() != null)
         {
             tutorial = GetComponent<Tutorial>();
             typeOfGame = "tutorial";
 
         }
+        else if (gameObject.GetComponent<GameActions>() != null)
+        {
+            typeOfGame = "game";
+        }
 
-        if(typeOfGame != "network")
+        if(typeOfGame != "network" && typeOfGame != null)
         {
             // Get the starting player
             if (PlayerPrefs.GetInt("IsPlayerOne", 1) == 1)
@@ -106,7 +111,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //    PlayerPrefs.DeleteKey("Tutorial Counter");
         //    PlayerPrefs.Save();
         //}
-        if (GameActions.GameEnabled)
+        if (GameActions.GameEnabled && SceneManager.GetActiveScene().name != "Main Menu")
         {
             if (!moveInProgress && !gameOver && !isCoroutineRunning)
             {
@@ -188,7 +193,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn>();
             if (clickOnScript != null)
             {
-                validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+                if (!isPlayerOneCats)
+                {
+                    validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(!isPlayerOneTurn);
+                }
+                else
+                {
+                    validMove = clickOnScript.GetComponent<GamePiece>().CheckPickedPiece(isPlayerOneTurn);
+                }
 
                 if (validMove)
                 {
@@ -361,11 +373,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (isPlayerOneTurn)
             {
-                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
             }
             else
             {
-                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
             }
         }
         else 
@@ -414,8 +426,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             isPlayerOneTurn = !isPlayerOneTurn;
         }
 
-        DeselectObject();
-
         if (typeOfGame == "easy" || typeOfGame == "hard")
         {
             if (isPlayerOneCats)
@@ -426,8 +436,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                     aiPiece.transform.GetChild(0).GetComponent<MeshRenderer>().material = Resources.Load("bumpercar-01-03-body", typeof(Material)) as Material;
                     aiPiece.transform.GetChild(2).gameObject.SetActive(true);
                 }
-            } 
-            else 
+            }
+            else
             {
                 GameObject[] AiPieces = GameObject.FindGameObjectsWithTag("Player1");
                 foreach (var aiPiece in AiPieces)
@@ -437,6 +447,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+
+        DeselectObject();
     }
     IEnumerator WaitForAIMove()
     {
@@ -535,6 +547,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void RPC_TeamSelect(bool isCats)
     {
         SetStartingPlayer(isCats);
+        isPlayerOneCats = isCats;
         Debug.Log($"isCats = {isCats}");
 
         NetworkManager.checkToStartGame();
