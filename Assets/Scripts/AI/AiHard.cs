@@ -182,6 +182,7 @@ public class AiHard : MonoBehaviour
 
     public bool checkWin(bool isPlayerOnesTurn)
     {
+        didOpponentWin = false;
         int player1WinTracker = 0;
         int player2WinTracker = 0;
         int player1RowTracker = 0;
@@ -370,43 +371,51 @@ public class AiHard : MonoBehaviour
                     case 0:
                         switch (xPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 6; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 6; break;
                         }
                         break;
                     case 1:
                         switch (xPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 2:
                         switch (xPiece.col)
                         {
-                            case 0: value += 2; break;
-                            case 1: value += 3; break;
-                            case 2: value += 6; break;
-                            case 3: value += 3; break;
-                            case 4: value += 2; break;
+                            case 0: value += 4; break;
+                            case 1: value += 5; break;
+                            case 2: value += 7; break;
+                            case 3: value += 5; break;
+                            case 4: value += 4; break;
                         }
                         break;
                     case 3:
                         switch (xPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 4:
                         switch (xPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 6; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 6; break;
                         }
                         break;
                 }
@@ -420,43 +429,51 @@ public class AiHard : MonoBehaviour
                     case 0:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 6; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 6; break;
                         }
                         break;
                     case 1:
                         switch (oPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 2:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 2; break;
-                            case 1: value -= 3; break;
-                            case 2: value -= 6; break;
-                            case 3: value -= 3; break;
-                            case 4: value -= 2; break;
+                            case 0: value -= 4; break;
+                            case 1: value -= 5; break;
+                            case 2: value -= 7; break;
+                            case 3: value -= 5; break;
+                            case 4: value -= 4; break;
                         }
                         break;
                     case 3:
                         switch (oPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 4:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 6; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 6; break;
                         }
                         break;
                 }
@@ -471,43 +488,51 @@ public class AiHard : MonoBehaviour
                     case 0:
                         switch (oPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 6; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 6; break;
                         }
                         break;
                     case 1:
                         switch (oPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 2:
                         switch (oPiece.col)
                         {
-                            case 0: value += 2; break;
-                            case 1: value += 3; break;
-                            case 2: value += 6; break;
-                            case 3: value += 3; break;
-                            case 4: value += 2; break;
+                            case 0: value += 4; break;
+                            case 1: value += 5; break;
+                            case 2: value += 7; break;
+                            case 3: value += 5; break;
+                            case 4: value += 4; break;
                         }
                         break;
                     case 3:
                         switch (oPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 4:
                         switch (oPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 6; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 6; break;
                         }
                         break;
                 }
@@ -521,43 +546,51 @@ public class AiHard : MonoBehaviour
                     case 0:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 6; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 6; break;
                         }
                         break;
                     case 1:
                         switch (xPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 2:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 2; break;
-                            case 1: value -= 3; break;
-                            case 2: value -= 6; break;
-                            case 3: value -= 3; break;
-                            case 4: value -= 2; break;
+                            case 0: value -= 4; break;
+                            case 1: value -= 5; break;
+                            case 2: value -= 7; break;
+                            case 3: value -= 5; break;
+                            case 4: value -= 4; break;
                         }
                         break;
                     case 3:
                         switch (xPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 4:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 6; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 6; break;
                         }
                         break;
                 }
@@ -673,6 +706,8 @@ public class AiHard : MonoBehaviour
     {
         Board = game.GetComponent<GameBoard>().Board;
 
+
+        const int MAX_MOVES = 30000;
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
         GamePiece[] moves = AvailablePieces();
@@ -699,12 +734,16 @@ public class AiHard : MonoBehaviour
             }
         }
         List<Tuple<GamePiece, GamePiece, int>> NewBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
+        List<Tuple<GamePiece, GamePiece, int>> LastBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
+
 
         Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
 
         foreach (var move in values)
         {
+            if (moveCounter > MAX_MOVES) break;
+
             Board = game.GetComponent<GameBoard>().Board;
 
 
@@ -730,13 +769,13 @@ public class AiHard : MonoBehaviour
             {
                 NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, 100000));
                 Debug.Log("Winning move before analyzing opponent's move");
-                int mr1 = move.Item2.row;
+                //int mr1 = move.Item2.row;
                 move.Item2.row = tempMove.Key;
-                int mc1 = move.Item2.col;
+                //int mc1 = move.Item2.col;
                 move.Item2.col = tempMove.Value;
-                int pr1 = move.Item1.row;
+                //int pr1 = move.Item1.row;
                 move.Item1.row = tempPiece.Key;
-                int pc1 = move.Item1.col;
+                //int pc1 = move.Item1.col;
                 move.Item1.col = tempPiece.Value;
 
 
@@ -759,7 +798,7 @@ public class AiHard : MonoBehaviour
                         Board[i, j] = tempGame[i, j];
                     }
                 }
-                break;
+                return new KeyValuePair<GamePiece, GamePiece>(move.Item1, move.Item2);
 
             }
             gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
@@ -807,23 +846,175 @@ public class AiHard : MonoBehaviour
             int newValue = move.Item3 - eValues.Max(t => t.Item3);
 
 
-            gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            foreach (var move3 in eValues)
+            {
+
+                if (moveCounter > MAX_MOVES) break;
+
+                Board = game.GetComponent<GameBoard>().Board;
 
 
-            int mr = move.Item2.row;
+                KeyValuePair<int, int> tempPiece2 = new KeyValuePair<int, int>(move3.Item1.row, move3.Item1.col);
+                KeyValuePair<int, int> tempMove2 = new KeyValuePair<int, int>(move3.Item2.row, move3.Item2.col);
+                List<GamePiece> tg2 = new List<GamePiece>();
+
+                string tag2 = move3.Item1.tag;
+
+                move3.Item1.SetPlayer(gameObject.GetComponent<GameManager>().isPlayerOneTurn);
+                movePiece(move3.Item1, move3.Item2);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        Board[i, j] = tempGame[i, j];
+                        tg2.Add(tempGame[i, j].GetComponent<GamePiece>());
+                    }
+                }
+
+                if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && didOpponentWin)
+                {
+                    LastBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, -10000000));
+                    Debug.Log("Opponent will win");
+                    //int mr1 = move.Item2.row;
+                    move3.Item2.row = tempMove2.Key;
+                    //int mc1 = move.Item2.col;
+                    move3.Item2.col = tempMove2.Value;
+                    //int pr1 = move.Item1.row;
+                    move3.Item1.row = tempPiece2.Key;
+                    //int pc1 = move.Item1.col;
+                    move3.Item1.col = tempPiece2.Value;
+
+
+                    movePiece(move3.Item2, move3.Item1);
+                    tempGame[move3.Item1.col, move3.Item1.row].GetComponent<GamePiece>().isBlank = true;
+                    tempGame[move3.Item1.col, move3.Item1.row].GetComponent<GamePiece>().transform.tag = tag2;
+                    for (int r = 0; r < tempGame.GetLength(0); r++)
+                    {
+                        for (int c = 0; c < tempGame.GetLength(0); c++)
+                        {
+                            tempGame[r, c].GetComponent<GamePiece>().row = c;
+                            tempGame[r, c].GetComponent<GamePiece>().col = r;
+                        }
+                    }
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            Board[i, j] = tempGame[i, j];
+                        }
+                    }
+                    break;
+
+                }
+                gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
+
+
+                for (int r = 0; r < tempGame.GetLength(0); r++)
+                {
+                    for (int c = 0; c < tempGame.GetLength(0); c++)
+                    {
+                        tempGame[r, c].GetComponent<GamePiece>().row = c;
+                        tempGame[r, c].GetComponent<GamePiece>().col = r;
+                    }
+                }
+
+
+
+                List<Tuple<GamePiece, GamePiece, int>> newValues = new List<Tuple<GamePiece, GamePiece, int>>();
+                GamePiece[] newMoves = AvailablePieces();
+                for (int i = 0; i < newMoves.Length; i++)
+                {
+                    if (newMoves[i].row >= 0 || newMoves[i].col >= 0)
+                    {
+                        if (newMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                        {
+                            GameObject[] posMoves = PossibleMoves(newMoves[i].gameObject);
+                            for (int j = 0; j < posMoves.Length; j++)
+                            {
+                                moveCounter++;
+                                int value = 1;
+                                GamePiece curMove = posMoves[j].GetComponent<GamePiece>();
+                                if (Board[newMoves[i].col, newMoves[i].row].tag == "Blank")
+                                {
+                                    value += 100;
+                                }
+                                value += CheckBoardValue(newMoves[i], posMoves[j].GetComponent<GamePiece>());
+                                newValues.Add(new Tuple<GamePiece, GamePiece, int>(newMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
+                            }
+                        }
+                    }
+                }
+                newValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
+                {
+                    return y.Item3.CompareTo(x.Item3);
+                });
+                int newValue2 = move.Item3 - eValues.Max(t => t.Item3) + newValues[0].Item3;
+
+
+                gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
+
+
+                //int mr = move.Item2.row;
+                move3.Item2.row = tempMove2.Key;
+                //int mc = move.Item2.col;
+                move3.Item2.col = tempMove2.Value;
+                //int pr = move.Item1.row;
+                move3.Item1.row = tempPiece2.Key;
+                //int pc = move.Item1.col;
+                move3.Item1.col = tempPiece2.Value;
+
+                //Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3);
+                //Debug.Log("BestResponse(" + move3.Item1.row + ", " + move3.Item1.col + ") - (" + move3.Item2.row + ", " + move3.Item2.col + "): " + move3.Item3);
+                //Debug.Log("BestAiResponse: (" + newValues[0].Item1.row + ", " + newValues[0].Item1.col + ") - (" + newValues[0].Item2.row + ", " + newValues[0].Item2.col + "): " + newValues[0].Item3);
+                //Debug.Log("Total Value of the Moves: " + newValue2);
+
+
+                LastBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, newValue));
+
+
+                movePiece(move3.Item2, move3.Item1);
+                tempGame[move3.Item1.col, move3.Item1.row].GetComponent<GamePiece>().isBlank = true;
+                tempGame[move3.Item1.col, move3.Item1.row].GetComponent<GamePiece>().transform.tag = tag2;
+                for (int r = 0; r < tempGame.GetLength(0); r++)
+                {
+                    for (int c = 0; c < tempGame.GetLength(0); c++)
+                    {
+                        tempGame[r, c].GetComponent<GamePiece>().row = c;
+                        tempGame[r, c].GetComponent<GamePiece>().col = r;
+                    }
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        Board[i, j] = tempGame[i, j];
+                    }
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //int mr = move.Item2.row;
             move.Item2.row = tempMove.Key;
-            int mc = move.Item2.col;
+            //int mc = move.Item2.col;
             move.Item2.col = tempMove.Value;
-            int pr = move.Item1.row;
+            //int pr = move.Item1.row;
             move.Item1.row = tempPiece.Key;
-            int pc = move.Item1.col;
+            //int pc = move.Item1.col;
             move.Item1.col = tempPiece.Value;
 
-            Debug.Log("e(" + eValues[0].Item1.row + ", " + eValues[0].Item1.col + ") - (" + eValues[0].Item2.row + ", " + eValues[0].Item2.col + ")");
-            Debug.Log("p(" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3 + " - " + eValues[0].Item3 + " = " + newValue);
+            //Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3 + " - " + eValues[0].Item3 + " = " + newValue);
+            //Debug.Log("BestResponse(" + eValues[0].Item1.row + ", " + eValues[0].Item1.col + ") - (" + eValues[0].Item2.row + ", " + eValues[0].Item2.col + ")");
 
             NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, newValue));
 
+
+
+            gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
 
             movePiece(move.Item2, move.Item1);
             tempGame[move.Item1.col, move.Item1.row].GetComponent<GamePiece>().isBlank = true;
@@ -845,23 +1036,24 @@ public class AiHard : MonoBehaviour
                 }
             }
 
+
         }
 
-        NewBestValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
+        LastBestValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
         {
             return y.Item3.CompareTo(x.Item3);
         });
-        int biggestVal = values[0].Item3;
-        foreach (var move in values)
-        {
-            if (move.Item3 > biggestVal)
-            {
-                biggestVal = move.Item3;
-            }
-        }
+        //int biggestVal = values[0].Item3;
+        //foreach (var move in values)
+        //{
+        //    if (move.Item3 > biggestVal)
+        //    {
+        //        biggestVal = move.Item3;
+        //    }
+        //}
         System.Random rnd = new System.Random();
-
-        return new KeyValuePair<GamePiece, GamePiece>(NewBestValues[0].Item1, NewBestValues[0].Item2);
+        Debug.Log(moveCounter);
+        return new KeyValuePair<GamePiece, GamePiece>(LastBestValues[0].Item1, LastBestValues[0].Item2);
     }
 
 

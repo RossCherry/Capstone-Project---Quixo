@@ -12,6 +12,7 @@ using ExitGames.Client.Photon;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private new PhotonView photonView;
@@ -451,6 +452,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     IEnumerator WaitForAIMove()
     {
+        DateTime before = DateTime.Now;
         isCoroutineRunning = true;
         KeyValuePair<GamePiece, GamePiece> aiMove;
         if (typeOfGame == "easy")
@@ -464,6 +466,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
         MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
         isPlayerOneTurn = true;
+        DateTime after = DateTime.Now;
+        Debug.Log(after.Subtract(before).TotalSeconds);
         yield return null;
     }
 
