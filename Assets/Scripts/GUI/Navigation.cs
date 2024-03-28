@@ -65,6 +65,10 @@ public class Navigation : MonoBehaviour
 
     public void MainMenu()
     {
+        // Reset the player selection
+        GameManager.isPlayerOne = true;
+        PlayerPrefs.SetInt("IsPlayerOne", 1);
+
         SceneManager.LoadScene(mainMenuScene);
     }
 
@@ -85,6 +89,10 @@ public class Navigation : MonoBehaviour
 
     public void PlayMultiplayerLocally()
     {
+        // Reset the player selection
+        GameManager.isPlayerOne = true;
+        PlayerPrefs.SetInt("IsPlayerOne", 1);
+
         SceneManager.LoadSceneAsync(localMultiplayerScene);
     }
 
