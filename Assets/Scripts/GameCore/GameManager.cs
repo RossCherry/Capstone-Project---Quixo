@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool hasTutorialSetNext = false;
     public static bool isCoroutineRunning = false;
     public static bool isPlayerOneCats = true;
-    bool onlyDoOnce = true;
+    bool onlyDoOnce = false;
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +85,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
        
         GUI_Manager.ShowUserTeam();
+        if (typeOfGame == "game")
+        {
+            GameActions.GameEnabled = true;
+        }
     }
 
     // Update is called once per frame
@@ -133,18 +137,17 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (typeOfGame == "network")
                 {
                     UpdateColors();
+
                     //isPlayerOne = GetComponent<NetworkManager>().getIsPlayerOne();
                     if (Input.GetMouseButtonDown(0) && isPlayerOneTurn && isPlayerOne)
                     {
                         moveInProgress = true;
                         HandleClick();
-                        onlyDoOnce = true;
                     }
                     else if(Input.GetMouseButtonDown(0) && !isPlayerOneTurn && !isPlayerOne)
                     {
                         moveInProgress = true;                        
                         HandleClick();
-                        onlyDoOnce = true;
                     }
                 }
             }
@@ -369,29 +372,62 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void MakePieceMove(GameObject piece, GameObject move)
     {
         //Debug.Log(piece.ToString());
-        if (!isPlayerOneCats)
+        if (typeOfGame != "network")
         {
-            if (isPlayerOneTurn)
+            if (!isPlayerOneCats)
             {
-                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                if (isPlayerOneTurn)
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                }
+                else
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                }
             }
             else
             {
-                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
-            }
-        }
-        else 
-        {
-            if (isPlayerOneTurn)
-            {
-                piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
-            }
-            else
-            {
-                piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
-            }
+                if (isPlayerOneTurn)
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                }
+                else
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                }
 
+            }
         }
+        else
+        {
+            if(!isPlayerOneCats)
+            {
+                if (!isPlayerOneTurn)
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                }
+                else
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                }
+            }
+            else
+            {
+                if (isPlayerOneTurn)
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                }
+                else
+                {
+                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                }
+
+            }
+            UpdateColors();
+            isCoroutineRunning = true;
+            moveInProgress = true;
+        }
+
 
         piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
 
@@ -421,7 +457,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-
+            //if (typeOfGame != "network") 
+            //{
+            //    moveInProgress = false;
+            //    isPlayerOneTurn = !isPlayerOneTurn;
+            //}
             moveInProgress = false;
             isPlayerOneTurn = !isPlayerOneTurn;
         }
@@ -525,6 +565,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
         }
         isPlayerOne = isCats;
+        isPlayerOneCats = isCats;
         //isPlayerOneTurn = true;
         teamIsSet = true;
     }

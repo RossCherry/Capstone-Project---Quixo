@@ -192,7 +192,7 @@ public class GameActions : MonoBehaviour
         if (currentScene.name == networkSceneName)
         {
             photonView = gameObject.GetComponent<PhotonView>();
-            photonView.RPC("RPC_Accept", RpcTarget.All);
+            photonView.RPC("RPC_AcceptDraw", RpcTarget.All);
         }
         else
         {
@@ -201,7 +201,7 @@ public class GameActions : MonoBehaviour
     }
 
     [PunRPC]
-    public void RPC_Accept()
+    public void RPC_AcceptDraw()
     {
         AcceptDraw();
     }
@@ -228,7 +228,7 @@ public class GameActions : MonoBehaviour
         if (currentScene.name == networkSceneName)
         {
             photonView = gameObject.GetComponent<PhotonView>();
-            photonView.RPC("RPC_Decline", RpcTarget.Others);
+            photonView.RPC("RPC_DeclineDraw", RpcTarget.Others);
             DeclineDraw();
         }
         else
@@ -239,7 +239,7 @@ public class GameActions : MonoBehaviour
     
 
     [PunRPC]
-    public void RPC_Decline()
+    public void RPC_DeclineDraw()
     {
         OpponentDeclinedDraw();
     }
@@ -256,6 +256,77 @@ public class GameActions : MonoBehaviour
 
         // If AI, possibly communicate with the AI to continue the game
     }
+
+
+
+
+
+
+    //********** REQUEST REMATCH FUNCTIONALITY (NETWORK GAMES ONLY)************
+
+
+    public void RequestRematch()
+    {
+        photonView = gameObject.GetComponent<PhotonView>();
+        photonView.RPC("RPC_RequestRematch", RpcTarget.Others);
+        //display "Rematch requested. Waiting for opponent's response"
+    }
+
+
+    [PunRPC]
+    public void RPC_RequestRematch()
+    {
+        OpponentRequestedRematch();
+    }
+
+
+    public void OpponentRequestedRematch()
+    {
+        //display "Your opponent challenged you to a rematch! [Y/N]"
+    }
+
+
+    public void sendAcceptRematch()
+    {
+        photonView = gameObject.GetComponent<PhotonView>();
+        photonView.RPC("RPC_AcceptRematch", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_AcceptRematch()
+    {
+        AcceptRematch();
+    }
+
+    public void AcceptRematch()
+    {
+        //restart the game
+    }
+
+
+    public void sendDeclineRematch()
+    {
+        photonView = gameObject.GetComponent<PhotonView>();
+        photonView.RPC("RPC_DeclineRematch", RpcTarget.Others);
+    }
+
+
+    [PunRPC]
+    public void RPC_DeclineRematch()
+    {
+        OpponentDeclinedRematch();
+    }
+
+    public void OpponentDeclinedRematch()
+    {
+        //display "You opponent declined the rematch. [Main Menu]"
+    }
+
+
+
+
+
+
 
     public static void OpponentDisconnected()
     {

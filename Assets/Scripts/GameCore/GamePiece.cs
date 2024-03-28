@@ -39,23 +39,44 @@ public class GamePiece : MonoBehaviour
         //Is piece an edge piece
         if ((row == 0 || row == 4) || (col == 0 || col == 4))
         {
-            //is piece blank
-            if (piece.CompareTag("Blank"))
+            if (GameManager.isPlayerOneCats)
             {
-                return true;
+                //is piece blank
+                if (piece.CompareTag("Blank"))
+                {
+                    return true;
+                }
+                //Is it the correct persons piece
+                else if (isPlayerOne && piece.CompareTag("Player1"))
+                {
+                    return true;
+                }
+                //Is it the correct persons piece
+                else if (!isPlayerOne && piece.CompareTag("Player2"))
+                {
+                    return true;
+                }
             }
-            //Is it the correct persons piece
-            else if (isPlayerOne && piece.CompareTag("Player1"))
+            else
             {
-                return true;
+                //is piece blank
+                if (piece.CompareTag("Blank"))
+                {
+                    return true;
+                }
+                //Is it the correct persons piece
+                else if (!isPlayerOne && piece.CompareTag("Player1"))
+                {
+                    return true;
+                }
+                //Is it the correct persons piece
+                else if (isPlayerOne && piece.CompareTag("Player2"))
+                {
+                    return true;
+                }
             }
-            //Is it the correct persons piece
-            else if (!isPlayerOne && piece.CompareTag("Player2"))
-            {
-                return true;
-            }
-
         }
+        
         //It is not a playable piece
         return false;
     }

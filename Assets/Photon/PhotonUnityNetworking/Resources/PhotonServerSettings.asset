@@ -49,6 +49,11 @@ MonoBehaviour:
   - RPC_Accept
   - RPC_Decline
   - RPC_TeamSelect
+  - RPC_AcceptDraw
+  - RPC_AcceptRematch
+  - RPC_DeclineDraw
+  - RPC_DeclineRematch
+  - RPC_RequestRematch
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

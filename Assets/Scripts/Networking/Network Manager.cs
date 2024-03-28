@@ -10,7 +10,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     private const string TEAM = "team";
     private const int MAX_PLAYERS = 2;
-    bool isPlayerOne = true;
 
     private void Awake()
     {
@@ -38,7 +37,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to server. Joining a room.");
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinRandomFailed(short code, string reason)
