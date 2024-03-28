@@ -80,7 +80,7 @@ public class GameActions : MonoBehaviour
 
         // If online, send a message to the opponent that the draw was cancelled
 
-        enabled = true;
+        GameEnabled = true;
     }
 
     public void OpponentAcceptedDraw()
@@ -182,7 +182,7 @@ public class GameActions : MonoBehaviour
             }
         }
 
-        enabled = false;
+        GameEnabled = false;
     }
 
 
@@ -251,7 +251,7 @@ public class GameActions : MonoBehaviour
         {
             OpponentRequestedDrawDialog.SetActive(false);
         }
-        enabled = true;
+        GameEnabled = true;
         // If online, send a message to the opponent that the draw was declined
 
         // If AI, possibly communicate with the AI to continue the game
