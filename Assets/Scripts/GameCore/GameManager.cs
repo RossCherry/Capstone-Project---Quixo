@@ -402,7 +402,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if(!isPlayerOneCats)
             {
-                if (!isPlayerOneTurn)
+                if (isPlayerOneTurn)
                 {
                     piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
                 }
@@ -457,13 +457,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            //if (typeOfGame != "network") 
-            //{
-            //    moveInProgress = false;
-            //    isPlayerOneTurn = !isPlayerOneTurn;
-            //}
             moveInProgress = false;
-            isPlayerOneTurn = !isPlayerOneTurn;
+            //isPlayerOneTurn = !isPlayerOneTurn;
         }
 
         if (typeOfGame == "easy" || typeOfGame == "hard")
@@ -505,7 +500,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
         MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
-        isPlayerOneTurn = true;
+        //isPlayerOneTurn = true;
         DateTime after = DateTime.Now;
         Debug.Log(after.Subtract(before).TotalSeconds);
         yield return null;

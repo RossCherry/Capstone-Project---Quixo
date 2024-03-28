@@ -550,8 +550,8 @@ public class GamePiece : MonoBehaviour
         targetPosition5 = Vector3.zero;
 
         MoveOtherPieces();
-
-        GameManager.isCoroutineRunning = false;
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<GameManager>().isPlayerOneTurn = !camera.GetComponent<GameManager>().isPlayerOneTurn;
     }
 
     bool IsCornerPiece(int row, int col)

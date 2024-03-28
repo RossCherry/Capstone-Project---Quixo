@@ -144,6 +144,7 @@ public class GameBoard : MonoBehaviour
         {
             child.GetComponent<GamePiece>().MoveOtherPiece();
         }
+
     }
 
 
