@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
 
+    static public int moveCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -482,14 +484,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-
+        moveCount++;
         DeselectObject();
     }
     IEnumerator WaitForAIMove()
     {
         DateTime before = DateTime.Now;
         isCoroutineRunning = true;
-        KeyValuePair<GamePiece, GamePiece> aiMove;
+        Tuple<GamePiece, GamePiece, int> aiMove;
         if (typeOfGame == "easy")
         {
             aiMove = gameObject.GetComponent<AiEasy>().AITurn();
@@ -499,7 +501,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             aiMove = gameObject.GetComponent<AiHard>().AITurn();
         }
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
-        MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
+        if (aiMove.Item1 != aiMove.Item2) {
+            AiHard.movesSinceLastDraw++;
+            Debug.Log(AiHard.movesSinceLastDraw);
+            MovePiece(aiMove.Item1.gameObject, aiMove.Item2.gameObject);
+        }
+        else
+        {
+            moveInProgress = false;
+            yield return null;
+        }
         //isPlayerOneTurn = true;
         DateTime after = DateTime.Now;
         Debug.Log(after.Subtract(before).TotalSeconds);

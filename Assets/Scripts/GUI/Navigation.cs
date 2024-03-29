@@ -43,6 +43,7 @@ public class Navigation : MonoBehaviour
 
     public static void LoadAIGame()
     {
+        GameManager.moveCount = 0;
         SceneManager.LoadScene(isEasyAI ? easyAIScene : hardAIScene);
     }
 
