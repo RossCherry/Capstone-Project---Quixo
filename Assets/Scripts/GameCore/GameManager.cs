@@ -561,7 +561,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         isPlayerOne = isCats;
         isPlayerOneCats = true;
-        //isPlayerOneTurn = true;
         teamIsSet = true;
     }
 

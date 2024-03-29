@@ -275,8 +275,7 @@ public class GameActions : MonoBehaviour
 
 
 
-    //********** REQUEST REMATCH FUNCTIONALITY (NETWORK GAMES ONLY)************
-
+    //Request Rematch Functionality (Networking Games Only)
 
     public void RequestRematch()
     {
@@ -325,7 +324,7 @@ public class GameActions : MonoBehaviour
 
     public void AcceptRematch()
     {
-        //restart the game
+        Navigation.LoadSelectedScene();
     }
 
 
