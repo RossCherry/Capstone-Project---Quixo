@@ -404,11 +404,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 if (isPlayerOneTurn)
                 {
-                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
+                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
                 }
                 else
                 {
-                    piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
+                    piece.GetComponent<GamePiece>().SetPlayer(isPlayerOne);
                 }
             }
             else
@@ -560,7 +560,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
         }
         isPlayerOne = isCats;
-        isPlayerOneCats = isCats;
+        isPlayerOneCats = true;
         //isPlayerOneTurn = true;
         teamIsSet = true;
     }
