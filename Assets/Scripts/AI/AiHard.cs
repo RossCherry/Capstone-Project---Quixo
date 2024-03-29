@@ -20,7 +20,7 @@ public class AiHard : MonoBehaviour
     public bool didOpponentWin;
     public GameObject[,] tempGame = new GameObject[5, 5];
 
-
+    static public int movesSinceLastDraw = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -701,13 +701,12 @@ public class AiHard : MonoBehaviour
         return value;
     }
 
-
-    public KeyValuePair<GamePiece, GamePiece> AITurn()
+    public Tuple<GamePiece, GamePiece, int> AITurn()
     {
         Board = game.GetComponent<GameBoard>().Board;
 
 
-        const int MAX_MOVES = 30000;
+        const int MAX_MOVES = 27000;
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
         GamePiece[] moves = AvailablePieces();
@@ -798,7 +797,7 @@ public class AiHard : MonoBehaviour
                         Board[i, j] = tempGame[i, j];
                     }
                 }
-                return new KeyValuePair<GamePiece, GamePiece>(move.Item1, move.Item2);
+                return new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, move.Item3);
 
             }
             gameObject.GetComponent<GameManager>().isPlayerOneTurn = !gameObject.GetComponent<GameManager>().isPlayerOneTurn;
@@ -1043,17 +1042,27 @@ public class AiHard : MonoBehaviour
         {
             return y.Item3.CompareTo(x.Item3);
         });
-        //int biggestVal = values[0].Item3;
-        //foreach (var move in values)
-        //{
-        //    if (move.Item3 > biggestVal)
-        //    {
-        //        biggestVal = move.Item3;
-        //    }
-        //}
+        
         System.Random rnd = new System.Random();
         Debug.Log(moveCounter);
-        return new KeyValuePair<GamePiece, GamePiece>(LastBestValues[0].Item1, LastBestValues[0].Item2);
+        Debug.Log("Move value: " + LastBestValues[0].Item3);
+        var result = LastBestValues[0];
+        if (GameManager.moveCount > 20 && result.Item3 < 0 && movesSinceLastDraw >= 2)
+        {
+            movesSinceLastDraw = 0;
+            GameActions.OpponentRequestedDraw();
+            return new Tuple<GamePiece, GamePiece, int>(Board[0, 0].GetComponent<GamePiece>(), Board[0, 0].GetComponent<GamePiece>(), 0);
+        }
+        else if (GameManager.moveCount > 100 && movesSinceLastDraw >= 2)
+        {
+            movesSinceLastDraw = 0;
+            GameActions.OpponentRequestedDraw();
+            return new Tuple<GamePiece, GamePiece, int>(Board[0, 0].GetComponent<GamePiece>(), Board[0, 0].GetComponent<GamePiece>(), 0);
+        }
+        else
+        {
+            return new Tuple<GamePiece, GamePiece, int>(LastBestValues[0].Item1, LastBestValues[0].Item2, LastBestValues[0].Item3);
+        }
     }
 
 
