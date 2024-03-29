@@ -89,6 +89,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause reason)
     {
         Debug.LogWarningFormat($"OnDisconnected() was called by PUN with reason: {reason}.");
+        if(reason == DisconnectCause.ClientTimeout)
+        {
+            GUI_Manager.ShowDisconnected();
+        }
+
     }
 
     public override void OnPlayerLeftRoom(Player player)
