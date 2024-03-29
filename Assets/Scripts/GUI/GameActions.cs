@@ -57,6 +57,19 @@ public class GameActions : MonoBehaviour
         }       
     }
 
+    public static void EnableRequestDrawButton(bool toBeEnabled)
+    {
+        GameObject requestDrawButton = GameObject.Find("Request Draw Button");
+        if (requestDrawButton != null)
+        {
+            requestDrawButton.SetActive(toBeEnabled);
+        }
+        else
+        {
+            Debug.Log("Request Draw Button not found");
+        }
+    }
+
     private static void DisableRequestDrawButton()
     {
         GameObject requestDrawButton = GameObject.Find("Request Draw Button");
@@ -270,6 +283,12 @@ public class GameActions : MonoBehaviour
         photonView = gameObject.GetComponent<PhotonView>();
         photonView.RPC("RPC_RequestRematch", RpcTarget.Others);
         //display "Rematch requested. Waiting for opponent's response"
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject RematchRequestedDialog = Dialogs.transform.Find("Rematch Requested Dialog").gameObject;
+        if (RematchRequestedDialog != null)
+        {
+            RematchRequestedDialog.SetActive(true);
+        }
     }
 
 
@@ -283,6 +302,12 @@ public class GameActions : MonoBehaviour
     public void OpponentRequestedRematch()
     {
         //display "Your opponent challenged you to a rematch! [Y/N]"
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject OpponentRequestedRematchDialog = Dialogs.transform.Find("Opponent Requested Rematch Dialog").gameObject;
+        if (OpponentRequestedRematchDialog != null)
+        {
+            OpponentRequestedRematchDialog.SetActive(true);
+        }
     }
 
 
@@ -320,6 +345,12 @@ public class GameActions : MonoBehaviour
     public void OpponentDeclinedRematch()
     {
         //display "You opponent declined the rematch. [Main Menu]"
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject OpponentDeclinedRematchDialog = Dialogs.transform.Find("Opponent Declined Rematch Dialog").gameObject;
+        if (OpponentDeclinedRematchDialog != null)
+        {
+            OpponentDeclinedRematchDialog.SetActive(true);
+        }
     }
 
 

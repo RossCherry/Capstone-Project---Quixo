@@ -83,9 +83,12 @@ public class Chat : MonoBehaviour
 
     public void PopulateChatCategories()
     {
-        GameObject chat = GameObject.Find("Chat");
-        GameObject chatPannel = chat.transform.Find("Chat Panel").gameObject;
-        chatPannel.SetActive(true);
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        Chat.SetActive(true);
+        //GameObject chat = GameObject.Find("Chat");
+        GameObject chatPannel = Chat.transform.Find("Chat Panel").gameObject;
+        //chatPannel.SetActive(true);
 
         GameObject chatCategories = chatPannel.transform.Find("Chat Categories").gameObject;        
 
@@ -163,7 +166,10 @@ public class Chat : MonoBehaviour
 
     private void PopulateChatMessages(GameObject chatMessagesContent, string selectedCategory)
     {
-        GameObject Chat = GameObject.Find("Chat");
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        //Chat.SetActive(true);
+        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
@@ -278,7 +284,9 @@ public class Chat : MonoBehaviour
         Debug.Log("Sending message: " + message);
 
         string chatBubbleName = GetPlayer() ? "Chat Bubble Cats" : "Chat Bubble Dogs";
-        GameObject Chat = GameObject.Find("Chat");
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        //GameObject Chat = GameObject.Find("Chat");
         GameObject ChatBubble = Chat.transform.Find(chatBubbleName).gameObject;
         ChatBubble.SetActive(true);
         GameObject ChatBubblePanel = ChatBubble.transform.Find("Chat Bubble Panel").gameObject;
@@ -311,8 +319,10 @@ public class Chat : MonoBehaviour
     private void HighlightSelectedCategory(string selectedCategory, bool selected)
     {
         // Get the button for the selected category
-        GameObject chat = GameObject.Find("Chat");
-        GameObject chatPannel = chat.transform.Find("Chat Panel").gameObject;
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        //GameObject chat = GameObject.Find("Chat");
+        GameObject chatPannel = Chat.transform.Find("Chat Panel").gameObject;
         if (chatPannel != null)
         {
             GameObject chatCategories = chatPannel.transform.Find("Chat Categories").gameObject;
@@ -342,7 +352,9 @@ public class Chat : MonoBehaviour
     private void HighlightSelectedMessage(string selectedMessage, bool selected)
     {
         // Get the button for the selected message
-        GameObject Chat = GameObject.Find("Chat");
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
@@ -411,7 +423,9 @@ public class Chat : MonoBehaviour
         HighlightSelectedCategory(selectedCategory, true);
 
         // Show the Messages panel and populate the chat messages
-        GameObject Chat = GameObject.Find("Chat");
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
+        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
