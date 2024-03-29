@@ -966,10 +966,10 @@ public class AiHard : MonoBehaviour
                 //int pc = move.Item1.col;
                 move3.Item1.col = tempPiece2.Value;
 
-                //Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3);
-                //Debug.Log("BestResponse(" + move3.Item1.row + ", " + move3.Item1.col + ") - (" + move3.Item2.row + ", " + move3.Item2.col + "): " + move3.Item3);
-                //Debug.Log("BestAiResponse: (" + newValues[0].Item1.row + ", " + newValues[0].Item1.col + ") - (" + newValues[0].Item2.row + ", " + newValues[0].Item2.col + "): " + newValues[0].Item3);
-                //Debug.Log("Total Value of the Moves: " + newValue2);
+                Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3);
+                Debug.Log("BestResponse(" + move3.Item1.row + ", " + move3.Item1.col + ") - (" + move3.Item2.row + ", " + move3.Item2.col + "): " + move3.Item3);
+                Debug.Log("BestAiResponse: (" + newValues[0].Item1.row + ", " + newValues[0].Item1.col + ") - (" + newValues[0].Item2.row + ", " + newValues[0].Item2.col + "): " + newValues[0].Item3);
+                Debug.Log("Total Value of the Moves: " + newValue2);
 
 
                 LastBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, newValue));

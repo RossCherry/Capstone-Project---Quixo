@@ -34,8 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool gameOverWindowOpen = false;
     bool didPlayer1Win = false;
 
-    private Tutorial tutorial;
-    private bool hasTutorialSetNext = false;
+    
     public static bool isCoroutineRunning = false;
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
@@ -57,12 +56,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             photonView = gameObject.GetComponent<PhotonView>();
             typeOfGame = "network";
-        }
-        else if (GetComponent<Tutorial>() != null)
-        {
-            tutorial = GetComponent<Tutorial>();
-            typeOfGame = "tutorial";
-
         }
         else if (gameObject.GetComponent<GameActions>() != null)
         {
@@ -127,12 +120,16 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     moveInProgress = true;
                     StartCoroutine(WaitForAIMove());
+                    Debug.Log(isPlayerOne);
+                    Debug.Log(isPlayerOneTurn);
                 }
                 //LOCAL PLAY
                 else if (Input.GetMouseButtonDown(0) && typeOfGame != "network")
                 {
                     moveInProgress = true;
                     HandleClick();
+                    Debug.Log(isPlayerOne);
+                    Debug.Log(isPlayerOneTurn);
                 }
 
                 //NETWORKING GAME
@@ -503,7 +500,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
         if (aiMove.Item1 != aiMove.Item2) {
             AiHard.movesSinceLastDraw++;
-            Debug.Log(AiHard.movesSinceLastDraw);
+            Debug.Log("Move: (" + aiMove.Item1.row + ", " + aiMove.Item1.col + ") to (" + aiMove.Item2.row + ", " + aiMove.Item2.col + "): " + aiMove.Item3);
             MovePiece(aiMove.Item1.gameObject, aiMove.Item2.gameObject);
         }
         else
