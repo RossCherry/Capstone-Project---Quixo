@@ -5,44 +5,26 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     private bool muted = false;
-
+    private AudioSource music;
+    private bool paused;
 
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("muted"))
+        music = GetComponent<AudioSource>();
+        paused = false;
+    }
+
+    public void ToggleSound()
+    {
+        if (paused == false)
         {
-            PlayerPrefs.SetInt("muted", 0);
-            Load();
+            paused = true;
+            music.Pause();
         }
         else
         {
-            Load();
+            paused = false;
+            music.Play();
         }
-        AudioListener.pause = muted;
-    }
-
-    void ToggleSound(bool muted)
-    {
-        if(muted == false)
-        {
-            muted = true;
-            AudioListener.pause = true;
-        }
-        else
-        {
-            muted = false;
-            AudioListener.pause = false;
-        }
-        Save();
-    }
-
-    private void Load()
-    {
-        muted = PlayerPrefs.GetInt("muted") == 1;
-    }
-
-    private void Save()
-    {
-        PlayerPrefs.SetInt("muted", muted ? 1 : 0);
     }
 }

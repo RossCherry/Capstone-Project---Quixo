@@ -9715,6 +9715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931256785}
   - component: {fileID: 931256784}
+  - component: {fileID: 931256786}
   m_Layer: 0
   m_Name: Background_Music
   m_TagString: Untagged
@@ -9833,6 +9834,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &931256786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931256783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852e5bc47125e9246929a182247201b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &934464080
 GameObject:
   m_ObjectHideFlags: 0
@@ -21850,6 +21863,22 @@ PrefabInstance:
     - target: {fileID: 4622981133088115267, guid: 7939ff09487ef084485ce2c34c035dfa, type: 3}
       propertyPath: m_Name
       value: Game GUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786181308924211634, guid: 7939ff09487ef084485ce2c34c035dfa, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 931256786}
+    - target: {fileID: 6786181308924211634, guid: 7939ff09487ef084485ce2c34c035dfa, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786181308924211634, guid: 7939ff09487ef084485ce2c34c035dfa, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NewBehaviourScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786181308924211634, guid: 7939ff09487ef084485ce2c34c035dfa, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

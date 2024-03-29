@@ -48,6 +48,7 @@ public class Navigation : MonoBehaviour
 
     public static void LoadSelectedScene()
     {
+        Debug.Log("Load selected scene");
         if (selectedScene == networkMultiplayerScene)
         {
             SceneManager.LoadScene(selectedScene);
@@ -65,11 +66,15 @@ public class Navigation : MonoBehaviour
 
     public void MainMenu()
     {
+        selectedScene = "Main Menu";
         // Reset the player selection
         GameManager.isPlayerOne = true;
         PlayerPrefs.SetInt("IsPlayerOne", 1);
 
-        SceneManager.LoadScene(mainMenuScene);
+        SceneManager.LoadSceneAsync("Main Menu");
+        // Get the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
+        Debug.Log(currentScene.name);
     }
 
     public void PlaySinglePlayerEasy()
@@ -98,6 +103,7 @@ public class Navigation : MonoBehaviour
 
     public void PlayMultiplayerOverNetwork()
     {
+        Debug.Log("Play multiplayer");
         SceneManager.LoadSceneAsync(networkMultiplayerScene);
     }
 }

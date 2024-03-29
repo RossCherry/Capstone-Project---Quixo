@@ -560,7 +560,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PlayerPrefs.SetInt("IsPlayerOne", isCats ? 1 : 0);
         }
         isPlayerOne = isCats;
-        isPlayerOneCats = true;
+        isPlayerOneCats = isCats;
         teamIsSet = true;
     }
 
