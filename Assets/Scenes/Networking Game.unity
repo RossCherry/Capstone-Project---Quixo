@@ -7641,6 +7641,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: User Disconnected Dialog
       objectReference: {fileID: 0}
+    - target: {fileID: 4016295798722007731, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7955304328621036481, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
