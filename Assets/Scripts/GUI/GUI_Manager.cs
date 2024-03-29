@@ -129,4 +129,11 @@ public class GUI_Manager : MonoBehaviour
         }
                 
     }
+
+    public static void UserDisconnected()
+    {
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject userDisconnectedDialog = Dialogs.transform.Find("User Disconnected Dialog").gameObject;
+        userDisconnectedDialog.SetActive(true);
+    }
 }
