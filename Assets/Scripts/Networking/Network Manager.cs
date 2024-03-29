@@ -91,7 +91,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.LogWarningFormat($"OnDisconnected() was called by PUN with reason: {reason}.");
         if(reason == DisconnectCause.ClientTimeout)
         {
-            GUI_Manager.ShowDisconnected();
+            GUI_Manager.UserDisconnected();
         }
 
     }
