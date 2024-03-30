@@ -26,15 +26,6 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        chatMessagesDict = new Dictionary<string, List<string>> {
-        { "Greetings", new List<string> { "Hello!", "Hi!", "Howdy!", "Good morning!", "Good afternoon!", "Good evening!", "What's up?", "How are you?" }},
-        { "Fun", new List<string> { "This is fun!", "I'm enjoying this!", "Let's go!", "Awesome!", "Cool!" }},
-        { "Kind", new List<string> { "Good game!", "Great job!", "Keep it up!", "Nice move!" }},
-        { "Smack Talk", new List<string> { "You're going down!", "I'm going to win!", "You're a scud!", "I'm pretty good at this" }},
-        { "Other", new List<string> { "Good", "Bad", "Yes", "No", "Oops"  }}
-        */
-
         chatMessagesDict = new Dictionary<string, List<string>>
         {
             { "Greetings", new List<string> { "Meow are you?", "Meow!", "Purrrr!", "Hiss!", "Howl you doing?", "Arf!", "Woof!", "Grrr!" }},
@@ -74,11 +65,6 @@ public class Chat : MonoBehaviour
         chatPanelEntry.callback.AddListener((data) => { OnChatPanelHover((PointerEventData)data); });
         EventTrigger chatPanelEventTrigger = chatPannel.AddComponent<EventTrigger>();
         chatPanelEventTrigger.triggers.Add(chatPanelEntry);
-
-        EventTrigger.Entry chatPanelExitEntry = new EventTrigger.Entry();
-        chatPanelExitEntry.eventID = EventTriggerType.PointerExit;
-        chatPanelExitEntry.callback.AddListener((data) => { OnChatPanelExit((PointerEventData)data); });
-        chatPanelEventTrigger.triggers.Add(chatPanelExitEntry);
     }
 
     public void PopulateChatCategories()
@@ -86,10 +72,7 @@ public class Chat : MonoBehaviour
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
         Chat.SetActive(true);
-        //GameObject chat = GameObject.Find("Chat");
         GameObject chatPannel = Chat.transform.Find("Chat Panel").gameObject;
-        //chatPannel.SetActive(true);
-
         GameObject chatCategories = chatPannel.transform.Find("Chat Categories").gameObject;        
 
         // Add the buttons to the chatCategories GameObject if they are not already added
@@ -124,7 +107,7 @@ public class Chat : MonoBehaviour
 
                 // Set text properties
                 textMeshPro.text = category;
-                //textMeshPro.fontSize = 14;
+
                 // have text auto size
                 textMeshPro.enableAutoSizing = true;
                 textMeshPro.alignment = TMPro.TextAlignmentOptions.Center;
@@ -151,12 +134,6 @@ public class Chat : MonoBehaviour
                 entry.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
                 EventTrigger eventTrigger = button.GetComponent<UnityEngine.UI.Image>().gameObject.AddComponent<EventTrigger>();
                 eventTrigger.triggers.Add(entry);
-
-                // Register an event for PointerExit to the button's Image component
-                EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-                exitEntry.eventID = EventTriggerType.PointerExit;
-                exitEntry.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
-                eventTrigger.triggers.Add(exitEntry);
                 
                 // Increment yPosition
                 yPosition -= ySpacing; 
@@ -168,8 +145,6 @@ public class Chat : MonoBehaviour
     {
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
-        //Chat.SetActive(true);
-        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
@@ -190,7 +165,6 @@ public class Chat : MonoBehaviour
         // Add the chat messages to the Content
         foreach (string message in chatMessages)
         {
-            //Debug.Log("Adding message: " + message);
             // Create a new GameObject for the button
             GameObject messageButton = new GameObject("MessageButton_" + message);
             RectTransform rectTransform = messageButton.AddComponent<RectTransform>();
@@ -284,10 +258,8 @@ public class Chat : MonoBehaviour
         Debug.Log("Sending message: " + message);
 
         string chatBubbleName = GetPlayer() ? "Chat Bubble Cats" : "Chat Bubble Dogs";
-        GameObject Dialogs = GameObject.Find("Dialogs");
-        GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
-        //GameObject Chat = GameObject.Find("Chat");
-        GameObject ChatBubble = Chat.transform.Find(chatBubbleName).gameObject;
+        GameObject GameGUI = GameObject.Find("Game GUI");
+        GameObject ChatBubble = GameGUI.transform.Find(chatBubbleName).gameObject;
         ChatBubble.SetActive(true);
         GameObject ChatBubblePanel = ChatBubble.transform.Find("Chat Bubble Panel").gameObject;
         GameObject ChatText = ChatBubblePanel.transform.Find("Chat Text").gameObject;
@@ -321,7 +293,6 @@ public class Chat : MonoBehaviour
         // Get the button for the selected category
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
-        //GameObject chat = GameObject.Find("Chat");
         GameObject chatPannel = Chat.transform.Find("Chat Panel").gameObject;
         if (chatPannel != null)
         {
@@ -354,7 +325,6 @@ public class Chat : MonoBehaviour
         // Get the button for the selected message
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
-        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
@@ -397,13 +367,6 @@ public class Chat : MonoBehaviour
         GameActions.GameEnabled = true;
     }
 
-    // Event handlers
-    private void OnPointerExit(PointerEventData data)
-    {
-        // Set the color of the button to the default color
-        //HighlightSelectedCategory(selectedCategory, false);
-    }
-
     private void OnPointerExitMessages(PointerEventData data)
     {
         // Set the color of the button to the default color
@@ -417,7 +380,6 @@ public class Chat : MonoBehaviour
 
         // Set the selected category
         selectedCategory = buttonText.GetComponent<TMPro.TextMeshProUGUI>().text;
-        //Debug.Log("Selected category: " + selectedCategory);
 
         // Highlight the selected category
         HighlightSelectedCategory(selectedCategory, true);
@@ -425,7 +387,6 @@ public class Chat : MonoBehaviour
         // Show the Messages panel and populate the chat messages
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject Chat = Dialogs.transform.Find("Chat").gameObject;
-        //GameObject Chat = GameObject.Find("Chat");
         GameObject MessagesScrollView = Chat.transform.Find("Messages Scroll View").gameObject;
         GameObject Viewport = MessagesScrollView.transform.Find("Viewport").gameObject;
         GameObject Content = Viewport.transform.Find("Content").gameObject;
@@ -469,11 +430,6 @@ public class Chat : MonoBehaviour
     public void OnChatPanelHover(PointerEventData data)
     {
         HighlightSelectedCategory(selectedCategory, true);
-    }
-
-    public void OnChatPanelExit(PointerEventData data)
-    {
-        //HighlightSelectedCategory(selectedCategory, false);
     }
 
     // Event handler for when a chat message is clicked
