@@ -52,14 +52,23 @@ public class GameActions : MonoBehaviour
                 outcomeText.GetComponent<TextMeshProUGUI>().text = outcomeMessage;
 
                 // Disable the request draw button if the game is over
-                DisableRequestDrawButton();
+                if (SceneManager.GetActiveScene().name != Navigation.networkMultiplayerScene)
+                {
+                    DisableRequestDrawButton();
+                }
+                else
+                {
+                    EnableRequestDrawButton(true);
+                }
             }
         }       
     }
 
     public static void EnableRequestDrawButton(bool toBeEnabled)
     {
-        GameObject requestDrawButton = GameObject.Find("Request Draw Button");
+        GameObject GameGUI = GameObject.Find("Game GUI");
+        GameObject OptionsMenu = GameGUI.transform.Find("Options Menu").gameObject;
+        GameObject requestDrawButton = OptionsMenu.transform.Find("Request Draw Button").gameObject;
         if (requestDrawButton != null)
         {
             requestDrawButton.SetActive(toBeEnabled);
@@ -157,8 +166,6 @@ public class GameActions : MonoBehaviour
             {
                 DrawRequestedDialog.SetActive(true);
             }
-
-
         }
         // If online, send request to the opponent to draw and wait for their response
         // Checks if it is the current player's turn
@@ -272,9 +279,6 @@ public class GameActions : MonoBehaviour
 
 
 
-
-
-
     //Request Rematch Functionality (Networking Games Only)
 
     public void RequestRematch()
@@ -351,11 +355,6 @@ public class GameActions : MonoBehaviour
             OpponentDeclinedRematchDialog.SetActive(true);
         }
     }
-
-
-
-
-
 
 
     public static void OpponentDisconnected()
