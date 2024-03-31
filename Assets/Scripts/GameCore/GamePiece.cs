@@ -65,12 +65,12 @@ public class GamePiece : MonoBehaviour
                     return true;
                 }
                 //Is it the correct persons piece
-                else if (!isPlayerOne && piece.CompareTag("Player1"))
+                else if (isPlayerOne && piece.CompareTag("Player1"))
                 {
                     return true;
                 }
                 //Is it the correct persons piece
-                else if (isPlayerOne && piece.CompareTag("Player2"))
+                else if (!isPlayerOne && piece.CompareTag("Player2"))
                 {
                     return true;
                 }
@@ -491,7 +491,7 @@ public class GamePiece : MonoBehaviour
     IEnumerator MovePieceSmoothly()
     {
         float elapsedTime = 0f;
-        float speed = 15f;
+        float speed = 5f;
         Vector3 startingPosition = transform.position;
 
         transform.localEulerAngles = targetRotation1;
