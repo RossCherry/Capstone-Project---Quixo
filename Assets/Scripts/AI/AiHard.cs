@@ -715,8 +715,8 @@ public class AiHard : MonoBehaviour
         {
             if (moves[i].row >= 0 || moves[i].col >= 0)
             {
-                //if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                //{
+                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                {
                     GameObject[] posMoves = moves[i].PossibleMoves();
                     for (int j = 0; j < posMoves.Length; j++)
                     {
@@ -730,7 +730,7 @@ public class AiHard : MonoBehaviour
                         value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
                         values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
                     }
-                //}
+                }
             }
         }
         List<Tuple<GamePiece, GamePiece, int>> NewBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
@@ -821,8 +821,8 @@ public class AiHard : MonoBehaviour
             {
                 if (eMoves[i].row >= 0 || eMoves[i].col >= 0)
                 {
-                    //if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                    //{
+                    if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                    {
                         GameObject[] posMoves = PossibleMoves(eMoves[i].gameObject);
                         for (int j = 0; j < posMoves.Length; j++)
                         {
@@ -836,7 +836,7 @@ public class AiHard : MonoBehaviour
                             value += CheckBoardValue(eMoves[i], posMoves[j].GetComponent<GamePiece>());
                             eValues.Add(new Tuple<GamePiece, GamePiece, int>(eMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
                         }
-                    //}
+                    }
                 }
             }
             eValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
@@ -930,8 +930,8 @@ public class AiHard : MonoBehaviour
                 {
                     if (newMoves[i].row >= 0 || newMoves[i].col >= 0)
                     {
-                        //if (newMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                        //{
+                        if (newMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                        {
                             GameObject[] posMoves = PossibleMoves(newMoves[i].gameObject);
                             for (int j = 0; j < posMoves.Length; j++)
                             {
@@ -945,7 +945,7 @@ public class AiHard : MonoBehaviour
                                 value += CheckBoardValue(newMoves[i], posMoves[j].GetComponent<GamePiece>());
                                 newValues.Add(new Tuple<GamePiece, GamePiece, int>(newMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
                             }
-                        //}
+                        }
                     }
                 }
                 newValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
@@ -967,10 +967,10 @@ public class AiHard : MonoBehaviour
                 //int pc = move.Item1.col;
                 move3.Item1.col = tempPiece2.Value;
 
-                Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3);
-                Debug.Log("BestResponse(" + move3.Item1.row + ", " + move3.Item1.col + ") - (" + move3.Item2.row + ", " + move3.Item2.col + "): " + move3.Item3);
-                Debug.Log("BestAiResponse: (" + newValues[0].Item1.row + ", " + newValues[0].Item1.col + ") - (" + newValues[0].Item2.row + ", " + newValues[0].Item2.col + "): " + newValues[0].Item3);
-                Debug.Log("Total Value of the Moves: " + newValue2);
+                //Debug.Log("AiMove: (" + move.Item1.row + ", " + move.Item1.col + ") - (" + move.Item2.row + ", " + move.Item2.col + "): " + move.Item3);
+                //Debug.Log("BestResponse(" + move3.Item1.row + ", " + move3.Item1.col + ") - (" + move3.Item2.row + ", " + move3.Item2.col + "): " + move3.Item3);
+                //Debug.Log("BestAiResponse: (" + newValues[0].Item1.row + ", " + newValues[0].Item1.col + ") - (" + newValues[0].Item2.row + ", " + newValues[0].Item2.col + "): " + newValues[0].Item3);
+                //Debug.Log("Total Value of the Moves: " + newValue2);
 
 
                 LastBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, newValue));
