@@ -705,7 +705,8 @@ public class AiHard : MonoBehaviour
     {
         Board = game.GetComponent<GameBoard>().Board;
 
-
+        bool temp = gameObject.GetComponent<GameManager>().isPlayerOneTurn;
+        gameObject.GetComponent<GameManager>().isPlayerOneTurn = !GameManager.isPlayerOneCats;
         const int MAX_MOVES = 27000;
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
@@ -714,8 +715,8 @@ public class AiHard : MonoBehaviour
         {
             if (moves[i].row >= 0 || moves[i].col >= 0)
             {
-                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                {
+                //if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                //{
                     GameObject[] posMoves = moves[i].PossibleMoves();
                     for (int j = 0; j < posMoves.Length; j++)
                     {
@@ -729,7 +730,7 @@ public class AiHard : MonoBehaviour
                         value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
                         values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
                     }
-                }
+                //}
             }
         }
         List<Tuple<GamePiece, GamePiece, int>> NewBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
@@ -820,8 +821,8 @@ public class AiHard : MonoBehaviour
             {
                 if (eMoves[i].row >= 0 || eMoves[i].col >= 0)
                 {
-                    if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                    {
+                    //if (eMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                    //{
                         GameObject[] posMoves = PossibleMoves(eMoves[i].gameObject);
                         for (int j = 0; j < posMoves.Length; j++)
                         {
@@ -835,7 +836,7 @@ public class AiHard : MonoBehaviour
                             value += CheckBoardValue(eMoves[i], posMoves[j].GetComponent<GamePiece>());
                             eValues.Add(new Tuple<GamePiece, GamePiece, int>(eMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
                         }
-                    }
+                    //}
                 }
             }
             eValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
@@ -929,8 +930,8 @@ public class AiHard : MonoBehaviour
                 {
                     if (newMoves[i].row >= 0 || newMoves[i].col >= 0)
                     {
-                        if (newMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                        {
+                        //if (newMoves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                        //{
                             GameObject[] posMoves = PossibleMoves(newMoves[i].gameObject);
                             for (int j = 0; j < posMoves.Length; j++)
                             {
@@ -944,7 +945,7 @@ public class AiHard : MonoBehaviour
                                 value += CheckBoardValue(newMoves[i], posMoves[j].GetComponent<GamePiece>());
                                 newValues.Add(new Tuple<GamePiece, GamePiece, int>(newMoves[i], posMoves[j].GetComponent<GamePiece>(), value));
                             }
-                        }
+                        //}
                     }
                 }
                 newValues.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
@@ -1042,7 +1043,7 @@ public class AiHard : MonoBehaviour
         {
             return y.Item3.CompareTo(x.Item3);
         });
-        
+        gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
         System.Random rnd = new System.Random();
         Debug.Log(moveCounter);
         Debug.Log("Move value: " + LastBestValues[0].Item3);

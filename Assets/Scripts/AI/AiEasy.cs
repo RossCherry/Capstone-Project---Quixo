@@ -896,8 +896,8 @@ public class AiEasy : MonoBehaviour
             {
                 if (moves[i].row >= 0 || moves[i].col >= 0)
                 {
-                    if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                    {
+                    //if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                    //{
                         //Console.WriteLine("Piece:");
                         //Console.Write(moves[i].row + ", ");
                         //Console.WriteLine(moves[i].col);
@@ -917,7 +917,7 @@ public class AiEasy : MonoBehaviour
                             value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
                             values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
                         }
-                    }
+                    //}
                 }
             }
             //var bestMoves = values.MaxsBy(t => t.Item3);
