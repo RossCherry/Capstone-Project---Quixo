@@ -464,6 +464,7 @@ public class AiEasy : MonoBehaviour
         //    Debug.Log("O Piece: (" + cube.col + "," + cube.row + ")");
         //}
         //Debug.Log("-------------------------------------------------------------------");
+
         if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
             foreach (var xPiece in X)
@@ -473,43 +474,51 @@ public class AiEasy : MonoBehaviour
                     case 0:
                         switch (xPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 2; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 2; break;
                         }
                         break;
                     case 1:
                         switch (xPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 2:
                         switch (xPiece.col)
                         {
-                            case 0: value += 2; break;
-                            case 1: value += 3; break;
-                            case 2: value += 6; break;
-                            case 3: value += 3; break;
-                            case 4: value += 2; break;
+                            case 0: value += 4; break;
+                            case 1: value += 5; break;
+                            case 2: value += 7; break;
+                            case 3: value += 5; break;
+                            case 4: value += 4; break;
                         }
                         break;
                     case 3:
                         switch (xPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 4:
                         switch (xPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 2; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 2; break;
                         }
                         break;
                 }
@@ -523,43 +532,51 @@ public class AiEasy : MonoBehaviour
                     case 0:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 2; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 2; break;
                         }
                         break;
                     case 1:
                         switch (oPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 2:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 2; break;
-                            case 1: value -= 3; break;
-                            case 2: value -= 6; break;
-                            case 3: value -= 3; break;
-                            case 4: value -= 2; break;
+                            case 0: value -= 4; break;
+                            case 1: value -= 5; break;
+                            case 2: value -= 7; break;
+                            case 3: value -= 5; break;
+                            case 4: value -= 4; break;
                         }
                         break;
                     case 3:
                         switch (oPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 4:
                         switch (oPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 2; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 2; break;
                         }
                         break;
                 }
@@ -574,43 +591,51 @@ public class AiEasy : MonoBehaviour
                     case 0:
                         switch (oPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 2; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 2; break;
                         }
                         break;
                     case 1:
                         switch (oPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 2:
                         switch (oPiece.col)
                         {
-                            case 0: value += 2; break;
-                            case 1: value += 3; break;
-                            case 2: value += 6; break;
-                            case 3: value += 3; break;
-                            case 4: value += 2; break;
+                            case 0: value += 4; break;
+                            case 1: value += 5; break;
+                            case 2: value += 7; break;
+                            case 3: value += 5; break;
+                            case 4: value += 4; break;
                         }
                         break;
                     case 3:
                         switch (oPiece.col)
                         {
-                            case 1: value += 1; break;
-                            case 2: value += 5; break;
-                            case 3: value += 1; break;
+                            case 0: value += 1; break;
+                            case 1: value += 4; break;
+                            case 2: value += 6; break;
+                            case 3: value += 4; break;
+                            case 4: value += 1; break;
                         }
                         break;
                     case 4:
                         switch (oPiece.col)
                         {
-                            case 0: value += 1; break;
+                            case 0: value += 2; break;
+                            case 1: value += 1; break;
                             case 2: value += 4; break;
-                            case 4: value += 1; break;
+                            case 3: value += 1; break;
+                            case 4: value += 2; break;
                         }
                         break;
                 }
@@ -624,48 +649,57 @@ public class AiEasy : MonoBehaviour
                     case 0:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 2; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 2; break;
                         }
                         break;
                     case 1:
                         switch (xPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 2:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 2; break;
-                            case 1: value -= 3; break;
-                            case 2: value -= 6; break;
-                            case 3: value -= 3; break;
-                            case 4: value -= 2; break;
+                            case 0: value -= 4; break;
+                            case 1: value -= 5; break;
+                            case 2: value -= 7; break;
+                            case 3: value -= 5; break;
+                            case 4: value -= 4; break;
                         }
                         break;
                     case 3:
                         switch (xPiece.col)
                         {
-                            case 1: value -= 1; break;
-                            case 2: value -= 5; break;
-                            case 3: value -= 1; break;
+                            case 0: value -= 1; break;
+                            case 1: value -= 4; break;
+                            case 2: value -= 6; break;
+                            case 3: value -= 4; break;
+                            case 4: value -= 1; break;
                         }
                         break;
                     case 4:
                         switch (xPiece.col)
                         {
-                            case 0: value -= 1; break;
+                            case 0: value -= 2; break;
+                            case 1: value -= 1; break;
                             case 2: value -= 4; break;
-                            case 4: value -= 1; break;
+                            case 3: value -= 1; break;
+                            case 4: value -= 2; break;
                         }
                         break;
                 }
             }
         }
+
 
         if (gameObject.GetComponent<GameManager>().isPlayerOneTurn)
         {
@@ -832,84 +866,100 @@ public class AiEasy : MonoBehaviour
     }
 
 
-    public KeyValuePair<GamePiece, GamePiece> AITurn()
+    public Tuple<GamePiece, GamePiece, int> AITurn()
     {
-        Board = game.GetComponent<GameBoard>().Board;
-        for (int i = 0; i < 5; i++)
+        System.Random rnd = new System.Random();
+
+        if (GameManager.moveCount > 20 && rnd.Next() % 3 == 0 && AiHard.movesSinceLastDraw >= 2)
         {
-            for (int j = 0; j < 5; j++)
-            {
-                tempGame[i, j] = Board[i, j];
-            }
+            AiHard.movesSinceLastDraw = 0;
+            GameActions.OpponentRequestedDraw();
+            return new Tuple<GamePiece, GamePiece, int>(Board[0, 0].GetComponent<GamePiece>(), Board[0, 0].GetComponent<GamePiece>(), 0);
+
         }
-        int moveCounter = 0;
-        List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
-        GamePiece[] moves = AvailablePieces();
-        for (int i = 0; i < moves.Length; i++)
+        else
         {
-            if (moves[i].row >= 0 || moves[i].col >= 0)
+
+
+            Board = game.GetComponent<GameBoard>().Board;
+            for (int i = 0; i < 5; i++)
             {
-                if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                for (int j = 0; j < 5; j++)
                 {
-                    //Console.WriteLine("Piece:");
-                    //Console.Write(moves[i].row + ", ");
-                    //Console.WriteLine(moves[i].col);
-                    GameObject[] posMoves = PossibleMoves(moves[i].GameObject());
-                    //Console.WriteLine("Moves:");
-                    for (int j = 0; j < posMoves.Length; j++)
-                    {
-                        //Console.Write(posMoves[j].row + ", ");
-                        //Console.WriteLine(posMoves[j].col);
-                        moveCounter++;
-                        int value = 1;
-                        GamePiece curMove = posMoves[j].GetComponent<GamePiece>();
-                        if (Board[moves[i].col, moves[i].row].tag == "Blank")
-                        {
-                            value += 100;
-                        }
-                        value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
-                        values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
-                    }
+                    tempGame[i, j] = Board[i, j];
                 }
             }
-        }
-        //var bestMoves = values.MaxsBy(t => t.Item3);
-
-        List<Tuple<GamePiece, GamePiece, int>> bestMoves = new List<Tuple<GamePiece, GamePiece, int>>();
-        values.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
-        {
-            //if (x.Item3 == y.Item3) return 0;
-            //else if (x.Item3 > y.Item3) return -1;
-            //else if (y.Item3 > x.Item3) return 1;
-            //else 
-            return y.Item3.CompareTo(x.Item3);
-        });
-        int biggestVal = values[0].Item3;
-        foreach (var move in values)
-        {
-            if (move.Item3 > biggestVal)
+            int moveCounter = 0;
+            List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
+            GamePiece[] moves = AvailablePieces();
+            for (int i = 0; i < moves.Length; i++)
             {
-                biggestVal = move.Item3;
+                if (moves[i].row >= 0 || moves[i].col >= 0)
+                {
+                    //if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                    //{
+                        //Console.WriteLine("Piece:");
+                        //Console.Write(moves[i].row + ", ");
+                        //Console.WriteLine(moves[i].col);
+                        GameObject[] posMoves = PossibleMoves(moves[i].GameObject());
+                        //Console.WriteLine("Moves:");
+                        for (int j = 0; j < posMoves.Length; j++)
+                        {
+                            //Console.Write(posMoves[j].row + ", ");
+                            //Console.WriteLine(posMoves[j].col);
+                            moveCounter++;
+                            int value = 1;
+                            GamePiece curMove = posMoves[j].GetComponent<GamePiece>();
+                            if (Board[moves[i].col, moves[i].row].tag == "Blank")
+                            {
+                                value += 100;
+                            }
+                            value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
+                            values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
+                        }
+                    //}
+                }
             }
-        }
-        bestMoves = values.Where(value => value.Item3 == biggestVal).ToList();
-        Debug.Log("-------------------------------------------------------------------");
-        foreach (var move in values)
-        {
-            Debug.Log("Move: (" + move.Item1.col + "," + move.Item1.row + ") to (" + move.Item2.col + ", " + move.Item2.row + ")");
-            Debug.Log("Value: " + move.Item3);
-        }
-        Debug.Log("-------------------------------------------------------------------");
-        System.Random rnd = new System.Random();
-        var bestMove = bestMoves.ToArray();
-        int index = rnd.Next() % (2);
-        //game.FlipBlock(bestMove[index].Item1);
-        //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
-        //Console.WriteLine("# Moves: " + moveCounter);
+            //var bestMoves = values.MaxsBy(t => t.Item3);
 
-        return new KeyValuePair<GamePiece, GamePiece>(values[0].Item1, values[0].Item2);
+            List<Tuple<GamePiece, GamePiece, int>> bestMoves = new List<Tuple<GamePiece, GamePiece, int>>();
+            values.Sort(delegate (Tuple<GamePiece, GamePiece, int> x, Tuple<GamePiece, GamePiece, int> y)
+            {
+                //if (x.Item3 == y.Item3) return 0;
+                //else if (x.Item3 > y.Item3) return -1;
+                //else if (y.Item3 > x.Item3) return 1;
+                //else 
+                return y.Item3.CompareTo(x.Item3);
+            });
+            int biggestVal = values[0].Item3;
+            foreach (var move in values)
+            {
+                if (move.Item3 > biggestVal)
+                {
+                    biggestVal = move.Item3;
+                }
+            }
+            bestMoves = values.Where(value => value.Item3 == biggestVal).ToList();
+            Debug.Log("-------------------------------------------------------------------");
+            foreach (var move in values)
+            {
+                Debug.Log("Move: (" + move.Item1.col + "," + move.Item1.row + ") to (" + move.Item2.col + ", " + move.Item2.row + ")");
+                Debug.Log("Value: " + move.Item3);
+            }
+            Debug.Log("-------------------------------------------------------------------");
+            var bestMove = bestMoves.ToArray();
+            int index = rnd.Next() % (2);
+            //game.FlipBlock(bestMove[index].Item1);
+            //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
+            //Console.WriteLine("# Moves: " + moveCounter);
+            if (GameManager.moveCount < 10)
+            {
+                Debug.Log("Random!");
+                index = rnd.Next() % 5;
+            }
+            return new Tuple<GamePiece, GamePiece, int>(values[index].Item1, values[index].Item2, values[index].Item3);
+        }
+
     }
-
-
 
 }

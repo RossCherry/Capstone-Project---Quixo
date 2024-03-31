@@ -136,7 +136,7 @@ public class GameActions : MonoBehaviour
         }
     }
 
-    public void PlayAgain()
+    public async void PlayAgain()
     {
         Scene currentScene = SceneManager.GetActiveScene();
         // If online, send request to the opponent to play again and wait for their response
@@ -147,12 +147,15 @@ public class GameActions : MonoBehaviour
         // If offline, just reload the current scene
         else
         {
+            GameManager.moveCount = 0;
+            AiHard.movesSinceLastDraw = 0;
             SceneManager.LoadScene(currentScene.name);
         }     
     }
 
     public void RequestDraw()
     {
+        Debug.Log(GameManager.moveCount);
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == networkSceneName)
         {
@@ -171,6 +174,52 @@ public class GameActions : MonoBehaviour
         // Checks if it is the current player's turn
 
         // If offline and AI, send the request to the AI
+        else if (currentScene.name == "AI Game")
+        {
+            if (GameManager.moveCount > 20)
+            {
+                System.Random rnd = new System.Random();
+                if (rnd.Next() % 3 == 0)
+                {
+                    OpponentAcceptedDraw();
+                }
+                else
+                {
+                    OpponentDeclinedDraw();
+                }
+            }
+            else
+            {
+                OpponentDeclinedDraw();
+            }
+        }
+        else if (currentScene.name == "AI Hard")
+        {
+            GameObject temp = GameObject.Find("Main Camera");
+            if (GameManager.moveCount > 20)
+            {
+                Tuple<GamePiece, GamePiece, int> aiMove;
+                aiMove = temp.GetComponent<AiHard>().AITurn();
+                Debug.Log("Draw Move Value: " + aiMove.Item3);
+                if (aiMove.Item3 < 0)
+                {
+                    OpponentAcceptedDraw();
+                }
+                else if (GameManager.moveCount > 100)
+                {
+                    OpponentAcceptedDraw();
+                }
+                else
+                {
+                    OpponentDeclinedDraw();
+                }
+
+            }
+            else
+            {
+                OpponentDeclinedDraw();
+            }
+        }
 
         // If co-op, draw immediately
         else
@@ -190,7 +239,7 @@ public class GameActions : MonoBehaviour
     }
 
 
-    public void OpponentRequestedDraw()
+    static public void OpponentRequestedDraw()
     {
         GameObject Dialogs = GameObject.Find("Dialogs");
         if (Dialogs != null)
@@ -273,6 +322,7 @@ public class GameActions : MonoBehaviour
         }
         GameEnabled = true;
         // If online, send a message to the opponent that the draw was declined
+        GameManager.isCoroutineRunning = false;
 
         // If AI, possibly communicate with the AI to continue the game
     }
