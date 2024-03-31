@@ -119,25 +119,34 @@ public class GUI_Manager : MonoBehaviour
         {
             string currentPlayer;
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
-            if (GameManager.isPlayerOneCats)
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
             {
                 currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
-            } else
+            } 
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
             {
                 currentPlayer = gameManager.isPlayerOneTurn ? "Dogs' Turn" : "Cats' Turn";
+            }
+            else
+            {
+                currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
             }
             GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
             GameObject CurrentPlayerText = CurrentPlayerPanel.transform.Find("Current Player Text").gameObject;
             CurrentPlayerText.GetComponent<TextMeshProUGUI>().text = currentPlayer;
 
             // Set the color of the text
-            if (GameManager.isPlayerOneCats)
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
-            else
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? dogColor : catColor;
+            }
+            else
+            {
+                CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
         }
                 
