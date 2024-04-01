@@ -708,7 +708,7 @@ public class AiHard : MonoBehaviour
         bool temp = gameObject.GetComponent<GameManager>().isPlayerOneTurn;
         gameObject.GetComponent<GameManager>().isPlayerOneTurn = !GameManager.isPlayerOneCats;
 
-        const int MAX_MOVES = 27000;
+        const int MAX_MOVES = 30000;
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
         GamePiece[] moves = AvailablePieces();

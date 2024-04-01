@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        moveInProgress = false;
+        isCoroutineRunning = false;
         if (gameObject.GetComponent<AiEasy>() != null)
         {
             typeOfGame = "easy";
@@ -208,7 +210,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             if (Input.GetMouseButtonDown(0))
             {
+                
                 HandleNpcClick();
+                
             }
         }
         //// Deselect Pieces when the GUI is activated
@@ -299,6 +303,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 possibleMoves[i].GetComponent<ClickOn>().ClickMe();
             }
         }
+
     }
     void HighlightPossibleMoves()
     {
@@ -334,7 +339,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 100, objects))
                 {
                     clickOnScript = rayHit.collider.GetComponent<ClickOn>();
-
+                    
                     if (clickOnScript != null && clickOnScript.possibleMove)
                     {
                         validMove = ValidateMove(clickOnScript);
@@ -358,18 +363,22 @@ public class GameManager : MonoBehaviourPunCallbacks
             counter++;
             yield return null;
         }
+        if(clickOnScript != null) 
+        {
+            GameObject move = clickOnScript.GetComponent<GamePiece>().piece;
+            if (validMove)
+            {
+                MovePiece(piece, move);
+            }
+            else
+            {
+                DeselectObject();
+                isCoroutineRunning = false;
+                moveInProgress = false;
+            }
+        }
+            yield return null;
 
-        GameObject move = clickOnScript.GetComponent<GamePiece>().piece;
-        if (validMove)
-        {
-            MovePiece(piece, move);
-        }
-        else
-        {
-            DeselectObject();
-            isCoroutineRunning = false;
-            moveInProgress = false;
-        }
 
     }
     bool ValidateMove(ClickOn clickOnScript)
@@ -556,6 +565,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             moveInProgress = false;
             if (rayHit.collider.CompareTag("npcs"))
             {
+                DeselectObject();
+                UnhighlightPossibleMoves();
+                moveInProgress = false;
+                isCoroutineRunning = false;
+
                 Animator animator;
                 animator = rayHit.collider.GetComponent<Animator>();
                 bool notIsClicked = !animator.GetBool("isClicked");
