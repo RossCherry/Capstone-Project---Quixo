@@ -707,6 +707,7 @@ public class AiHard : MonoBehaviour
 
         bool temp = gameObject.GetComponent<GameManager>().isPlayerOneTurn;
         gameObject.GetComponent<GameManager>().isPlayerOneTurn = !GameManager.isPlayerOneCats;
+
         const int MAX_MOVES = 27000;
         int moveCounter = 0;
         List<Tuple<GamePiece, GamePiece, int>> values = new List<Tuple<GamePiece, GamePiece, int>>();
@@ -798,6 +799,7 @@ public class AiHard : MonoBehaviour
                         Board[i, j] = tempGame[i, j];
                     }
                 }
+                gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
                 return new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, move.Item3);
 
             }

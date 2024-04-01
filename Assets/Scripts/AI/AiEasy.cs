@@ -870,10 +870,15 @@ public class AiEasy : MonoBehaviour
     {
         System.Random rnd = new System.Random();
 
+
+        bool temp = gameObject.GetComponent<GameManager>().isPlayerOneTurn;
+        gameObject.GetComponent<GameManager>().isPlayerOneTurn = !GameManager.isPlayerOneCats;
+
         if (GameManager.moveCount > 20 && rnd.Next() % 3 == 0 && AiHard.movesSinceLastDraw >= 2)
         {
             AiHard.movesSinceLastDraw = 0;
             GameActions.OpponentRequestedDraw();
+            gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
             return new Tuple<GamePiece, GamePiece, int>(Board[0, 0].GetComponent<GamePiece>(), Board[0, 0].GetComponent<GamePiece>(), 0);
 
         }
@@ -896,8 +901,8 @@ public class AiEasy : MonoBehaviour
             {
                 if (moves[i].row >= 0 || moves[i].col >= 0)
                 {
-                    //if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
-                    //{
+                    if (moves[i].CheckPickedPiece((gameObject.GetComponent<GameManager>().isPlayerOneTurn)))
+                    {
                         //Console.WriteLine("Piece:");
                         //Console.Write(moves[i].row + ", ");
                         //Console.WriteLine(moves[i].col);
@@ -917,7 +922,7 @@ public class AiEasy : MonoBehaviour
                             value += CheckBoardValue(moves[i], posMoves[j].GetComponent<GamePiece>());
                             values.Add(new Tuple<GamePiece, GamePiece, int>(moves[i], posMoves[j].GetComponent<GamePiece>(), value));
                         }
-                    //}
+                    }
                 }
             }
             //var bestMoves = values.MaxsBy(t => t.Item3);
@@ -957,6 +962,8 @@ public class AiEasy : MonoBehaviour
                 Debug.Log("Random!");
                 index = rnd.Next() % 5;
             }
+            gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
+
             return new Tuple<GamePiece, GamePiece, int>(values[index].Item1, values[index].Item2, values[index].Item3);
         }
 
