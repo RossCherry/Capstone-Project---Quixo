@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Music_Manager : MonoBehaviour
 {
-    private bool muted = false;
     private AudioSource music;
     private bool paused;
 
@@ -14,7 +13,7 @@ public class NewBehaviourScript : MonoBehaviour
         paused = false;
     }
 
-    public void ToggleSound()
+    public void ToggleMusic()
     {
         if (paused == false)
         {
