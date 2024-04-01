@@ -76,6 +76,9 @@ public class Navigation : MonoBehaviour
         // Get the current scene
         Scene currentScene = SceneManager.GetActiveScene();
         Debug.Log(currentScene.name);
+
+        Application.Quit();
+        System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe"));
     }
 
     public void PlaySinglePlayerEasy()
