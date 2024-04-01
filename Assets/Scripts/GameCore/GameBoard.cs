@@ -80,7 +80,7 @@ public class GameBoard : MonoBehaviour
         //{
         //    Debug.Log("Player 2");
         //}
-        Debug.Log("Move: (" + piece.row + ", " + piece.col + ") to (" + move.row + ", " + move.col + ")");
+        //Debug.Log("Move: (" + piece.row + ", " + piece.col + ") to (" + move.row + ", " + move.col + ")");
         GameObject temp;
         //Shift is row based
         if(piece.row != move.row)

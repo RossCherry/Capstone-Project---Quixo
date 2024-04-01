@@ -34,11 +34,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool gameOverWindowOpen = false;
     bool didPlayer1Win = false;
 
-    private Tutorial tutorial;
-    private bool hasTutorialSetNext = false;
+    
     public static bool isCoroutineRunning = false;
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
+
+    static public int moveCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -55,12 +56,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             photonView = gameObject.GetComponent<PhotonView>();
             typeOfGame = "network";
-        }
-        else if (GetComponent<Tutorial>() != null)
-        {
-            tutorial = GetComponent<Tutorial>();
-            typeOfGame = "tutorial";
-
         }
         else if (gameObject.GetComponent<GameActions>() != null)
         {
@@ -125,12 +120,16 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     moveInProgress = true;
                     StartCoroutine(WaitForAIMove());
+                    Debug.Log(isPlayerOne);
+                    Debug.Log(isPlayerOneTurn);
                 }
                 //LOCAL PLAY
                 else if (Input.GetMouseButtonDown(0) && typeOfGame != "network")
                 {
                     moveInProgress = true;
                     HandleClick();
+                    Debug.Log(isPlayerOne);
+                    Debug.Log(isPlayerOneTurn);
                 }
 
                 //NETWORKING GAME
@@ -482,14 +481,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-
+        moveCount++;
         DeselectObject();
     }
     IEnumerator WaitForAIMove()
     {
         DateTime before = DateTime.Now;
         isCoroutineRunning = true;
-        KeyValuePair<GamePiece, GamePiece> aiMove;
+        Tuple<GamePiece, GamePiece, int> aiMove;
         if (typeOfGame == "easy")
         {
             aiMove = gameObject.GetComponent<AiEasy>().AITurn();
@@ -499,7 +498,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             aiMove = gameObject.GetComponent<AiHard>().AITurn();
         }
         //Debug.Log("Player 2 Move: (" + aiMove.Key.row + ", " + aiMove.Key.col + ") to (" + aiMove.Value.row + ", " + aiMove.Value.col + ")");
-        MovePiece(aiMove.Key.gameObject, aiMove.Value.gameObject);
+        if (aiMove.Item1 != aiMove.Item2) {
+            AiHard.movesSinceLastDraw++;
+            Debug.Log("Move: (" + aiMove.Item1.row + ", " + aiMove.Item1.col + ") to (" + aiMove.Item2.row + ", " + aiMove.Item2.col + "): " + aiMove.Item3);
+            MovePiece(aiMove.Item1.gameObject, aiMove.Item2.gameObject);
+        }
+        else
+        {
+            moveInProgress = false;
+            yield return null;
+        }
         //isPlayerOneTurn = true;
         DateTime after = DateTime.Now;
         Debug.Log(after.Subtract(before).TotalSeconds);

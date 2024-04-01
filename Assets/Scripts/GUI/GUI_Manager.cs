@@ -117,15 +117,37 @@ public class GUI_Manager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Main Menu")
         {
+            string currentPlayer;
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
-            string currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
-
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
+            } 
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                currentPlayer = gameManager.isPlayerOneTurn ? "Dogs' Turn" : "Cats' Turn";
+            }
+            else
+            {
+                currentPlayer = gameManager.isPlayerOneTurn ? "Cats' Turn" : "Dogs' Turn";
+            }
             GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
             GameObject CurrentPlayerText = CurrentPlayerPanel.transform.Find("Current Player Text").gameObject;
             CurrentPlayerText.GetComponent<TextMeshProUGUI>().text = currentPlayer;
 
             // Set the color of the text
-            CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
+            }
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? dogColor : catColor;
+            }
+            else
+            {
+                CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
+            }
         }
                 
     }
