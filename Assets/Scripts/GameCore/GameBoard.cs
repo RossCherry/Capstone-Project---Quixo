@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameBoard : MonoBehaviour
 {
@@ -262,7 +263,44 @@ public class GameBoard : MonoBehaviour
             player2ColTracker = 0;
         }
 
-        if (GameManager.isPlayerOneCats)
+        if (SceneManager.GetActiveScene().name != "Networking Game")
+        {
+            if (GameManager.isPlayerOneCats)
+            {
+                if (!isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+                {
+                    return true;
+                }
+                else if (isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+                {
+                    return true;
+                }
+                else if (player1WinTracker > 0 && player2WinTracker > 0)
+                {
+                    didOpponentWin = true;
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+                {
+                    return true;
+                }
+                else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+                {
+                    return true;
+                }
+                else if (player1WinTracker > 0 && player2WinTracker > 0)
+                {
+                    didOpponentWin = true;
+                    return true;
+                }
+                return false;
+            }
+        }
+        else
         {
             if (!isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
             {
@@ -279,23 +317,7 @@ public class GameBoard : MonoBehaviour
             }
             return false;
         }
-        else
-        {
-            if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
-            {
-                return true;
-            }
-            else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
-            {
-                return true;
-            }
-            else if (player1WinTracker > 0 && player2WinTracker > 0)
-            {
-                didOpponentWin = true;
-                return true;
-            }
-            return false;
-        }
+        
     }
 
     public GameObject FindPiece(int row, int col)

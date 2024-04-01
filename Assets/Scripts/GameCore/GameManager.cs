@@ -160,30 +160,54 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (gameOver && !moveInProgress && !isCoroutineRunning)
             {
-                    if (!isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                    {
-                        Debug.Log("Player 1 Wins");
-                        didPlayer1Win = true;
-                    }
-                    else if ((isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin))
-                    {
-                        Debug.Log("Player 2 Wins");
-                    }
-                    else if (isPlayerOneTurn)
-                    {
-                        Debug.Log("Player 1 Wins");
-                        didPlayer1Win = true;
-                    }
-                    else if (!isPlayerOneTurn)
-                    {
-                        Debug.Log("Player 2 Wins");
-                    }
+                    //if (!isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    //{
+                    //    Debug.Log("Player 1 Wins");
+                    //    didPlayer1Win = true;
+                    //}
+                    //else if ((isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin))
+                    //{
+                    //    Debug.Log("Player 2 Wins");
+                    //}
+                    //else if (isPlayerOneTurn)
+                    //{
+                    //    Debug.Log("Player 1 Wins");
+                    //    didPlayer1Win = true;
+                    //}
+                    //else if (!isPlayerOneTurn)
+                    //{
+                    //    Debug.Log("Player 2 Wins");
+                    //}
                 if (gameOver && !gameOverWindowOpen)
                 {
                     gameOverWindowOpen = true;
                     //return a menu screen
-
-                    if (isPlayerOneCats)
+                    if (typeOfGame != "network")
+                    {
+                        if (isPlayerOneCats)
+                        {
+                            if (!didPlayer1Win)
+                            {
+                                GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            }
+                            else
+                            {
+                                GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                            }
+                        }
+                        else
+                        {
+                            if (didPlayer1Win)
+                            {
+                                GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            }
+                            else
+                            {
+                                GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                            }
+                        }
+                    }
+                    else
                     {
                         if (!didPlayer1Win)
                         {
@@ -194,17 +218,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
                         }
                     }
-                    else
-                    {
-                        if (didPlayer1Win)
-                        {
-                            GameActions.ShowGameOver(Outcome.Win, "Cats");
-                        }
-                        else
-                        {
-                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                        }
-                    }
+                    
                     
                 }
             }
