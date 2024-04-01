@@ -28,13 +28,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     GameObject[] possibleMoves = null;
     private GameObject selectedObject = null;
-    bool moveInProgress = false;
+    public bool moveInProgress = false;
 
     private bool gameOver = false;
     private bool gameOverWindowOpen = false;
     bool didPlayer1Win = false;
+    private GameObject lastPiecePlayed;
 
-    
+
+
     public static bool isCoroutineRunning = false;
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
@@ -112,6 +114,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         //}
         if (GameActions.GameEnabled && SceneManager.GetActiveScene().name != "Main Menu")
         {
+            if (lastPiecePlayed != null)
+            {
+                gameOver = lastPiecePlayed.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
+            }
             if (!moveInProgress && !gameOver && !isCoroutineRunning)
             {
                 
@@ -150,6 +156,56 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            else if (gameOver && !moveInProgress && !isCoroutineRunning)
+            {
+                    if (!isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    {
+                        Debug.Log("Player 1 Wins");
+                        didPlayer1Win = true;
+                    }
+                    else if ((isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin))
+                    {
+                        Debug.Log("Player 2 Wins");
+                    }
+                    else if (isPlayerOneTurn)
+                    {
+                        Debug.Log("Player 1 Wins");
+                        didPlayer1Win = true;
+                    }
+                    else if (!isPlayerOneTurn)
+                    {
+                        Debug.Log("Player 2 Wins");
+                    }
+                if (gameOver && !gameOverWindowOpen)
+                {
+                    gameOverWindowOpen = true;
+                    //return a menu screen
+
+                    if (isPlayerOneCats)
+                    {
+                        if (!didPlayer1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                        }
+                    }
+                    else
+                    {
+                        if (didPlayer1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                        }
+                    }
+                    
+                }
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 HandleNpcClick();
@@ -161,20 +217,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             UnhighlightPossibleMoves();
         }
 
-        if (gameOver && !gameOverWindowOpen)
-        {
-            gameOverWindowOpen = true;
-            //return a menu screen
-
-            if (didPlayer1Win)
-            {
-                GameActions.ShowGameOver(Outcome.Win, "Player 1");
-            }
-            else
-            {
-                GameActions.ShowGameOver(Outcome.Win, "Player 2");
-            }
-        }
+        
         //if (typeOfGame == "tutorial" && gameOver)
         //{
         //    PlayerPrefs.SetInt("Tutorial Counter", 1);
@@ -429,36 +472,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
-
+        lastPiecePlayed = piece;
         //piece.GetComponent<GamePiece>().board.MovePieces();
 
-        gameOver = piece.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
-        if (gameOver)
-        {
-            if (!isPlayerOneTurn && piece.GetComponent<GamePiece>().board.didOpponentWin)
-            {
-                Debug.Log("Player 1 Wins");
-                didPlayer1Win = true;
-            }
-            else if ((isPlayerOneTurn && piece.GetComponent<GamePiece>().board.didOpponentWin))
-            {
-                Debug.Log("Player 2 Wins");
-            }
-            else if (isPlayerOneTurn)
-            {
-                Debug.Log("Player 1 Wins");
-                didPlayer1Win = true;
-            }
-            else if (!isPlayerOneTurn)
-            {
-                Debug.Log("Player 2 Wins");
-            }
-        }
-        else
-        {
-            moveInProgress = false;
-            //isPlayerOneTurn = !isPlayerOneTurn;
-        }
+        //gameOver = piece.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
+        //moveInProgress = false;
+
 
         if (typeOfGame == "easy" || typeOfGame == "hard")
         {

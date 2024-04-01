@@ -552,6 +552,7 @@ public class GamePiece : MonoBehaviour
         MoveOtherPieces();
         GameObject camera = GameObject.Find("Main Camera");
         camera.GetComponent<GameManager>().isPlayerOneTurn = !camera.GetComponent<GameManager>().isPlayerOneTurn;
+        camera.GetComponent<GameManager>().moveInProgress = false;
     }
 
     bool IsCornerPiece(int row, int col)

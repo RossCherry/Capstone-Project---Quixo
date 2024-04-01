@@ -262,20 +262,40 @@ public class GameBoard : MonoBehaviour
             player2ColTracker = 0;
         }
 
-        if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+        if (GameManager.isPlayerOneCats)
         {
-            return true;
+            if (!isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+            {
+                return true;
+            }
+            else if (isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+            {
+                return true;
+            }
+            else if (player1WinTracker > 0 && player2WinTracker > 0)
+            {
+                didOpponentWin = true;
+                return true;
+            }
+            return false;
         }
-        else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+        else
         {
-            return true;
+            if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
+            {
+                return true;
+            }
+            else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
+            {
+                return true;
+            }
+            else if (player1WinTracker > 0 && player2WinTracker > 0)
+            {
+                didOpponentWin = true;
+                return true;
+            }
+            return false;
         }
-        else if (player1WinTracker > 0 && player2WinTracker > 0)
-        {
-            didOpponentWin = true;
-            return true;
-        }
-        return false;
     }
 
     public GameObject FindPiece(int row, int col)
