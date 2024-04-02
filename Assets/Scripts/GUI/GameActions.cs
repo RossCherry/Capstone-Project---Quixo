@@ -42,7 +42,7 @@ public class GameActions : MonoBehaviour
             {
                 string outcomeMessage;
                 outcomeMessage = outcome == Outcome.Draw ? "It's a draw!" : winner + " wins!";
-                outcomeMessage = outcome == Outcome.OpponentDisconnected ? "Your opponent disconnected. You win!" : outcomeMessage;
+                outcomeMessage = outcome == Outcome.OpponentDisconnected ? "Your opponent disconnected." : outcomeMessage;
 
                 gameOverDialog.gameObject.SetActive(true);
                 // Show the outcome message
@@ -59,6 +59,15 @@ public class GameActions : MonoBehaviour
                 else
                 {
                     EnableRequestDrawButton(true);
+                }
+
+                if (outcome == Outcome.OpponentDisconnected)
+                {
+                    GameObject RematchButton = GameObject.Find("Rematch Button");
+                    if (RematchButton != null)
+                    {
+                        RematchButton.SetActive(false);
+                    }
                 }
             }
         }       
@@ -283,6 +292,12 @@ public class GameActions : MonoBehaviour
             OpponentRequestedDrawDialog.SetActive(false);
         }
 
+        GameObject DrawrequestedDialog = GameObject.Find("Draw Requested Dialog");
+        if (DrawrequestedDialog != null)
+        {
+            DrawrequestedDialog.SetActive(false);
+        }
+
         // Show the game over screen with the draw message
         ShowGameOver(Outcome.Draw);
 
@@ -320,6 +335,13 @@ public class GameActions : MonoBehaviour
         {
             OpponentRequestedDrawDialog.SetActive(false);
         }
+
+        GameObject DrawrequestedDialog = GameObject.Find("Draw Requested Dialog");
+        if (DrawrequestedDialog != null)
+        {
+            DrawrequestedDialog.SetActive(false);
+        }
+
         GameEnabled = true;
         // If online, send a message to the opponent that the draw was declined
         GameManager.isCoroutineRunning = false;
@@ -409,6 +431,6 @@ public class GameActions : MonoBehaviour
 
     public static void OpponentDisconnected()
     {
-        ShowGameOver(Outcome.OpponentDisconnected);
+        GUI_Manager.ShowOpponentDisconnectedDialog();
     }
 }

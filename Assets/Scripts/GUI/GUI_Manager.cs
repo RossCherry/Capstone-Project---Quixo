@@ -82,6 +82,13 @@ public class GUI_Manager : MonoBehaviour
         GameObject WaitingForTeamSelectionPanel = MainMenu.transform.Find("Waiting For Team Selection Panel").gameObject;
         WaitingForTeamSelectionPanel.SetActive(false);
     }
+    
+    public static void ShowOpponentDisconnectedDialog()
+    {
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        GameObject OpponentDisconnectedDialog = Dialogs.transform.Find("Opponent Disconnected Dialog").gameObject;
+        OpponentDisconnectedDialog.SetActive(true);
+    }
 
     public static void ShowUserTeam()
     {
