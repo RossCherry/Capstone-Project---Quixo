@@ -185,7 +185,7 @@ public class Chat : MonoBehaviour
 
             // Set text properties
             textMeshPro.text = message;
-            textMeshPro.fontSize = 23;
+            textMeshPro.fontSize = 20;
             textMeshPro.fontStyle = TMPro.FontStyles.Bold;
 
             // Set local position, scale, and size delta
