@@ -229,6 +229,19 @@ public class Chat : MonoBehaviour
             // Decrement yPosition
             yPosition -= ySpacing;
         }
+
+        // Reset the scroll bar
+        ResetScrollBar();
+    }
+
+    private void ResetScrollBar()
+    {
+        GameObject MessagesScrollView = GameObject.Find("Messages Scroll View");
+        if (MessagesScrollView != null)
+        {
+            ScrollRect scrollRect = MessagesScrollView.GetComponent<ScrollRect>();
+            scrollRect.verticalNormalizedPosition = 1;
+        }
     }
 
 
