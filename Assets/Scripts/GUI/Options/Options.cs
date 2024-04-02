@@ -6,7 +6,7 @@ public class Options
 {
     bool isMusicOn;
     bool isSoundEffectsOn;
-    bool isChatEnabled;
+    //bool isChatEnabled;
 
     public bool IsMusicOn
     {
@@ -32,6 +32,7 @@ public class Options
         }
     }
 
+    /*
     public bool IsChatEnabled
     {
         get
@@ -43,11 +44,12 @@ public class Options
             isChatEnabled = value;
         }
     }
+    */
 
     public Options()
     {
         IsMusicOn = true;
         IsSoundEffectsOn = true;
-        IsChatEnabled = true;
+        //IsChatEnabled = true;
     }
 }
