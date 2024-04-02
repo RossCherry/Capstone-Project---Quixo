@@ -226,12 +226,16 @@ public class Chat : MonoBehaviour
             clickEntry.callback.AddListener((data) => { OnMessageClick((PointerEventData)data); });
             eventTrigger.triggers.Add(clickEntry);
 
+            /*
+            // Scroll event
+            EventTrigger.Entry scrollEntry = new EventTrigger.Entry();
+            scrollEntry.eventID = EventTriggerType.Scroll;
+            scrollEntry.callback.AddListener((data) => { OnMessagesScroll((PointerEventData)data); });
+
             // Decrement yPosition
             yPosition -= ySpacing;
+            */
         }
-
-        // Reset the scroll bar
-        ResetScrollBar();
     }
 
     private void ResetScrollBar()
@@ -386,6 +390,12 @@ public class Chat : MonoBehaviour
         HighlightSelectedMessage(selectedMessage, false);
     }
 
+    private void OnMessagesScroll(PointerEventData data)
+    {
+        // Set the color of the button to the default color
+        Debug.Log("Scrolling");
+    }
+
     private void OnPointerEnter(PointerEventData data)
     {
         // Get the button that is being hovered over
@@ -411,6 +421,9 @@ public class Chat : MonoBehaviour
 
         // Populate the chat messages
         PopulateChatMessages(Content, selectedCategory);
+
+        // Reset the scroll bar
+        ResetScrollBar();
 
         // Set the selected message
         selectedMessage = data.pointerEnter.GetComponent<TMPro.TextMeshProUGUI>().text;

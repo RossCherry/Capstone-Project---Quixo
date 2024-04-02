@@ -9,11 +9,7 @@ public class GUI_Manager : MonoBehaviour
 {
     public static Color catColor = new Color(194 / 255f, 35 / 255f, 35 / 255f);
     public static Color dogColor = new Color(35 / 255f, 35 / 255f, 194 / 255f);
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -101,14 +97,6 @@ public class GUI_Manager : MonoBehaviour
             GameObject Panel = UserTeamPanel.transform.Find("Panel").gameObject;
             GameObject Text = Panel.transform.Find("Text").gameObject;
 
-            if (userTeam == null)
-            {
-                Debug.Log("User team is null");
-            }
-            if (Text == null)
-            {
-                Debug.Log("Text is null");
-            }
             Text.GetComponent<TextMeshProUGUI>().text = "You are on the " + userTeam + " team!";
         }        
     }
@@ -148,8 +136,24 @@ public class GUI_Manager : MonoBehaviour
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
+        }               
+    }
+
+    public static void ShowTurn()
+    {
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+
+            // Show if it is the user's turn or the opponent's turn
+            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOne == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
+
+            GameObject UserTeamText = GameObject.Find("User Team Text");
+            if (UserTeamText != null)
+            {
+                UserTeamText.GetComponent<TextMeshProUGUI>().text = turn;
+            }            
         }
-                
     }
 
     public static void UserDisconnected()
