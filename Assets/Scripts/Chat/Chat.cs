@@ -232,9 +232,10 @@ public class Chat : MonoBehaviour
             scrollEntry.eventID = EventTriggerType.Scroll;
             scrollEntry.callback.AddListener((data) => { OnMessagesScroll((PointerEventData)data); });
 
+            */
             // Decrement yPosition
             yPosition -= ySpacing;
-            */
+            
         }
     }
 
@@ -390,11 +391,13 @@ public class Chat : MonoBehaviour
         HighlightSelectedMessage(selectedMessage, false);
     }
 
+    /*
     private void OnMessagesScroll(PointerEventData data)
     {
         // Set the color of the button to the default color
         Debug.Log("Scrolling");
     }
+    */
 
     private void OnPointerEnter(PointerEventData data)
     {
