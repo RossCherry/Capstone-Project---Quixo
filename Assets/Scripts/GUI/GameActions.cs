@@ -31,7 +31,7 @@ public class GameActions : MonoBehaviour
 
     // May need to change depending on how the winner is passed
     public static void ShowGameOver(Outcome outcome, string winner = "")
-    {
+    {        
         // Show the game over screen
         GameObject parentObject = GameObject.Find("Dialogs");
 
@@ -329,7 +329,7 @@ public class GameActions : MonoBehaviour
 
 
 
-    //Request Rematch Functionality (Networking Games Only)
+    //REQUEST REMATCH OVER NETWORK
 
     public void RequestRematch()
     {

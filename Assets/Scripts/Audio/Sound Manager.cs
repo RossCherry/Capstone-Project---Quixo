@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class Sound_Manager : MonoBehaviour
 {
-    private bool muted;
+    private bool muted = false;
 
     public AudioSource mainButton;
     public AudioSource gameButton;
-    public AudioSource gameOver;
+    public static AudioSource gameOver;
     public AudioSource popUp;
     public AudioSource confirmation;
 
     private void Start()
     {
-        //mainButton = GetComponent<AudioSource>();
-        //gameButton = GetComponent<AudioSource>();
-        //gameOver = GetComponent<AudioSource>();
-        //popUp = GetComponent<AudioSource>();
-        //confirmation = GetComponent<AudioSource>();
-
-        muted = false;
+        //muted = false;
     }
 
     public void ToggleSound()
@@ -42,13 +36,13 @@ public class Sound_Manager : MonoBehaviour
 
     public void gameButtonPlay()
     {
-        Debug.Log("button sound");
         if (!muted) { gameButton.Play(); }
     }
 
-    public void gameOverPlay()
+    public static void gameOverPlay()
     {
-        if (!muted) { gameOver.Play(); }
+        //if (!muted) { gameOver.Play(); }
+        gameOver.Play();
     }
 
     public void popUpPlay()
