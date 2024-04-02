@@ -234,6 +234,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //}
 
         GUI_Manager.ShowCurrentPlayer();
+        GUI_Manager.ShowTurn();
     }
 
     void HandleClick()
