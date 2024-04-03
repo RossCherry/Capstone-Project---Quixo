@@ -406,6 +406,12 @@ public class GameActions : MonoBehaviour
 
     public void sendDeclineRematch()
     {
+        GameObject OpponentRequestedRematchDialog = GameObject.Find("Opponent Requested Rematch Dialog");
+        OpponentRequestedRematchDialog.SetActive(false);
+
+        //GameObject RematchButton =
+        GameObject.Find("Rematch Button").GetComponent<Button>().interactable = false;
+
         photonView = gameObject.GetComponent<PhotonView>();
         photonView.RPC("RPC_DeclineRematch", RpcTarget.Others);
     }
@@ -426,6 +432,9 @@ public class GameActions : MonoBehaviour
         {
             OpponentDeclinedRematchDialog.SetActive(true);
         }
+
+        GameObject RematchRequestedDialog = GameObject.Find("Rematch Requested Dialog");
+        RematchRequestedDialog.SetActive(false);
     }
 
 

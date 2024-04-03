@@ -49,7 +49,6 @@ public class Navigation : MonoBehaviour
 
     public static void LoadSelectedScene()
     {
-        Debug.Log("Load selected scene");
         if (selectedScene == networkMultiplayerScene)
         {
             SceneManager.LoadScene(selectedScene);
@@ -103,11 +102,11 @@ public class Navigation : MonoBehaviour
         PlayerPrefs.SetInt("IsPlayerOne", 1);
 
         SceneManager.LoadSceneAsync(localMultiplayerScene);
+
     }
 
     public void PlayMultiplayerOverNetwork()
     {
-        Debug.Log("Play multiplayer");
         SceneManager.LoadSceneAsync(networkMultiplayerScene);
     }
 }

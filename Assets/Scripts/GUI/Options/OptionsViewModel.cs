@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OptionsViewModel : MonoBehaviour
 {
@@ -89,6 +90,27 @@ public class OptionsViewModel : MonoBehaviour
         //GameObject.Find("Chat Enabled Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn = IsChatEnabled;
     }
 
+    public void InitializeOptions()
+    {
+        string optionsName = SceneManager.GetActiveScene().name == "Main Menu" ? "Options" : "Options Menu";
+
+        GameObject Options;
+        if (optionsName == "Options")
+        {
+            GameObject MainMenu = GameObject.Find("Main Menu");
+            Options = MainMenu.transform.Find(optionsName).gameObject;
+        }
+        else
+        {
+            GameObject GameGui = GameObject.Find("Game GUI");
+            Options = GameGui.transform.Find(optionsName).gameObject;
+        }
+        
+        Options.SetActive(true);
+        LoadOptions();
+        SaveOptions();
+        Options.SetActive(false);
+    }
     public void OnClose()
     {
         bool isMusicOnCheckbox = GameObject.Find("Music Checkbox").GetComponent<UnityEngine.UI.Toggle>().isOn;

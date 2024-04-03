@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class Sound_Manager : MonoBehaviour
 {
@@ -12,9 +14,19 @@ public class Sound_Manager : MonoBehaviour
     public AudioSource popUp;
     public AudioSource confirmation;
 
+
+    private void Awake()
+    {
+        Sound_Manager instance = FindObjectOfType<Sound_Manager>();
+        DontDestroyOnLoad(instance.gameObject);
+    }
+
     private void Start()
     {
-        //muted = false;
+        OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
+        optionsViewModel.InitializeOptions();
+        Debug.Log(optionsViewModel.IsSoundEffectsOn);
+        muted = !optionsViewModel.IsSoundEffectsOn;
     }
 
     public void ToggleSound()
