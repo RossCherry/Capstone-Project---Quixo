@@ -226,16 +226,8 @@ public class Chat : MonoBehaviour
             clickEntry.callback.AddListener((data) => { OnMessageClick((PointerEventData)data); });
             eventTrigger.triggers.Add(clickEntry);
 
-            /*
-            // Scroll event
-            EventTrigger.Entry scrollEntry = new EventTrigger.Entry();
-            scrollEntry.eventID = EventTriggerType.Scroll;
-            scrollEntry.callback.AddListener((data) => { OnMessagesScroll((PointerEventData)data); });
-
-            */
             // Decrement yPosition
-            yPosition -= ySpacing;
-            
+            yPosition -= ySpacing;          
         }
     }
 
@@ -248,7 +240,6 @@ public class Chat : MonoBehaviour
             scrollRect.verticalNormalizedPosition = 1;
         }
     }
-
 
     public void SendChatMessage(string message)
     {
@@ -390,14 +381,6 @@ public class Chat : MonoBehaviour
         // Set the color of the button to the default color
         HighlightSelectedMessage(selectedMessage, false);
     }
-
-    /*
-    private void OnMessagesScroll(PointerEventData data)
-    {
-        // Set the color of the button to the default color
-        Debug.Log("Scrolling");
-    }
-    */
 
     private void OnPointerEnter(PointerEventData data)
     {

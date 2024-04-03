@@ -158,7 +158,6 @@ public class GameActions : MonoBehaviour
         GameObject OpponentDeniedDrawDialogue = Dialogs.transform.Find("Opponent Denied Draw Dialog").gameObject;
         if (OpponentDeniedDrawDialogue != null)
         {
-            Debug.Log("Here");
             OpponentDeniedDrawDialogue.SetActive(true);
         }
     }
@@ -182,7 +181,6 @@ public class GameActions : MonoBehaviour
 
     public void RequestDraw()
     {
-        Debug.Log(GameManager.moveCount);
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == networkSceneName)
         {
@@ -253,9 +251,6 @@ public class GameActions : MonoBehaviour
         {
             ShowGameOver(Outcome.Draw);
         }
-
-        //Networking and AI: after sending the request, display waiting for opponent's response
-
     }
 
 
@@ -264,7 +259,6 @@ public class GameActions : MonoBehaviour
     {
         OpponentRequestedDraw();
     }
-
 
     static public void OpponentRequestedDraw()
     {
@@ -283,7 +277,6 @@ public class GameActions : MonoBehaviour
         GameEnabled = false;
     }
 
-
     public void sendAccept()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -297,6 +290,7 @@ public class GameActions : MonoBehaviour
             AcceptDraw();
         }
     }
+
 
     [PunRPC]
     public void RPC_AcceptDraw()
@@ -320,11 +314,7 @@ public class GameActions : MonoBehaviour
 
         // Show the game over screen with the draw message
         ShowGameOver(Outcome.Draw);
-
-        // If online, send a message to the opponent that the draw was accepted
-
     }
-
 
     public void sendDecline()
     {
@@ -363,13 +353,8 @@ public class GameActions : MonoBehaviour
         }
 
         GameEnabled = true;
-        // If online, send a message to the opponent that the draw was declined
         GameManager.isCoroutineRunning = false;
-
-        // If AI, possibly communicate with the AI to continue the game
     }
-
-
 
     //REQUEST REMATCH OVER NETWORK
 
@@ -393,7 +378,6 @@ public class GameActions : MonoBehaviour
         OpponentRequestedRematch();
     }
 
-
     public void OpponentRequestedRematch()
     {
         PopUpSound.popUpPlay();
@@ -405,7 +389,6 @@ public class GameActions : MonoBehaviour
             OpponentRequestedRematchDialog.SetActive(true);
         }
     }
-
 
     public void sendAcceptRematch()
     {
@@ -424,13 +407,11 @@ public class GameActions : MonoBehaviour
         Navigation.LoadSelectedScene();
     }
 
-
     public void sendDeclineRematch()
     {
         GameObject OpponentRequestedRematchDialog = GameObject.Find("Opponent Requested Rematch Dialog");
         OpponentRequestedRematchDialog.SetActive(false);
 
-        //GameObject RematchButton =
         GameObject.Find("Rematch Button").GetComponent<Button>().interactable = false;
 
         photonView = gameObject.GetComponent<PhotonView>();
@@ -458,7 +439,6 @@ public class GameActions : MonoBehaviour
         GameObject RematchRequestedDialog = GameObject.Find("Rematch Requested Dialog");
         RematchRequestedDialog.SetActive(false);
     }
-
 
     public static void OpponentDisconnected()
     {
