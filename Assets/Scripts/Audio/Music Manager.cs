@@ -13,7 +13,7 @@ public class Music_Manager : MonoBehaviour
 
     private void Start()
     {
-        music = GetComponent<AudioSource>();
+        //music = GetComponent<AudioSource>();
         
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();
