@@ -269,14 +269,17 @@ public class GameBoard : MonoBehaviour
             {
                 if (!isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
                 {
+                    GameActions.GameEnabled = false;
                     return true;
                 }
                 else if (isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
                 {
+                    GameActions.GameEnabled = false;
                     return true;
                 }
                 else if (player1WinTracker > 0 && player2WinTracker > 0)
                 {
+                    GameActions.GameEnabled = false;
                     didOpponentWin = true;
                     return true;
                 }
@@ -286,14 +289,17 @@ public class GameBoard : MonoBehaviour
             {
                 if (isPlayerOnesTurn && player1WinTracker > 0 && player2WinTracker == 0)
                 {
+                    GameActions.GameEnabled = false;
                     return true;
                 }
                 else if (!isPlayerOnesTurn && player1WinTracker == 0 && player2WinTracker > 0)
                 {
+                    GameActions.GameEnabled = false;
                     return true;
                 }
                 else if (player1WinTracker > 0 && player2WinTracker > 0)
                 {
+                    GameActions.GameEnabled = false;
                     didOpponentWin = true;
                     return true;
                 }

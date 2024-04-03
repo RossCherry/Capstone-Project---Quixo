@@ -134,92 +134,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            else if (gameOver && !moveInProgress && !isCoroutineRunning)
-            {
-                    //if (!isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                    //{
-                    //    Debug.Log("Player 1 Wins");
-                    //    didPlayer1Win = true;
-                    //}
-                    //else if ((isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin))
-                    //{
-                    //    Debug.Log("Player 2 Wins");
-                    //}
-                    //else if (isPlayerOneTurn)
-                    //{
-                    //    Debug.Log("Player 1 Wins");
-                    //    didPlayer1Win = true;
-                    //}
-                    //else if (!isPlayerOneTurn)
-                    //{
-                    //    Debug.Log("Player 2 Wins");
-                    //}
-                if (gameOver && !gameOverWindowOpen)
-                {
-                    gameOverWindowOpen = true;
-                    //return a menu screen
-                    if (typeOfGame != "network")
-                    {
-                        /*
-                        if (isPlayerOneCats)
-                        {
-                            if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                            {
-                                GameActions.ShowGameOver(Outcome.Win, "Cats");
-                                Debug.Log("Game Over" + 1);
-                            }
-                            else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                            {
-                                GameActions.ShowGameOver(Outcome.Loss, "Cats");
-                                Debug.Log("Game Over" + 2);
-                            }
-                            else
-                            {
-                                GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                                Debug.Log("Game Over" + 3);
-                            }
-                        }
-                        else
-                        {
-                            if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                            {
-                                GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                                Debug.Log("Game Over" + 4);
-                            }
-                            else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                            {
-                                GameActions.ShowGameOver(Outcome.Loss, "Dogs");
-                                Debug.Log("Game Over" + 5);
-                            }
-                            else
-                            {
-                                GameActions.ShowGameOver(Outcome.Win, "Cats");
-                                Debug.Log("Game Over" + 6);
-                            }
-                        }
-                        */
-                        GameActions.ShowGameOver(GetWinner());
-                    }
-                    else
-                    {
-                        if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                        {
-                            GameActions.ShowGameOver(Outcome.Win, "Cats");
-                            Debug.Log(7);
-                        }
-                        else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
-                        {
-                            GameActions.ShowGameOver(Outcome.Loss, "Cats");
-                            Debug.Log(8);
-                        }
-                        else
-                        {
-                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                            Debug.Log(9);
-                        }
-                    } 
-                }
-            }
             if (Input.GetMouseButtonDown(0))
             {               
                 HandleNpcClick();               
@@ -229,6 +143,96 @@ public class GameManager : MonoBehaviourPunCallbacks
         else if (selectedObject != null)
         {
             UnhighlightPossibleMoves();
+        }
+        if (gameOver && !moveInProgress && !isCoroutineRunning)
+        {
+            //if (!isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+            //{
+            //    Debug.Log("Player 1 Wins");
+            //    didPlayer1Win = true;
+            //}
+            //else if ((isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin))
+            //{
+            //    Debug.Log("Player 2 Wins");
+            //}
+            //else if (isPlayerOneTurn)
+            //{
+            //    Debug.Log("Player 1 Wins");
+            //    didPlayer1Win = true;
+            //}
+            //else if (!isPlayerOneTurn)
+            //{
+            //    Debug.Log("Player 2 Wins");
+            //}
+            if (gameOver && !gameOverWindowOpen)
+            {
+                gameOverWindowOpen = true;
+                //return a menu screen
+                if (typeOfGame != "network")
+                {
+                    /*
+                    if (isPlayerOneCats)
+                    {
+                        if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            Debug.Log("Game Over" + 1);
+                        }
+                        else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        {
+                            GameActions.ShowGameOver(Outcome.Loss, "Cats");
+                            Debug.Log("Game Over" + 2);
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                            Debug.Log("Game Over" + 3);
+                        }
+                    }
+                    else
+                    {
+                        if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                            Debug.Log("Game Over" + 4);
+                        }
+                        else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        {
+                            GameActions.ShowGameOver(Outcome.Loss, "Dogs");
+                            Debug.Log("Game Over" + 5);
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            Debug.Log("Game Over" + 6);
+                        }
+                    }
+                    */
+                    GameActions.ShowGameOver(GetWinner());
+                }
+                else
+                {
+                    if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    {
+                        GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        Debug.Log(7);
+                    }
+                    else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    {
+                        GameActions.ShowGameOver(Outcome.Loss, "Cats");
+                        Debug.Log(8);
+                    }
+                    else
+                    {
+                        GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                        Debug.Log(9);
+                    }
+                }
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                HandleNpcClick();
+            }
         }
 
         // Show the current player and turn
