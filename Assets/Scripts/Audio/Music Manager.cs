@@ -11,12 +11,6 @@ public class Music_Manager : MonoBehaviour
 
     public AudioSource music;
 
-    private void Awake()
-    {
-        //Music_Manager instance = FindObjectOfType<Music_Manager>();
-        //DontDestroyOnLoad(instance);
-    }
-
     private void Start()
     {
         music = GetComponent<AudioSource>();

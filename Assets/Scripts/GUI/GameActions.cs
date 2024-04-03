@@ -31,7 +31,9 @@ public class GameActions : MonoBehaviour
 
     // May need to change depending on how the winner is passed
     public static void ShowGameOver(Outcome outcome, string winner = "")
-    {        
+    {
+        GameOverSound.gameOverPlay();
+        
         // Show the game over screen
         GameObject parentObject = GameObject.Find("Dialogs");
 
@@ -150,6 +152,8 @@ public class GameActions : MonoBehaviour
             DrawRequestedDialog.SetActive(false);
         }
 
+        PopUpSound.popUpPlay();
+
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject OpponentDeniedDrawDialogue = Dialogs.transform.Find("Opponent Denied Draw Dialog").gameObject;
         if (OpponentDeniedDrawDialogue != null)
@@ -264,6 +268,8 @@ public class GameActions : MonoBehaviour
 
     static public void OpponentRequestedDraw()
     {
+        PopUpSound.popUpPlay();
+
         GameObject Dialogs = GameObject.Find("Dialogs");
         if (Dialogs != null)
         {
@@ -371,7 +377,7 @@ public class GameActions : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         photonView.RPC("RPC_RequestRematch", RpcTarget.Others);
-        //display "Rematch requested. Waiting for opponent's response"
+        
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject RematchRequestedDialog = Dialogs.transform.Find("Rematch Requested Dialog").gameObject;
         if (RematchRequestedDialog != null)
@@ -390,7 +396,8 @@ public class GameActions : MonoBehaviour
 
     public void OpponentRequestedRematch()
     {
-        //display "Your opponent challenged you to a rematch! [Y/N]"
+        PopUpSound.popUpPlay();
+
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject OpponentRequestedRematchDialog = Dialogs.transform.Find("Opponent Requested Rematch Dialog").gameObject;
         if (OpponentRequestedRematchDialog != null)
@@ -439,7 +446,8 @@ public class GameActions : MonoBehaviour
 
     public void OpponentDeclinedRematch()
     {
-        //display "You opponent declined the rematch. [Main Menu]"
+        PopUpSound.popUpPlay();
+
         GameObject Dialogs = GameObject.Find("Dialogs");
         GameObject OpponentDeclinedRematchDialog = Dialogs.transform.Find("Opponent Declined Rematch Dialog").gameObject;
         if (OpponentDeclinedRematchDialog != null)
@@ -454,6 +462,8 @@ public class GameActions : MonoBehaviour
 
     public static void OpponentDisconnected()
     {
+        PopUpSound.popUpPlay();
+
         GUI_Manager.ShowOpponentDisconnectedDialog();
     }
 }

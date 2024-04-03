@@ -23,6 +23,7 @@ public class Sound_Manager : MonoBehaviour
 
     private void Start()
     {
+
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();
         muted = !optionsViewModel.IsSoundEffectsOn;
@@ -47,13 +48,11 @@ public class Sound_Manager : MonoBehaviour
 
     public void gameButtonPlay()
     {
-        Debug.Log("game buton");
         if (!muted) { gameButton.Play(); }
     }
 
     public static void gameOverPlay()
     {
-        //if (!muted) { gameOver.Play(); }
         gameOver.Play();
     }
 
