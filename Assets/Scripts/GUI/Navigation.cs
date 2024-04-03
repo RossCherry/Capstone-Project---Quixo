@@ -62,7 +62,7 @@ public class Navigation : MonoBehaviour
         SceneManager.LoadScene(helpScene);
     }
 
-    public void MainMenu()
+    public static void MainMenu()
     {
         selectedScene = "Main Menu";
         // Reset the player selection

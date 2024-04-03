@@ -105,13 +105,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #endregion
 
 
-    public void LeaveRoom()
+    public static void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
         Debug.Log($"Player left the room.");
     }
 
-    public void Disconnect()
+    public static void Disconnect()
     {
         PhotonNetwork.Disconnect();
         Debug.Log("Disconnected");

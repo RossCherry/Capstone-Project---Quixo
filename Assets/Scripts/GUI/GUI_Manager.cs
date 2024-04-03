@@ -89,8 +89,8 @@ public class GUI_Manager : MonoBehaviour
     
     public static void ShowOpponentDisconnectedDialog()
     {
-        GameObject Dialogs = GameObject.Find("Dialogs");
-        GameObject OpponentDisconnectedDialog = Dialogs.transform.Find("Opponent Disconnected Dialog").gameObject;
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog").gameObject;
         OpponentDisconnectedDialog.SetActive(true);
     }
 
