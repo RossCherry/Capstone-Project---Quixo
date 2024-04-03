@@ -41,8 +41,22 @@ public class GameActions : MonoBehaviour
             if (gameOverDialog != null)
             {
                 string outcomeMessage;
-                outcomeMessage = outcome == Outcome.Draw ? "It's a draw!" : winner + " wins!";
-                outcomeMessage = outcome == Outcome.OpponentDisconnected ? "Your opponent disconnected." : outcomeMessage;
+                if (outcome == Outcome.Draw)
+                {
+                    outcomeMessage = "It's a draw!";
+                }
+                else if (outcome == Outcome.Win)
+                {
+                    outcomeMessage = "You win!";
+                }
+                else if (outcome == Outcome.Loss)
+                {
+                    outcomeMessage = "You lose!";
+                }
+                else
+                {
+                    outcomeMessage = "Your opponent disconnected.";
+                }
 
                 gameOverDialog.gameObject.SetActive(true);
                 // Show the outcome message
