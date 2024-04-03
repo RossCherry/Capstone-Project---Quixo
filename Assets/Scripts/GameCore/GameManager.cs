@@ -234,6 +234,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         // Show the current player and turn
         GUI_Manager.ShowCurrentPlayer();
         GUI_Manager.ShowTurn();
+
+        // Show the current player's image
+        GameObject GuiManager = GameObject.Find("GUI Manager");
+        if (GuiManager != null)
+        {
+            GUI_Manager guiManager = GuiManager.GetComponent<GUI_Manager>();
+            guiManager.SetUserImage();
+        }
     }
 
     private Outcome GetWinner()

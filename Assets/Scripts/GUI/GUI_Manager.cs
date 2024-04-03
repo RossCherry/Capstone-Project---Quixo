@@ -10,6 +10,10 @@ public class GUI_Manager : MonoBehaviour
     public static Color catColor = new Color(194 / 255f, 35 / 255f, 35 / 255f);
     public static Color dogColor = new Color(35 / 255f, 35 / 255f, 194 / 255f);
 
+    // Cat and Dog images
+    public Sprite catImage;
+    public Sprite dogImage;
+
 
     // Update is called once per frame
     void Update()
@@ -143,8 +147,54 @@ public class GUI_Manager : MonoBehaviour
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
-        }               
+
+            // Set the image of the user
+            //SetUserImage();
+        }
     }
+
+    //public static void SetUserImage()
+    //{
+    //    if (SceneManager.GetActiveScene().name != "Main Menu")
+    //    {
+    //        // Get the Dog and Cat images
+    //        GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
+    //        // Set the image of the user
+
+    //        // Get the Game Manager component
+    //        GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+
+
+    //        if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
+    //        {
+    //            CurrentPlayerPanel.GetComponent<Image>().sprite = catImage;
+    //        }
+    //        else
+    //        {
+    //            CurrentPlayerPanel.GetComponent<Image>().sprite = dogImage;
+    //        }
+    //    }       
+    //}
+
+    public void SetUserImage()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        if (activeSceneName != "Main Menu")
+        {
+            GameObject currentPlayerPanel = GameObject.Find("Current Player Panel");
+            GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+
+            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
+            {
+                currentPlayerPanel.GetComponent<Image>().sprite = catImage;
+            }
+            else
+            {
+                currentPlayerPanel.GetComponent<Image>().sprite = dogImage;
+            }
+        }
+    }
+
 
     public static void ShowTurn()
     {
