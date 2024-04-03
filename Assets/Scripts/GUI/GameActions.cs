@@ -444,10 +444,13 @@ public class GameActions : MonoBehaviour
     {
         PopUpSound.popUpPlay();
 
-        NetworkManager.LeaveRoom();
-        NetworkManager.Disconnect();
+        //NetworkManager.LeaveRoom();
+        //NetworkManager.Disconnect();
 
-        Navigation.MainMenu();
+        //// Navigation.MainMenu();
+        //SceneManager.LoadScene("Main Menu");
+
+        //Debug.Log(SceneManager.GetActiveScene().name);
         GUI_Manager.ShowOpponentDisconnectedDialog();
     }
 }

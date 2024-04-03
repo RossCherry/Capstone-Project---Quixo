@@ -63,13 +63,13 @@ public class Navigation : MonoBehaviour
     }
 
     public static void MainMenu()
-    {
+    {        
         selectedScene = "Main Menu";
         // Reset the player selection
         GameManager.isPlayerOne = true;
         PlayerPrefs.SetInt("IsPlayerOne", 1);
 
-        SceneManager.LoadSceneAsync("Main Menu");
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void PlaySinglePlayerEasy()

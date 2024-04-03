@@ -89,9 +89,17 @@ public class GUI_Manager : MonoBehaviour
     
     public static void ShowOpponentDisconnectedDialog()
     {
-        GameObject MainMenu = GameObject.Find("Main Menu");
-        GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog").gameObject;
+        GameObject Dialogs = GameObject.Find("Dialogs");
+        if (Dialogs == null) { Debug.Log("null"); }
+        GameObject OpponentDisconnectedDialog = Dialogs.transform.Find("Opponent Disconnected Dialog").gameObject;
         OpponentDisconnectedDialog.SetActive(true);
+        //GameObject MainMenu = GameObject.Find("Canvas");
+        //if (MainMenu == null) { Debug.Log("null"); }
+        //else
+        //{
+        //    GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog").gameObject;
+        //    OpponentDisconnectedDialog.SetActive(true);
+        //}
     }
 
     public static void ShowUserTeam()
