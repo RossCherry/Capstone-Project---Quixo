@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     bool didPlayer1Win = false;
     private GameObject lastPiecePlayed;
 
-
-
     public static bool isCoroutineRunning = false;
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
@@ -100,8 +98,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 gameOver = lastPiecePlayed.GetComponent<GamePiece>().board.CheckWin(isPlayerOneTurn);
             }
             if (!moveInProgress && !gameOver && !isCoroutineRunning)
-            {
-                
+            {               
                 //AI GAME
                 if ((typeOfGame == "easy" || typeOfGame == "hard") && !isPlayerOneTurn)
                 {
@@ -163,19 +160,23 @@ public class GameManager : MonoBehaviourPunCallbacks
                     //return a menu screen
                     if (typeOfGame != "network")
                     {
+                        /*
                         if (isPlayerOneCats)
                         {
                             if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
                                 GameActions.ShowGameOver(Outcome.Win, "Cats");
+                                Debug.Log("Game Over" + 1);
                             }
                             else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
                                 GameActions.ShowGameOver(Outcome.Loss, "Cats");
+                                Debug.Log("Game Over" + 2);
                             }
                             else
                             {
                                 GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                                Debug.Log("Game Over" + 3);
                             }
                         }
                         else
@@ -183,41 +184,45 @@ public class GameManager : MonoBehaviourPunCallbacks
                             if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
                                 GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                                Debug.Log("Game Over" + 4);
                             }
                             else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
                                 GameActions.ShowGameOver(Outcome.Loss, "Dogs");
+                                Debug.Log("Game Over" + 5);
                             }
                             else
                             {
                                 GameActions.ShowGameOver(Outcome.Win, "Cats");
+                                Debug.Log("Game Over" + 6);
                             }
                         }
+                        */
+                        GameActions.ShowGameOver(GetWinner());
                     }
                     else
                     {
                         if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            Debug.Log(7);
                         }
                         else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
                             GameActions.ShowGameOver(Outcome.Loss, "Cats");
+                            Debug.Log(8);
                         }
                         else
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                            Debug.Log(9);
                         }
-                    }
-                    
-                    
+                    } 
                 }
             }
             if (Input.GetMouseButtonDown(0))
-            {
-                
-                HandleNpcClick();
-                
+            {               
+                HandleNpcClick();               
             }
         }
         //// Deselect Pieces when the GUI is activated
@@ -226,15 +231,31 @@ public class GameManager : MonoBehaviourPunCallbacks
             UnhighlightPossibleMoves();
         }
 
-        
-        //if (typeOfGame == "tutorial" && gameOver)
-        //{
-        //    PlayerPrefs.SetInt("Tutorial Counter", 1);
-        //    PlayerPrefs.Save();
-        //}
-
+        // Show the current player and turn
         GUI_Manager.ShowCurrentPlayer();
         GUI_Manager.ShowTurn();
+    }
+
+    private Outcome GetWinner()
+    {
+        // Move opponent's piece into win
+        if (lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+        {
+            Debug.Log("Game Over" + 1 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            return Outcome.Loss;            
+        }       
+        // Opponent gets 5 in a row
+        else if (isPlayerOne == isPlayerOneTurn == isPlayerOneCats)
+        {
+            Debug.Log("Game Over" + 2 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: "+ isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            return Outcome.Loss;
+        }  
+        // Player gets 5 in a row
+        else
+        {
+            Debug.Log("Game Over" + 3 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            return Outcome.Win;
+        }
     }
 
     void HandleClick()
@@ -273,7 +294,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                     piece = selectedObject.GetComponent<GamePiece>();
                     possibleMoves = piece.PossibleMoves();
 
-
                     HighlightPossibleMoves();
                     //FINISHED HIGHLIGHTING POSSIBLE MOVES
 
@@ -291,7 +311,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-
             moveInProgress = false;
         }
     }
@@ -309,8 +328,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 possibleMoves[i].GetComponent<ClickOn>().ClickMe();
             }
         }
-
     }
+
     void HighlightPossibleMoves()
     {
         for (int i = 0; i < possibleMoves.Length; i++)
@@ -319,6 +338,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             possibleMoves[i].GetComponent<ClickOn>().ClickMe();
         }
     }
+
     void UnhighlightPossibleMoves()
     {
         if (possibleMoves != null)
@@ -330,6 +350,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             HighlightPossibleMoves();
         }
     }
+
     IEnumerator WaitForValidMove(GameObject piece)
     {
         isCoroutineRunning = true;
@@ -350,16 +371,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                     {
                         validMove = ValidateMove(clickOnScript);
                         waitingForClick = !validMove;
-
-
                     }
                     else if (counter > 0)
                     {
                         waitingForClick = false;
                     }
                 }
-
             }
+
             for (int i = 0; i < possibleMoves.Length; i++)
             {
                 possibleMoves[i].GetComponent<ClickOn>().possibleMove = true;
@@ -372,6 +391,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(clickOnScript != null) 
         {
             GameObject move = clickOnScript.GetComponent<GamePiece>().piece;
+
             if (validMove)
             {
                 MovePiece(piece, move);
@@ -383,9 +403,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 moveInProgress = false;
             }
         }
+
             yield return null;
-
-
     }
     bool ValidateMove(ClickOn clickOnScript)
     {
@@ -452,7 +471,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
                 }
-
             }
         }
         else
@@ -478,13 +496,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     piece.GetComponent<GamePiece>().SetPlayer(!isPlayerOne);
                 }
-
             }
+
             UpdateColors();
             isCoroutineRunning = true;
             moveInProgress = true;
         }
-
 
         piece.GetComponent<GamePiece>().board.MovePiece(piece.GetComponent<GamePiece>(), move.GetComponent<GamePiece>());
         lastPiecePlayed = piece;
@@ -515,6 +532,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+
         moveCount++;
         DeselectObject();
     }
@@ -523,6 +541,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         DateTime before = DateTime.Now;
         isCoroutineRunning = true;
         Tuple<GamePiece, GamePiece, int> aiMove;
+
         if (typeOfGame == "easy")
         {
             aiMove = gameObject.GetComponent<AiEasy>().AITurn();
@@ -543,6 +562,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             moveInProgress = false;
             yield return null;
         }
+
         //isPlayerOneTurn = true;
         DateTime after = DateTime.Now;
         Debug.Log(after.Subtract(before).TotalSeconds);
@@ -584,10 +604,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 bool notIsClicked = !animator.GetBool("isClicked");
                 animator.SetBool("isClicked", notIsClicked);
             }
-        }
-        
+        }        
     }
-
 
     public void TeamSelect(bool isCats)
     {
@@ -613,7 +631,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         isPlayerOneCats = isCats;
         teamIsSet = true;
     }
-
 
     //Only called by master client
     public void OnTeamSelected(bool isCats)

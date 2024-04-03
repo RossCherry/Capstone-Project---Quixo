@@ -40,7 +40,6 @@ public class Navigation : MonoBehaviour
         }
     }
 
-
     public static void LoadAIGame()
     {
         GameManager.moveCount = 0;
@@ -56,8 +55,7 @@ public class Navigation : MonoBehaviour
         else
         {
             LoadAIGame();
-        }
-        
+        }        
     }
     public void Help()
     {
@@ -72,12 +70,6 @@ public class Navigation : MonoBehaviour
         PlayerPrefs.SetInt("IsPlayerOne", 1);
 
         SceneManager.LoadSceneAsync("Main Menu");
-        // Get the current scene
-        Scene currentScene = SceneManager.GetActiveScene();
-        Debug.Log(currentScene.name);
-
-        Application.Quit();
-        System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe"));
     }
 
     public void PlaySinglePlayerEasy()
@@ -102,7 +94,6 @@ public class Navigation : MonoBehaviour
         PlayerPrefs.SetInt("IsPlayerOne", 1);
 
         SceneManager.LoadSceneAsync(localMultiplayerScene);
-
     }
 
     public void PlayMultiplayerOverNetwork()
