@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PopUpSound : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class PopUpSound : MonoBehaviour
 
     public static AudioSource sound;
 
+    public GameObject soundObject; 
+
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
+        soundObject = GameObject.Find("PopUpSound");
+        sound = soundObject.GetComponent<AudioSource>();
 
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();

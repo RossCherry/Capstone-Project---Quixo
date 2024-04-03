@@ -10,10 +10,12 @@ public class GameOverSound : MonoBehaviour
     private static bool muted;
 
     public static AudioSource sound;
+    public GameObject soundObject;
 
     private void Start()
     {
-        sound = GetComponent<AudioSource>();
+        soundObject = GameObject.Find("GameOverSound");
+        sound = soundObject.GetComponent<AudioSource>();
 
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();
@@ -22,7 +24,10 @@ public class GameOverSound : MonoBehaviour
 
     public static void gameOverPlay()
     {
-        if (!muted) { sound.Play(); }
+        Debug.Log(muted);
+        if (!muted) {
+        Debug.Log("Game over");
+        sound.Play(); }
     }
 
 }

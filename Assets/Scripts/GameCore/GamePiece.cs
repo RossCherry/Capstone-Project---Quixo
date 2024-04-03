@@ -491,7 +491,7 @@ public class GamePiece : MonoBehaviour
     IEnumerator MovePieceSmoothly()
     {
         float elapsedTime = 0f;
-        float speed = 1.5f;
+        float speed = 3f;
         Vector3 startingPosition = transform.position;
 
         transform.localEulerAngles = targetRotation1;
