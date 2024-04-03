@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                             }
                             else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
-                                GameActions.ShowGameOver(Outcome.Win, "Cats");
+                                GameActions.ShowGameOver(Outcome.Loss, "Cats");
                             }
                             else
                             {
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                             }
                             else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                             {
-                                GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                                GameActions.ShowGameOver(Outcome.Loss, "Dogs");
                             }
                             else
                             {
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         }
                         else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
-                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            GameActions.ShowGameOver(Outcome.Loss, "Cats");
                         }
                         else
                         {
