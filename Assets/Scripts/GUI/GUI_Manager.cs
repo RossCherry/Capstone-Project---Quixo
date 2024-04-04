@@ -33,7 +33,7 @@ public class GUI_Manager : MonoBehaviour
             GameObject requestDrawButton = GameObject.Find("Request Draw Button");
             if (requestDrawButton != null)
             {
-                requestDrawButton.GetComponent<Button>().interactable = userTurn;
+                //requestDrawButton.GetComponent<Button>().interactable = userTurn;
             }
         }
     }
@@ -152,34 +152,8 @@ public class GUI_Manager : MonoBehaviour
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
-
-            // Set the image of the user
-            //SetUserImage();
         }
     }
-
-    //public static void SetUserImage()
-    //{
-    //    if (SceneManager.GetActiveScene().name != "Main Menu")
-    //    {
-    //        // Get the Dog and Cat images
-    //        GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
-    //        // Set the image of the user
-
-    //        // Get the Game Manager component
-    //        GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
-
-
-    //        if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
-    //        {
-    //            CurrentPlayerPanel.GetComponent<Image>().sprite = catImage;
-    //        }
-    //        else
-    //        {
-    //            CurrentPlayerPanel.GetComponent<Image>().sprite = dogImage;
-    //        }
-    //    }       
-    //}
 
     public void SetUserImage()
     {
@@ -189,7 +163,7 @@ public class GUI_Manager : MonoBehaviour
             GameObject currentPlayerPanel = GameObject.Find("Current Player Panel");
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 
-            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
+            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn == GameManager.isPlayerOne)
             {
                 currentPlayerPanel.GetComponent<Image>().sprite = catImage;
             }
@@ -208,7 +182,7 @@ public class GUI_Manager : MonoBehaviour
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 
             // Show if it is the user's turn or the opponent's turn
-            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOne == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
+            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
 
             GameObject UserTeamText = GameObject.Find("User Team Text");
             if (UserTeamText != null)
