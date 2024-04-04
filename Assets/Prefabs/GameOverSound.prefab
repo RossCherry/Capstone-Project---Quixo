@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3019190805497932975}
   - component: {fileID: 5574649044838873430}
-  - component: {fileID: 6555558241875966872}
+  - component: {fileID: 8313390275062478061}
   m_Layer: 0
   m_Name: GameOverSound
   m_TagString: Untagged
@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3ba6312e11c914e9e7ea98f04cb02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &6555558241875966872
+  soundObject: {fileID: 2232560723894697919}
+--- !u!82 &8313390275062478061
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

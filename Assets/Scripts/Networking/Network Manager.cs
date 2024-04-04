@@ -58,8 +58,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log(gameObject.GetComponent<GameManager>().teamIsSet);
-            if (gameObject.GetComponent<GameManager>().teamIsSet == false)
+            if (GameManager.teamIsSet == false)
             {
                 GUI_Manager.ShowWaitingForTeamSelectionPanel();
             }
@@ -91,14 +90,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause reason)
     {
         Debug.LogWarningFormat($"OnDisconnected() was called by PUN with reason: {reason}.");
+        GameManager.teamIsSet = false;
         if(reason == DisconnectCause.ClientTimeout)
         {
             GUI_Manager.UserDisconnected();
         }
-        //if (SceneManager.GetActiveScene().name != "Main Menu")
-        //{
-        //    Navigation.MainMenu();
-        //}
     }
 
     public override void OnPlayerLeftRoom(Player player)

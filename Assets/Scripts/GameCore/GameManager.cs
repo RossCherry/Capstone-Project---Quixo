@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool isPlayerOneTurn = true;
     public static bool isPlayerOne = true;
-    public bool teamIsSet = false;
+    public static bool teamIsSet = false;
 
     GameObject[] possibleMoves = null;
     private GameObject selectedObject = null;
