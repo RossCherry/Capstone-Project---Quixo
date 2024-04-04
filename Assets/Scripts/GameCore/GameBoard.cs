@@ -13,6 +13,9 @@ public class GameBoard : MonoBehaviour
     private const int ROW_COUNT_X = 5;
     private const int COL_COUNT_Y = 5;
     public bool didOpponentWin;
+    public bool wasWinDiagonal = false;
+    public bool player1Win = false;
+    public bool player2Win = false;
     //public GameObject piecePrefab;
     // Start is called before the first frame update
     void Start()
@@ -206,18 +209,24 @@ public class GameBoard : MonoBehaviour
 
         if (player1RowTracker == 5 || player1ColTracker == 5)
         {
-            if (!isPlayerOnesTurn)
-            {
-                didOpponentWin = true;
-            }
+            //if (!isPlayerOnesTurn)
+            //{
+            //    didOpponentWin = true;
+            //}
+            GameActions.GameEnabled = false;
+            wasWinDiagonal = true;
+            player1Win = true;
             return true;
         }
         else if (player2RowTracker == 5 || player2ColTracker == 5)
         {
-            if (isPlayerOnesTurn)
-            {
-                didOpponentWin = true;
-            }
+            //if (isPlayerOnesTurn)
+            //{
+            //    didOpponentWin = true;
+            //}
+            GameActions.GameEnabled = false;
+            wasWinDiagonal = true;
+            player2Win = true;
             return true;
         }
 

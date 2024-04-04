@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     moveInProgress = true;
                     StartCoroutine(WaitForAIMove());
+                    //HandleClick();
                     Debug.Log(isPlayerOne);
                     Debug.Log(isPlayerOneTurn);
                 }
@@ -134,15 +135,27 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            if (Input.GetMouseButtonDown(0))
-            {               
-                HandleNpcClick();               
-            }
+            
         }
         //// Deselect Pieces when the GUI is activated
         else if (selectedObject != null)
         {
             UnhighlightPossibleMoves();
+        }
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 2000, objects))
+        {
+            if (rayHit.collider.CompareTag("npcs"))
+            {
+                //DeselectObject();
+                //UnhighlightPossibleMoves();
+                moveInProgress = false;
+                isCoroutineRunning = false;
+
+                Animator animator;
+                animator = rayHit.collider.GetComponent<Animator>();
+                bool notIsClicked = !animator.GetBool("isClicked");
+                animator.SetBool("isClicked", notIsClicked);
+            }
         }
         if (gameOver && !moveInProgress && !isCoroutineRunning)
         {
@@ -170,8 +183,18 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //return a menu screen
                 if (typeOfGame != "network")
                 {
-                    /*
-                    if (isPlayerOneCats)
+                    if (lastPiecePlayed.GetComponent<GamePiece>().board.wasWinDiagonal)
+                    {
+                        if (lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                        }
+                    }
+                    else if (isPlayerOneCats)
                     {
                         if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
@@ -207,12 +230,23 @@ public class GameManager : MonoBehaviourPunCallbacks
                             Debug.Log("Game Over" + 6);
                         }
                     }
-                    */
-                    GameActions.ShowGameOver(GetWinner());
+
+                    //GameActions.ShowGameOver(GetWinner());
                 }
                 else
                 {
-                    if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    if (lastPiecePlayed.GetComponent<GamePiece>().board.wasWinDiagonal)
+                    {
+                        if (lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        }
+                        else
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
+                        }
+                    }
+                    else if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                     {
                         GameActions.ShowGameOver(Outcome.Win, "Cats");
                         Debug.Log(7);
@@ -228,10 +262,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                         Debug.Log(9);
                     }
                 }
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
-                HandleNpcClick();
             }
         }
 
@@ -603,13 +633,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHit, 2000, objects))
         {
-            moveInProgress = false;
+            //moveInProgress = false;
             if (rayHit.collider.CompareTag("npcs"))
             {
-                DeselectObject();
-                UnhighlightPossibleMoves();
-                moveInProgress = false;
-                isCoroutineRunning = false;
+                //DeselectObject();
+                //UnhighlightPossibleMoves();
+                //moveInProgress = false;
+                //isCoroutineRunning = false;
 
                 Animator animator;
                 animator = rayHit.collider.GetComponent<Animator>();

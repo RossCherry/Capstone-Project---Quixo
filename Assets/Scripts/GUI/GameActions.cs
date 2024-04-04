@@ -49,11 +49,11 @@ public class GameActions : MonoBehaviour
                 }
                 else if (outcome == Outcome.Win)
                 {
-                    outcomeMessage = "You win!";
+                    outcomeMessage = winner + " win!";
                 }
                 else if (outcome == Outcome.Loss)
                 {
-                    outcomeMessage = "You lose!";
+                    outcomeMessage = winner + " win!";
                 }
                 else
                 {
