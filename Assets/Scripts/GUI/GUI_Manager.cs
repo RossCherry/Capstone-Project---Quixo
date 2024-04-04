@@ -192,7 +192,7 @@ public class GUI_Manager : MonoBehaviour
             GameObject currentPlayerPanel = GameObject.Find("Current Player Panel");
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 
-            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
+            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn == GameManager.isPlayerOne)
             {
                 currentPlayerPanel.GetComponent<Image>().sprite = catImage;
             }
@@ -211,7 +211,7 @@ public class GUI_Manager : MonoBehaviour
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 
             // Show if it is the user's turn or the opponent's turn
-            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOne == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
+            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
 
             GameObject UserTeamText = GameObject.Find("User Team Text");
             if (UserTeamText != null)
