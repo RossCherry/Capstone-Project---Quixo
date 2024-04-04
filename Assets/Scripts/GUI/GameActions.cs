@@ -74,7 +74,7 @@ public class GameActions : MonoBehaviour
                 }
                 else
                 {
-                    EnableRequestDrawButton(true);
+                    //EnableRequestDrawButton(true);
                 }
 
                 if (outcome == Outcome.OpponentDisconnected)

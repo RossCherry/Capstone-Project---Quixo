@@ -33,7 +33,7 @@ public class GUI_Manager : MonoBehaviour
             GameObject requestDrawButton = GameObject.Find("Request Draw Button");
             if (requestDrawButton != null)
             {
-                requestDrawButton.GetComponent<Button>().interactable = userTurn;
+                //requestDrawButton.GetComponent<Button>().interactable = userTurn;
             }
         }
     }
