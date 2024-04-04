@@ -105,7 +105,8 @@ public class GUI_Manager : MonoBehaviour
         {
             GameActions.GameEnabled = false;
             // Get if Cats or Dogs
-            string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+            //string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+            string userTeam = GameManager.isPlayerOne == true ? "Cats" : "Dogs";
 
             // Set the text to inform the user of their team
             GameObject Dialogs = GameObject.Find("Dialogs");

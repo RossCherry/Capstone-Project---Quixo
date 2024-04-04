@@ -58,7 +58,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            if (GameManager.teamIsSet == false)
+            Debug.Log(gameObject.GetComponent<GameManager>().teamIsSet);
+            if (gameObject.GetComponent<GameManager>().teamIsSet == false)
             {
                 GUI_Manager.ShowWaitingForTeamSelectionPanel();
             }

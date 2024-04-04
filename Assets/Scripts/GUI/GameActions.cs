@@ -439,15 +439,4 @@ public class GameActions : MonoBehaviour
         GameObject RematchRequestedDialog = GameObject.Find("Rematch Requested Dialog");
         RematchRequestedDialog.SetActive(false);
     }
-
-    public static void OpponentDisconnected()
-    {
-        PopUpSound.popUpPlay();
-
-        //Navigation.MainMenu();
-        //SceneManager.LoadScene("Main Menu");
-
-        //Debug.Log(SceneManager.GetActiveScene().name);
-        GUI_Manager.ShowOpponentDisconnectedDialog();
-    }
 }

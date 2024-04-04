@@ -26,7 +26,8 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+        //string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+        string userTeam = GameManager.isPlayerOne == true ? "Cats" : "Dogs";
         if (userTeam == "Cats")
         {
             chatMessagesDict = new Dictionary<string, List<string>>
