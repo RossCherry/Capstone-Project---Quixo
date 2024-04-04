@@ -104,7 +104,7 @@ public class GameActions : MonoBehaviour
         }
     }
 
-    private static void DisableRequestDrawButton()
+    public static void DisableRequestDrawButton()
     {
         GameObject requestDrawButton = GameObject.Find("Request Draw Button");
         if (requestDrawButton != null)

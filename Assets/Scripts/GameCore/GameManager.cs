@@ -262,6 +262,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         Debug.Log(9);
                     }
                 }
+                GameActions.DisableRequestDrawButton();
             }
         }
 
