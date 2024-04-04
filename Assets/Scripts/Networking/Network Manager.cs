@@ -5,6 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.Demo.PunBasics;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -93,16 +94,38 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             GUI_Manager.UserDisconnected();
         }
-
+        //if (SceneManager.GetActiveScene().name != "Main Menu")
+        //{
+        //    Navigation.MainMenu();
+        //}
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
         Debug.LogWarningFormat("Opponent left the game.");
-        GameActions.OpponentDisconnected();
+        GameManager.opponentDisconnected = true;
+
+        LeaveGame();
     }
 
     #endregion
+
+
+    public void LeaveGame()
+    {
+        StartCoroutine(DoLeaveGame());
+    }
+
+    IEnumerator DoLeaveGame()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+        {
+            yield return null;
+        }
+        Navigation.MainMenu();
+    }
 
 
     public static void LeaveRoom()

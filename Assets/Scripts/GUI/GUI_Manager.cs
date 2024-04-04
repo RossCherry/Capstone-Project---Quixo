@@ -86,20 +86,17 @@ public class GUI_Manager : MonoBehaviour
         GameObject WaitingForTeamSelectionPanel = MainMenu.transform.Find("Waiting For Team Selection Panel").gameObject;
         WaitingForTeamSelectionPanel.SetActive(false);
     }
-    
+
     public static void ShowOpponentDisconnectedDialog()
     {
-        GameObject Dialogs = GameObject.Find("Dialogs");
-        if (Dialogs == null) { Debug.Log("null"); }
-        GameObject OpponentDisconnectedDialog = Dialogs.transform.Find("Opponent Disconnected Dialog").gameObject;
-        OpponentDisconnectedDialog.SetActive(true);
-        //GameObject MainMenu = GameObject.Find("Canvas");
-        //if (MainMenu == null) { Debug.Log("null"); }
-        //else
-        //{
-        //    GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog").gameObject;
-        //    OpponentDisconnectedDialog.SetActive(true);
-        //}
+        PopUpSound.popUpPlay();
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        if (MainMenu == null) { Debug.Log("null"); }
+        else
+        {
+            GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog 2").gameObject;
+            OpponentDisconnectedDialog.SetActive(true);
+        }
     }
 
     public static void ShowUserTeam()

@@ -62,6 +62,8 @@ public class Navigation : MonoBehaviour
         SceneManager.LoadScene(helpScene);
     }
 
+
+
     public static void MainMenu()
     {        
         selectedScene = "Main Menu";

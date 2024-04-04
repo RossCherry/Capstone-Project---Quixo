@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static bool isPlayerOneCats = true;
     bool onlyDoOnce = false;
 
+    public static bool opponentDisconnected = false;
+
+
     static public int moveCount = 0;
 
     // Start is called before the first frame update
@@ -276,6 +279,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             GUI_Manager guiManager = GuiManager.GetComponent<GUI_Manager>();
             guiManager.SetUserImage();
+        }
+
+        if(opponentDisconnected)
+        {
+            GUI_Manager.ShowOpponentDisconnectedDialog();
         }
     }
 
@@ -696,5 +704,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log($"isCats = {isCats}");
 
         NetworkManager.checkToStartGame();
+    }
+
+    public void SetFalseOpponentDisconnected()
+    {
+        opponentDisconnected = false;
     }
 }

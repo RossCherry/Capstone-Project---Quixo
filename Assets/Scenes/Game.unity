@@ -5138,7 +5138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_TagString
-      value: Blank
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6341,7 +6341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_TagString
-      value: Blank
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7464,7 +7464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_TagString
-      value: Blank
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21896,7 +21896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_TagString
-      value: Blank
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
