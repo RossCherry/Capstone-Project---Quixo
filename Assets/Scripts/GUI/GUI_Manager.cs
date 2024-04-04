@@ -155,34 +155,8 @@ public class GUI_Manager : MonoBehaviour
             {
                 CurrentPlayerText.GetComponent<TextMeshProUGUI>().color = gameManager.isPlayerOneTurn ? catColor : dogColor;
             }
-
-            // Set the image of the user
-            //SetUserImage();
         }
     }
-
-    //public static void SetUserImage()
-    //{
-    //    if (SceneManager.GetActiveScene().name != "Main Menu")
-    //    {
-    //        // Get the Dog and Cat images
-    //        GameObject CurrentPlayerPanel = GameObject.Find("Current Player Panel");
-    //        // Set the image of the user
-
-    //        // Get the Game Manager component
-    //        GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
-
-
-    //        if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn)
-    //        {
-    //            CurrentPlayerPanel.GetComponent<Image>().sprite = catImage;
-    //        }
-    //        else
-    //        {
-    //            CurrentPlayerPanel.GetComponent<Image>().sprite = dogImage;
-    //        }
-    //    }       
-    //}
 
     public void SetUserImage()
     {

@@ -26,15 +26,30 @@ public class Chat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        chatMessagesDict = new Dictionary<string, List<string>>
+        string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
+        if (userTeam == "Cats")
         {
-            { "Greetings", new List<string> { "Meow are you?", "Meow!", "Purrrr!", "Hiss!", "Howl you doing?", "Arf!", "Woof!", "Grrr!" }},
-            { "Happy", new List<string> { "A purr-fect move!", "I'm feline good!", "I'm the cat's meow!", "Meow we're talking!", "Every dog has its day!", "I'm having a ball!", "Hot dog!", "I'm a su-paw star!" }},
-            { "Worried", new List<string> { "Me-owch!", "You've gotta be kitten me!", "This is a cat-astrophe!", "Cut the cat-itude!", "Im-paw-sible!", "Looks like I'm the underdog...", "Oh paw-lease!" }},
-            { "Taunting", new List<string> { "Cat got your tongue?", "How do you like me meow?", "Don't be a scaredy cat!", "Don't terrier self up about it!", "Must be ruff!", "You're barking up the wrong tree!" }},
-            { "Thinking", new List<string> { "Let me put my thinking cat on...", "Stop stressing meowt!", "Let me paws and think...", "Quit hounding me!"  }
-        }        
-    };
+            chatMessagesDict = new Dictionary<string, List<string>>
+            {
+                { "Greetings", new List<string> { "Meow are you?", "Meow!", "Purrrr!" }},
+                { "Happy", new List<string> { "A purr-fect move!", "I'm feline good!", "I'm the cat's meow!", "Meow we're talking!" }},
+                { "Worried", new List<string> { "Me-owch!", "You've gotta be kitten me!", "This is a cat-astrophe!", "Cut the cat-itude!" }},
+                { "Taunting", new List<string> { "Cat got your tongue?", "How do you like me meow?", "Don't be a scaredy cat!", }},
+                { "Thinking", new List<string> { "Let me put my thinking cat on...", "Stop stressing meowt!"  } }
+            };
+        }
+        else
+        {
+            chatMessagesDict = new Dictionary<string, List<string>>
+        {
+            { "Greetings", new List<string> { "Howl you doing?", "Arf!", "Woof!", "Grrr!" } },
+            { "Happy", new List<string> { "Every dog has its day!", "I'm having a ball!", "Hot dog!", "I'm a su-paw star!" } },
+            { "Worried", new List<string> {"Im-paw-sible!", "Looks like I'm the underdog...", "Oh paw-lease!" } },
+            { "Taunting", new List<string> {"Don't terrier self up about it!", "Must be ruff!", "You're barking up the wrong tree!" } },
+            { "Thinking", new List<string> {"Let me paws and think...", "Quit hounding me!" }}
+        };
+        }
+        
 
         chatCategoriesList = new List<string>(chatMessagesDict.Keys);
 
