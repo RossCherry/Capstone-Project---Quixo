@@ -953,7 +953,7 @@ public class AiEasy : MonoBehaviour
             }
             Debug.Log("-------------------------------------------------------------------");
             var bestMove = bestMoves.ToArray();
-            int index = rnd.Next() % (2);
+            int index = rnd.Next() % (3);
             //game.FlipBlock(bestMove[index].Item1);
             //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
             //Console.WriteLine("# Moves: " + moveCounter);
