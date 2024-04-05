@@ -15,31 +15,9 @@ public class GUI_Manager : MonoBehaviour
     public Sprite dogImage;
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateRequestDrawButtonState();
-    }
-
-    public void UpdateRequestDrawButtonState()
-    {
-        // TODO: Actually get if it's the user's turn once implemented
-        bool userTurn = true;
-
-        // If the scene is Game AI or Networking Game, disable the request draw button
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "AI Game" || sceneName == "Networking Game")
-        {
-            GameObject requestDrawButton = GameObject.Find("Request Draw Button");
-            if (requestDrawButton != null)
-            {
-                //requestDrawButton.GetComponent<Button>().interactable = userTurn;
-            }
-        }
-    }
-
     public static void ShowTeamSelectionPanel()
     {
+        HideSearchingForOpponentDialog();
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject ChooseTeamPanel = MainMenu.transform.Find("Choose Team Panel").gameObject;
         ChooseTeamPanel.SetActive(true);
@@ -68,6 +46,7 @@ public class GUI_Manager : MonoBehaviour
 
     public static void ShowWaitingForTeamSelectionPanel()
     {
+        HideSearchingForOpponentDialog();
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject WaitingForTeamSelectionPanel = MainMenu.transform.Find("Waiting For Team Selection Panel").gameObject;
         WaitingForTeamSelectionPanel.SetActive(true);
@@ -87,6 +66,34 @@ public class GUI_Manager : MonoBehaviour
         WaitingForTeamSelectionPanel.SetActive(false);
     }
 
+    public static void ShowSearchingForOpponentDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject SearchingForOpponentDialog = MainMenu.transform.Find("Searching For Opponent Dialog").gameObject;
+        SearchingForOpponentDialog.SetActive(true);
+    }
+
+    public static void HideSearchingForOpponentDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject SearchingForOpponentDialog = MainMenu.transform.Find("Searching For Opponent Dialog").gameObject;
+        SearchingForOpponentDialog.SetActive(false);
+    }
+
+    public static void ShowLoadingGameDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject LoadingGameDialog = MainMenu.transform.Find("Loading Game Dialog").gameObject;
+        LoadingGameDialog.SetActive(true);
+    }
+
+    public static void HideLoadingGameDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject LoadingGameDialog = MainMenu.transform.Find("Loading Game Dialog").gameObject;
+        LoadingGameDialog.SetActive(false);
+    }
+
     public static void ShowOpponentDisconnectedDialog()
     {
         PopUpSound.popUpPlay();
@@ -104,8 +111,8 @@ public class GUI_Manager : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Main Menu")
         {
             GameActions.GameEnabled = false;
+
             // Get if Cats or Dogs
-            //string userTeam = PlayerPrefs.GetInt("IsPlayerOne") == 1 ? "Cats" : "Dogs";
             string userTeam = GameManager.isPlayerOne == true ? "Cats" : "Dogs";
 
             // Set the text to inform the user of their team
@@ -174,7 +181,6 @@ public class GUI_Manager : MonoBehaviour
             }
         }
     }
-
 
     public static void ShowTurn()
     {

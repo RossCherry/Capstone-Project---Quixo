@@ -55,14 +55,14 @@ public class Navigation : MonoBehaviour
         else
         {
             LoadAIGame();
-        }        
+        }     
+        
+        GUI_Manager.ShowLoadingGameDialog();
     }
     public void Help()
     {
         SceneManager.LoadScene(helpScene);
     }
-
-
 
     public static void MainMenu()
     {        
@@ -91,6 +91,8 @@ public class Navigation : MonoBehaviour
 
     public void PlayMultiplayerLocally()
     {
+        GUI_Manager.ShowLoadingGameDialog();
+
         // Reset the player selection
         GameManager.isPlayerOne = true;
         PlayerPrefs.SetInt("IsPlayerOne", 1);
@@ -100,6 +102,8 @@ public class Navigation : MonoBehaviour
 
     public void PlayMultiplayerOverNetwork()
     {
+        GUI_Manager.ShowLoadingGameDialog();
+
         SceneManager.LoadSceneAsync(networkMultiplayerScene);
     }
 }
