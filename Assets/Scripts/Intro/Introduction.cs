@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Introduction : MonoBehaviour
 {
     //cooltext.com for the title
     public GamePiece catCar;
     public GamePiece dogCar;
+    public GameObject title;
 
-    [SerializeField]
-    private Material catColor;
-    [SerializeField]
-    private Material dogColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +22,10 @@ public class Introduction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.anyKeyDown)
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
     }
 
     IEnumerator StartAnimations()
@@ -34,18 +36,18 @@ public class Introduction : MonoBehaviour
         Vector3 dogStartingPosition = dogCar.transform.position;
 
         //movement 1 by cat
-        Vector3 targetPosition1 = new Vector3(-5, 0, 0);
+        Vector3 targetPosition1 = new Vector3(-5, 0, -2);
 
         //movement 2 by dog
-        Vector3 targetPosition2 = new Vector3(20, 0, 0);
+        Vector3 targetPosition2 = new Vector3(20, 0, -2);
 
         //movement 3 by both cat and dog crashing into eachother
-        Vector3 targetPosition3 = new Vector3(7, 0, 0);
-        Vector3 targetPosition4 = new Vector3(8, 0, 0);
+        Vector3 targetPosition3 = new Vector3(10.5f, 0, -2);
+        Vector3 targetPosition4 = new Vector3(11.5f, 0, -2);
 
         //movement 4 by both cat and dog bumping back and reveil title
-        Vector3 targetPosition5 = new Vector3(4, 0, 0);
-        Vector3 targetPosition6 = new Vector3(11, 0, 0);
+        Vector3 targetPosition5 = new Vector3(5, 0, -2);
+        Vector3 targetPosition6 = new Vector3(16, 0, -2);
 
         //movement 1
         while (elapsedTime < 1f)
@@ -74,7 +76,7 @@ public class Introduction : MonoBehaviour
         {
             catCar.transform.position = Vector3.Lerp(catStartingPosition, targetPosition3, elapsedTime);
             dogCar.transform.position = Vector3.Lerp(dogStartingPosition, targetPosition4, elapsedTime);
-            elapsedTime += Time.deltaTime * (speed);
+            elapsedTime += Time.deltaTime * (speed * 5);
             yield return null;
         }
         catStartingPosition = targetPosition3;
@@ -86,15 +88,25 @@ public class Introduction : MonoBehaviour
         {
             catCar.transform.position = Vector3.Lerp(catStartingPosition, targetPosition5, elapsedTime);
             dogCar.transform.position = Vector3.Lerp(dogStartingPosition, targetPosition6, elapsedTime);
-            elapsedTime += Time.deltaTime * (speed);
+            elapsedTime += Time.deltaTime * (speed * 5);
             yield return null;
         }
-
+        
         ShowTitle();
+
+        //1 second after the title is shown it goes to main menu
+        elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        SceneManager.LoadScene("Main Menu");
     }
 
     void ShowTitle()
     {
         Debug.Log("Show Title");
+        title.GetComponent<MeshRenderer>().enabled = true;
     }
 }
