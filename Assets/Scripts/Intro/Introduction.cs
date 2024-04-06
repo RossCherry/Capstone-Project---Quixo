@@ -96,7 +96,7 @@ public class Introduction : MonoBehaviour
 
         //1 second after the title is shown it goes to main menu
         elapsedTime = 0f;
-        while (elapsedTime < 1f)
+        while (elapsedTime < 2f)
         {
             elapsedTime += Time.deltaTime;
             yield return null;
