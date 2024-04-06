@@ -199,10 +199,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                     else if (isPlayerOneCats)
                     {
-                        if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Cats");
                             Debug.Log("Game Over" + 1);
+                        }
+                        else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Dogs");
                         }
                         else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
@@ -217,7 +221,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                     else
                     {
-                        if (!didPlayer1Win && !isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                        if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
+                        {
+                            GameActions.ShowGameOver(Outcome.Win, "Cats");
+                            Debug.Log("Game Over" + 4);
+                        }
+                        else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
                             Debug.Log("Game Over" + 4);
@@ -249,9 +258,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
                         }
                     }
-                    else if (!isPlayerOneTurn && !lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
+                    else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                     {
                         GameActions.ShowGameOver(Outcome.Win, "Cats");
+                        Debug.Log(7);
+                    }
+                    else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
+                    {
+                        GameActions.ShowGameOver(Outcome.Win, "Dogs");
                         Debug.Log(7);
                     }
                     else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)

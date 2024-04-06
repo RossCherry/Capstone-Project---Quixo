@@ -581,6 +581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BumperPiece 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
+      propertyPath: m_TagString
+      value: Blank
+      objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -4094,6 +4098,10 @@ PrefabInstance:
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_Name
       value: BumperPiece 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
+      propertyPath: m_TagString
+      value: Blank
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14525,6 +14533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BumperPiece 24
       objectReference: {fileID: 0}
+    - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
+      propertyPath: m_TagString
+      value: Blank
+      objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -15101,6 +15113,10 @@ PrefabInstance:
     - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_Name
       value: BumperPiece 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547610535635688554, guid: cd885390bc857be4f977e05dce409350, type: 3}
+      propertyPath: m_TagString
+      value: Blank
       objectReference: {fileID: 0}
     - target: {fileID: 3948153293848293454, guid: cd885390bc857be4f977e05dce409350, type: 3}
       propertyPath: m_LocalRotation.w
