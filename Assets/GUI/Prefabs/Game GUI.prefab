@@ -2591,6 +2591,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4577044973129807656}
+        m_TargetAssemblyTypeName: GameActions, Assembly-CSharp
+        m_MethodName: set_GameEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 4779416301187626115}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -6692,7 +6704,7 @@ PrefabInstance:
       objectReference: {fileID: 4577044973129807656}
     - target: {fileID: 8978393909155746637, guid: 5333e3a23db914a4eb5fa8dfce56f553, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24.999817
+      value: -24.999847
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
