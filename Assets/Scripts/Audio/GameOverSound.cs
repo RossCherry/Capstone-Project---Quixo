@@ -19,15 +19,24 @@ public class GameOverSound : MonoBehaviour
 
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();
-        muted = !optionsViewModel.IsMusicOn;
+        muted = !optionsViewModel.IsSoundEffectsOn;
     }
 
     public static void gameOverPlay()
     {
-        Debug.Log(muted);
-        if (!muted) {
-        Debug.Log("Game over");
-        sound.Play(); }
+        if (!muted) { sound.Play(); }
+    }
+
+    public static void ToggleSound()
+    {
+        if (muted == false)
+        {
+            muted = true;
+        }
+        else
+        {
+            muted = false;
+        }
     }
 
 }

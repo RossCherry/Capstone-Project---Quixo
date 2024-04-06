@@ -96,7 +96,6 @@ public class GUI_Manager : MonoBehaviour
 
     public static void ShowOpponentDisconnectedDialog()
     {
-        PopUpSound.popUpPlay();
         GameObject MainMenu = GameObject.Find("Main Menu");
         if (MainMenu == null) { Debug.Log("null"); }
         else

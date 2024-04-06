@@ -21,7 +21,7 @@ public class PopUpSound : MonoBehaviour
 
         OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
         optionsViewModel.InitializeOptions();
-        muted = !optionsViewModel.IsMusicOn;
+        muted = !optionsViewModel.IsSoundEffectsOn;
     }
 
     public static void popUpPlay()
@@ -29,6 +29,17 @@ public class PopUpSound : MonoBehaviour
         if (!muted) { sound.Play(); }
     }
 
+    public static void ToggleSound()
+    {
+        if (muted == false)
+        {
+            muted = true;
+        }
+        else
+        {
+            muted = false;
+        }
+    }
 }
 
 

@@ -7,10 +7,14 @@ public class NpcClick : MonoBehaviour
 {
     public AudioSource catMeow;
 
+    private static bool muted;
+
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
+        OptionsViewModel optionsViewModel = OptionsViewModel.Instance;
+        optionsViewModel.InitializeOptions();
+        muted = !optionsViewModel.IsSoundEffectsOn;
     }
 
     // Update is called once per frame
@@ -21,7 +25,19 @@ public class NpcClick : MonoBehaviour
 
     private void OnMouseDown()
     {
-        catMeow.Play();
+        if (!muted) { catMeow.Play(); }
         Debug.Log("Meow");
+    }
+
+    public static void ToggleSound()
+    {
+        if (muted == false)
+        {
+            muted = true;
+        }
+        else
+        {
+            muted = false;
+        }
     }
 }

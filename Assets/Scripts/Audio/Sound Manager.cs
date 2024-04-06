@@ -39,6 +39,9 @@ public class Sound_Manager : MonoBehaviour
         {
             muted = false;
         }
+        NpcClick.ToggleSound();
+        GameOverSound.ToggleSound();
+        PopUpSound.ToggleSound();
     }
 
     public void mainButtonPlay()
