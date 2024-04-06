@@ -2108,7 +2108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2511122251676648841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_text
-      value: Searching for an opponent...
+      value: Connecting...
       objectReference: {fileID: 0}
     - target: {fileID: 2511122251676648841, guid: f0ee4d3ce6194b14c832f4111f1e453e, type: 3}
       propertyPath: m_fontSize
@@ -6147,7 +6147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Help
+  m_text: How to Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9944,7 +9944,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   isPlayerOneTurn: 1
-  teamIsSet: 0
   moveInProgress: 0
 --- !u!114 &1883371062
 MonoBehaviour:
