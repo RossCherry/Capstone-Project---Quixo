@@ -46,8 +46,8 @@ public class Introduction : MonoBehaviour
         Vector3 targetPosition4 = new Vector3(11.5f, 0, -2);
 
         //movement 4 by both cat and dog bumping back and reveil title
-        Vector3 targetPosition5 = new Vector3(5, 0, -2);
-        Vector3 targetPosition6 = new Vector3(16, 0, -2);
+        Vector3 targetPosition5 = new Vector3(4, 0, -2);
+        Vector3 targetPosition6 = new Vector3(17, 0, -2);
 
         //movement 1
         while (elapsedTime < 1f)
