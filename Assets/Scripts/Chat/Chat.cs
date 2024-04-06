@@ -1,5 +1,7 @@
+using ExitGames.Client.Photon;
 using Photon.Chat;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +23,8 @@ public class Chat : MonoBehaviour
     Color selectedButtonColor = new Color(115 / 255f, 205 / 255f, 235 / 255f, 255f);
 
     const float chatBubbleDisplayDuration = 4.0f;
-    private Coroutine chatBubbleCoroutine;
+    private Coroutine chatBubbleCoroutineCats;
+    private Coroutine chatBubbleCoroutineDogs;
 
     // Start is called before the first frame update
     void Start()
@@ -263,26 +266,25 @@ public class Chat : MonoBehaviour
         if (currentScene == "Networking Game")
         {
             photonView = gameObject.GetComponent<PhotonView>();
-            photonView.RPC("RPC_SendMessage", RpcTarget.All, message);
+            photonView.RPC("RPC_SendMessage", RpcTarget.All, message, PhotonNetwork.IsMasterClient);
         }
         else
         {
-            DisplayChatMessage(message);
+            DisplayChatMessage(message, true);
         }
     }
 
     [PunRPC]
-    public void RPC_SendMessage(string message)
+    public void RPC_SendMessage(string message, bool player)
     {
-        DisplayChatMessage(message);
+        DisplayChatMessage(message, player);
     }
 
-    public void DisplayChatMessage(string message)
+    public void DisplayChatMessage(string message, bool player)
     {
         //DISPLAY MESSAGE ON SCREEN
-        Debug.Log("Sending message: " + message);
+        string chatBubbleName = player ? "Chat Bubble Dogs" : "Chat Bubble Cats";
 
-        string chatBubbleName = GetPlayer() ? "Chat Bubble Cats" : "Chat Bubble Dogs";
         GameObject GameGUI = GameObject.Find("Game GUI");
         GameObject ChatBubble = GameGUI.transform.Find(chatBubbleName).gameObject;
         ChatBubble.SetActive(true);
@@ -291,15 +293,27 @@ public class Chat : MonoBehaviour
 
         ChatText.GetComponent<TMPro.TextMeshProUGUI>().text = message;
 
-        // Show the chat bubble for a few seconds then hide it again
-        if (chatBubbleCoroutine != null)
+        // If cats, show the chat bubble for cats
+        if (chatBubbleName == "Chat Bubble Cats")
         {
-            StopCoroutine(chatBubbleCoroutine);
+            if (chatBubbleCoroutineCats != null)
+            {
+                StopCoroutine(chatBubbleCoroutineCats);
+            }
+            chatBubbleCoroutineCats = StartCoroutine(HideChatBubbleCatsAfterDelay(ChatBubble));
         }
-        chatBubbleCoroutine = StartCoroutine(HideChatBubbleAfterDelay(ChatBubble));
+        // Show the dogs chat bubble
+        else
+        {
+            if (chatBubbleCoroutineDogs != null)
+            {
+                StopCoroutine(chatBubbleCoroutineDogs);
+            }
+            chatBubbleCoroutineDogs = StartCoroutine(HideChatBubbleDogsAfterDelay(ChatBubble));
+        }
     }
 
-    IEnumerator HideChatBubbleAfterDelay(GameObject chatBubble)
+    IEnumerator HideChatBubbleCatsAfterDelay(GameObject chatBubble)
     {
         // Wait for the specified duration
         yield return new WaitForSeconds(chatBubbleDisplayDuration);
@@ -308,9 +322,13 @@ public class Chat : MonoBehaviour
         chatBubble.SetActive(false);
     }
 
-    private bool GetPlayer()
+    IEnumerator HideChatBubbleDogsAfterDelay(GameObject chatBubble)
     {
-        return GameManager.isPlayerOne;
+        // Wait for the specified duration
+        yield return new WaitForSeconds(chatBubbleDisplayDuration);
+
+        // Deactivate the chat bubble
+        chatBubble.SetActive(false);
     }
 
     private void HighlightSelectedCategory(string selectedCategory, bool selected)
