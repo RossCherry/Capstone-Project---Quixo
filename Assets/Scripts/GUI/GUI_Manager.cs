@@ -170,14 +170,17 @@ public class GUI_Manager : MonoBehaviour
         {
             GameObject currentPlayerPanel = GameObject.Find("Current Player Panel");
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
-
-            if (GameManager.isPlayerOneCats == gameManager.isPlayerOneTurn == GameManager.isPlayerOne)
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
             {
-                currentPlayerPanel.GetComponent<Image>().sprite = catImage;
+                currentPlayerPanel.GetComponent<Image>().sprite = gameManager.isPlayerOneTurn ? catImage : dogImage;
+            }
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                currentPlayerPanel.GetComponent<Image>().sprite = gameManager.isPlayerOneTurn ? dogImage : catImage;
             }
             else
             {
-                currentPlayerPanel.GetComponent<Image>().sprite = dogImage;
+                currentPlayerPanel.GetComponent<Image>().sprite = gameManager.isPlayerOneTurn ? catImage : dogImage;
             }
         }
     }
@@ -189,7 +192,20 @@ public class GUI_Manager : MonoBehaviour
             GameManager gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 
             // Show if it is the user's turn or the opponent's turn
-            string turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
+            string turn;
+
+            if (GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                turn = gameManager.isPlayerOneTurn ? "Your Turn" : "Opponent's Turn";
+            }
+            else if (!GameManager.isPlayerOneCats && SceneManager.GetActiveScene().name != "Networking Game")
+            {
+                turn = gameManager.isPlayerOneTurn ? "Your Turn" : "Opponent's Turn";
+            }
+            else
+            {
+                turn = (gameManager.isPlayerOneTurn == GameManager.isPlayerOneCats) ? "Your Turn" : "Opponent's Turn";
+            }
 
             GameObject UserTeamText = GameObject.Find("User Team Text");
             if (UserTeamText != null)
