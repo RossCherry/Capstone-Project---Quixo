@@ -39,11 +39,11 @@ public class Introduction : MonoBehaviour
         Vector3 targetPosition1 = new Vector3(-5, 0, -2);
 
         //movement 2 by dog
-        Vector3 targetPosition2 = new Vector3(20, 0, -2);
+        Vector3 targetPosition2 = new Vector3(25, 0, -2);
 
         //movement 3 by both cat and dog crashing into eachother
-        Vector3 targetPosition3 = new Vector3(10.5f, 0, -2);
-        Vector3 targetPosition4 = new Vector3(11.5f, 0, -2);
+        Vector3 targetPosition3 = new Vector3(9.5f, 0, -2);
+        Vector3 targetPosition4 = new Vector3(12.5f, 0, -2);
 
         //movement 4 by both cat and dog bumping back and reveil title
         Vector3 targetPosition5 = new Vector3(4, 0, -2);
