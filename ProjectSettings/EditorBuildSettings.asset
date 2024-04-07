@@ -17,19 +17,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 3da3b52904cacd54b951bd5cddd61cee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Help.unity
     guid: 978f1e03b1e78c04b97710e30ccd6a4b
   - enabled: 1
     path: Assets/Scenes/AI Game.unity
     guid: 1ddcc3ff0203d66429fcf1aeb5cc79f5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: 714685f6dd901ae4abe40df27400b420
   - enabled: 1
     path: Assets/Scenes/Networking Game.unity
     guid: 8e768862c70c7e945aa07ec6f45f9930
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AI Hard.unity
     guid: 2a9bb05724b6b3e49bf557e7badd9efc
   m_configObjects: {}
