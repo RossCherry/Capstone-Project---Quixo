@@ -964,7 +964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b6a0583d5b71048879237d9326d8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catMeow: {fileID: 8032383008457455882}
+  npcSound: {fileID: 8032383008457455882}
 --- !u!82 &8032383008457455882
 AudioSource:
   m_ObjectHideFlags: 0

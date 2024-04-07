@@ -957,10 +957,21 @@ public class AiEasy : MonoBehaviour
             //game.FlipBlock(bestMove[index].Item1);
             //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
             //Console.WriteLine("# Moves: " + moveCounter);
+            Debug.LogWarning(values[0].Item3);
             if (GameManager.moveCount < 10)
             {
-                Debug.Log("Random!");
+                Debug.LogWarning("Random!");
                 index = rnd.Next() % 5;
+            }
+            if (values[0].Item3 > 900000)
+            {
+                Debug.LogWarning("Try to win but still not sure");
+                index = rnd.Next() % 2;
+            }
+            if (values[0].Item3 < 200)
+            {
+                Debug.LogWarning("Try not to stop a win");
+                index = rnd.Next() % 3;
             }
             gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
 
