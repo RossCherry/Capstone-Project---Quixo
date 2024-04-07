@@ -20,12 +20,7 @@ public class NpcClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var rand = new System.Random();
-        int index1 = rand.Next() % 9000;
-        if (index1 == 0)
-        {
-            if (!muted) { npcSound.Play(); }
-        }
+       
         
     }
 
