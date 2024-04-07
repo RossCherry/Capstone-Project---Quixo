@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NpcClick : MonoBehaviour
 {
-    public AudioSource catMeow;
+    public AudioSource npcSound;
 
     private static bool muted;
 
@@ -20,12 +20,18 @@ public class NpcClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var rand = new System.Random();
+        int index1 = rand.Next() % 9000;
+        if (index1 == 0)
+        {
+            if (!muted) { npcSound.Play(); }
+        }
         
     }
 
     private void OnMouseDown()
     {
-        if (!muted) { catMeow.Play(); }
+        if (!muted) { npcSound.Play(); }
         Debug.Log("Meow");
     }
 
