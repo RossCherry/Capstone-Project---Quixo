@@ -27,7 +27,7 @@ public class NpcClick : MonoBehaviour
     private void OnMouseDown()
     {
         if (!muted) { npcSound.Play(); }
-        Debug.Log("Meow");
+        //Debug.Log("Meow");
     }
 
     public static void ToggleSound()

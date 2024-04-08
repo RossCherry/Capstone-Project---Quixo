@@ -244,14 +244,12 @@ public class GamePiece : MonoBehaviour
                     targetPosition2 = new Vector3(-2, .25f, -10);
                     targetPosition3 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2 - 1.5f);
-                    Debug.Log(newRow);
                 }
                 else
                 {
                     targetPosition2 = new Vector3(-2, .25f, 2);
                     targetPosition3 = new Vector3(newCol * 2, .25f, 2);
                     targetPosition4 = new Vector3(newCol * 2, .25f, newRow * -2 + 1.5f);
-                    Debug.Log(newRow);
                 }
             }
             else if (col == 4)
@@ -284,7 +282,6 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(-2, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2 - 1.5f);
-                    Debug.Log(newRow);
                 }
                 else
                 {
@@ -292,7 +289,6 @@ public class GamePiece : MonoBehaviour
                     targetPosition3 = new Vector3(10, .25f, -10);
                     targetPosition4 = new Vector3(newCol * 2, .25f, -10);
                     targetPosition5 = new Vector3(newCol * 2, .25f, newRow * -2 - 1.5f);
-                    Debug.Log(newRow);
                 }
             }
             else if (row == 4 && newRow == 0)

@@ -810,8 +810,8 @@ public class AiEasy : MonoBehaviour
         piece.col = tempPiece.Value;
         if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
         {
-            Debug.Log("Winning Move: (" + move.col + "," + move.row + ") to (" + piece.col + ", " + piece.row + ")");
-            Debug.Log("-------------------------------------------------------------------");
+            //Debug.Log("Winning Move: (" + move.col + "," + move.row + ") to (" + piece.col + ", " + piece.row + ")");
+            //Debug.Log("-------------------------------------------------------------------");
             value = 1000000;
         }
         if (didOpponentWin)
@@ -945,32 +945,32 @@ public class AiEasy : MonoBehaviour
                 }
             }
             bestMoves = values.Where(value => value.Item3 == biggestVal).ToList();
-            Debug.Log("-------------------------------------------------------------------");
-            foreach (var move in values)
-            {
-                Debug.Log("Move: (" + move.Item1.col + "," + move.Item1.row + ") to (" + move.Item2.col + ", " + move.Item2.row + ")");
-                Debug.Log("Value: " + move.Item3);
-            }
-            Debug.Log("-------------------------------------------------------------------");
+            //Debug.Log("-------------------------------------------------------------------");
+            //foreach (var move in values)
+            //{
+            //    Debug.Log("Move: (" + move.Item1.col + "," + move.Item1.row + ") to (" + move.Item2.col + ", " + move.Item2.row + ")");
+            //    Debug.Log("Value: " + move.Item3);
+            //}
+            //Debug.Log("-------------------------------------------------------------------");
             var bestMove = bestMoves.ToArray();
             int index = rnd.Next() % (3);
             //game.FlipBlock(bestMove[index].Item1);
             //game.MakeMove(bestMove[index].Item2, bestMove[index].Item1);
             //Console.WriteLine("# Moves: " + moveCounter);
-            Debug.LogWarning(values[0].Item3);
+            //Debug.LogWarning(values[0].Item3);
             if (GameManager.moveCount < 10)
             {
-                Debug.LogWarning("Random!");
+                //Debug.LogWarning("Random!");
                 index = rnd.Next() % 5;
             }
             if (values[0].Item3 > 900000)
             {
-                Debug.LogWarning("Try to win but still not sure");
+                //Debug.LogWarning("Try to win but still not sure");
                 index = rnd.Next() % 2;
             }
             if (values[0].Item3 < 200)
             {
-                Debug.LogWarning("Try not to stop a win");
+                //Debug.LogWarning("Try not to stop a win");
                 index = rnd.Next() % 3;
             }
             gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;

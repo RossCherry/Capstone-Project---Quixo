@@ -106,7 +106,7 @@ public class Introduction : MonoBehaviour
 
     void ShowTitle()
     {
-        Debug.Log("Show Title");
+        //Debug.Log("Show Title");
         title.GetComponent<MeshRenderer>().enabled = true;
     }
 }

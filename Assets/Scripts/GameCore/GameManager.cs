@@ -108,16 +108,16 @@ public class GameManager : MonoBehaviourPunCallbacks
                     moveInProgress = true;
                     StartCoroutine(WaitForAIMove());
                     //HandleClick();
-                    Debug.Log(isPlayerOne);
-                    Debug.Log(isPlayerOneTurn);
+                    //Debug.Log(isPlayerOne);
+                    //Debug.Log(isPlayerOneTurn);
                 }
                 //LOCAL PLAY
                 else if (Input.GetMouseButtonDown(0) && typeOfGame != "network")
                 {
                     moveInProgress = true;
                     HandleClick();
-                    Debug.Log(isPlayerOne);
-                    Debug.Log(isPlayerOneTurn);
+                    //Debug.Log(isPlayerOne);
+                    //Debug.Log(isPlayerOneTurn);
                 }
 
                 //NETWORKING GAME
@@ -149,10 +149,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (rayHit.collider.CompareTag("npcs"))
             {
-                //DeselectObject();
-                //UnhighlightPossibleMoves();
                 moveInProgress = false;
-                isCoroutineRunning = false;
 
                 Animator animator;
                 animator = rayHit.collider.GetComponent<Animator>();
@@ -202,7 +199,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Cats");
-                            Debug.Log("Game Over" + 1);
+                            //Debug.Log("Game Over" + 1);
                         }
                         else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
@@ -211,12 +208,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                         else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
                             GameActions.ShowGameOver(Outcome.Loss, "Cats");
-                            Debug.Log("Game Over" + 2);
+                            //Debug.Log("Game Over" + 2);
                         }
                         else
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                            Debug.Log("Game Over" + 3);
+                            //Debug.Log("Game Over" + 3);
                         }
                     }
                     else
@@ -224,22 +221,22 @@ public class GameManager : MonoBehaviourPunCallbacks
                         if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Cats");
-                            Debug.Log("Game Over" + 4);
+                            //Debug.Log("Game Over" + 4);
                         }
                         else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                            Debug.Log("Game Over" + 4);
+                            //Debug.Log("Game Over" + 4);
                         }
                         else if (!didPlayer1Win && isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                         {
                             GameActions.ShowGameOver(Outcome.Loss, "Dogs");
-                            Debug.Log("Game Over" + 5);
+                            //Debug.Log("Game Over" + 5);
                         }
                         else
                         {
                             GameActions.ShowGameOver(Outcome.Win, "Cats");
-                            Debug.Log("Game Over" + 6);
+                            //Debug.Log("Game Over" + 6);
                         }
                     }
 
@@ -261,22 +258,22 @@ public class GameManager : MonoBehaviourPunCallbacks
                     else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                     {
                         GameActions.ShowGameOver(Outcome.Win, "Cats");
-                        Debug.Log(7);
+                        //Debug.Log(7);
                     }
                     else if (!lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin && !lastPiecePlayed.GetComponent<GamePiece>().board.player1Win)
                     {
                         GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                        Debug.Log(7);
+                        //Debug.Log(7);
                     }
                     else if (isPlayerOneTurn && lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
                     {
                         GameActions.ShowGameOver(Outcome.Loss, "Cats");
-                        Debug.Log(8);
+                        //Debug.Log(8);
                     }
                     else
                     {
                         GameActions.ShowGameOver(Outcome.Win, "Dogs");
-                        Debug.Log(9);
+                        //Debug.Log(9);
                     }
                 }
                 GameActions.DisableRequestDrawButton();
@@ -306,19 +303,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         // Move opponent's piece into win
         if (lastPiecePlayed.GetComponent<GamePiece>().board.didOpponentWin)
         {
-            Debug.Log("Game Over" + 1 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            //Debug.Log("Game Over" + 1 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
             return Outcome.Loss;            
         }       
         // Opponent gets 5 in a row
         else if (isPlayerOne == isPlayerOneTurn == isPlayerOneCats)
         {
-            Debug.Log("Game Over" + 2 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: "+ isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            //Debug.Log("Game Over" + 2 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: "+ isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
             return Outcome.Loss;
         }  
         // Player gets 5 in a row
         else
         {
-            Debug.Log("Game Over" + 3 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
+            //Debug.Log("Game Over" + 3 + "isPlayerOne: " + isPlayerOne + " isPlayerOneTurn: " + isPlayerOneTurn + "isPLayerOneCats: " + isPlayerOneCats);
             return Outcome.Win;
         }
     }
@@ -619,7 +616,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (aiMove.Item1 != aiMove.Item2)
         {
             AiHard.movesSinceLastDraw++;
-            Debug.Log("Move: (" + aiMove.Item1.row + ", " + aiMove.Item1.col + ") to (" + aiMove.Item2.row + ", " + aiMove.Item2.col + "): " + aiMove.Item3);
+            //Debug.Log("Move: (" + aiMove.Item1.row + ", " + aiMove.Item1.col + ") to (" + aiMove.Item2.row + ", " + aiMove.Item2.col + "): " + aiMove.Item3);
             MovePiece(aiMove.Item1.gameObject, aiMove.Item2.gameObject);
         }
         else
@@ -630,7 +627,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         //isPlayerOneTurn = true;
         DateTime after = DateTime.Now;
-        Debug.Log(after.Subtract(before).TotalSeconds);
+        //Debug.Log(after.Subtract(before).TotalSeconds);
         //GameObject gameBoard = GameObject.Find("GameBoard");
         //MovePiece(gameBoard.GetComponent<GameBoard>().Board[4,0], gameBoard.GetComponent<GameBoard>().Board[4, 1]);
         yield return null;
@@ -674,7 +671,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void TeamSelect(bool isCats)
     {
-        Debug.Log("TeamSelect() called");
+        //Debug.Log("TeamSelect() called");
         if (Navigation.SelectedScene == "Networking Game")
         {
             OnTeamSelected(isCats);
@@ -715,7 +712,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         SetStartingPlayer(isCats);
         isPlayerOneCats = isCats;
-        Debug.Log($"isCats = {isCats}");
+        //Debug.Log($"isCats = {isCats}");
 
         NetworkManager.checkToStartGame();
     }

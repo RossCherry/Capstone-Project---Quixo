@@ -738,7 +738,7 @@ public class AiHard : MonoBehaviour
         List<Tuple<GamePiece, GamePiece, int>> LastBestValues = new List<Tuple<GamePiece, GamePiece, int>>();
 
 
-        Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        //Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
 
         foreach (var move in values)
@@ -769,7 +769,7 @@ public class AiHard : MonoBehaviour
             if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && !didOpponentWin)
             {
                 NewBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, 100000));
-                Debug.Log("Winning move before analyzing opponent's move");
+                //Debug.Log("Winning move before analyzing opponent's move");
                 //int mr1 = move.Item2.row;
                 move.Item2.row = tempMove.Key;
                 //int mc1 = move.Item2.col;
@@ -879,7 +879,7 @@ public class AiHard : MonoBehaviour
                 if (checkWin(gameObject.GetComponent<GameManager>().isPlayerOneTurn) && didOpponentWin)
                 {
                     LastBestValues.Add(new Tuple<GamePiece, GamePiece, int>(move.Item1, move.Item2, -10000000));
-                    Debug.Log("Opponent will win");
+                    //Debug.Log("Opponent will win");
                     //int mr1 = move.Item2.row;
                     move3.Item2.row = tempMove2.Key;
                     //int mc1 = move.Item2.col;
@@ -1047,8 +1047,8 @@ public class AiHard : MonoBehaviour
         });
         gameObject.GetComponent<GameManager>().isPlayerOneTurn = temp;
         System.Random rnd = new System.Random();
-        Debug.Log(moveCounter);
-        Debug.Log("Move value: " + LastBestValues[0].Item3);
+        //Debug.Log(moveCounter);
+        //Debug.Log("Move value: " + LastBestValues[0].Item3);
         var result = LastBestValues[0];
         if (GameManager.moveCount > 20 && result.Item3 < 0 && movesSinceLastDraw >= 2)
         {
