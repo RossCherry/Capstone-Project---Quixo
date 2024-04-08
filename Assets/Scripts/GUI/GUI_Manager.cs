@@ -218,9 +218,18 @@ public class GUI_Manager : MonoBehaviour
     {
         PopUpSound.popUpPlay();
 
-        GameObject Dialogs = GameObject.Find("Dialogs");
-        GameObject userDisconnectedDialog = Dialogs.transform.Find("User Disconnected Dialog").gameObject;
-        userDisconnectedDialog.SetActive(true);
-        GameActions.GameEnabled = false;
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            GameObject Dialogs = GameObject.Find("Dialogs");
+            GameObject userDisconnectedDialog = Dialogs.transform.Find("User Disconnected Dialog").gameObject;
+            userDisconnectedDialog.SetActive(true);
+            GameActions.GameEnabled = false;
+        }
+        else
+        {
+            GameObject MainMenu = GameObject.Find("Main Menu");
+            GameObject userDisconnectedDialog = MainMenu.transform.Find("User Disconnected Dialog").gameObject;
+            userDisconnectedDialog.SetActive(true);
+        }
     }
 }
