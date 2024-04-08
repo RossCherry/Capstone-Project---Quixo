@@ -34,7 +34,10 @@ public class GUI_Manager : MonoBehaviour
     {
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject WaitingForOpponentPanel = MainMenu.transform.Find("Waiting For Opponent Panel").gameObject;
-        WaitingForOpponentPanel.SetActive(false);
+        if (WaitingForOpponentPanel != null)
+        {
+            WaitingForOpponentPanel.SetActive(false);
+        }       
     }
 
     public static bool IsWaitingForOpponentPanelActive()
@@ -63,7 +66,10 @@ public class GUI_Manager : MonoBehaviour
     {
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject WaitingForTeamSelectionPanel = MainMenu.transform.Find("Waiting For Team Selection Panel").gameObject;
-        WaitingForTeamSelectionPanel.SetActive(false);
+        if (WaitingForTeamSelectionPanel != null)
+        {
+            WaitingForTeamSelectionPanel.SetActive(false);
+        }        
     }
 
     public static void ShowSearchingForOpponentDialog()
@@ -77,7 +83,10 @@ public class GUI_Manager : MonoBehaviour
     {
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject SearchingForOpponentDialog = MainMenu.transform.Find("Searching For Opponent Dialog").gameObject;
-        SearchingForOpponentDialog.SetActive(false);
+        if (SearchingForOpponentDialog != null)
+        {
+            SearchingForOpponentDialog.SetActive(false);
+        }  
     }
 
     public static void ShowLoadingGameDialog()
@@ -91,7 +100,19 @@ public class GUI_Manager : MonoBehaviour
     {
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject LoadingGameDialog = MainMenu.transform.Find("Loading Game Dialog").gameObject;
-        LoadingGameDialog.SetActive(false);
+        if (LoadingGameDialog != null)
+        {
+            LoadingGameDialog.SetActive(false);
+        } 
+    }
+
+    public static void HideChooseTeamPanel()
+    {
+        GameObject ChooseTeamPanel = GameObject.Find("Choose Team Panel");
+        if (ChooseTeamPanel != null)
+        {
+            ChooseTeamPanel.SetActive(false);
+        }
     }
 
     public static void ShowOpponentDisconnectedDialog()
@@ -102,6 +123,23 @@ public class GUI_Manager : MonoBehaviour
         {
             GameObject OpponentDisconnectedDialog = MainMenu.transform.Find("Opponent Disconnected Dialog 2").gameObject;
             OpponentDisconnectedDialog.SetActive(true);
+        }
+    }
+
+    public static void ShowUnableToConnectDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject UnableToConnectDialog = MainMenu.transform.Find("Unable to Connect Dialog").gameObject;
+        UnableToConnectDialog.SetActive(true);
+    }
+
+    public static void HideUnableToConnectDialog()
+    {
+        GameObject MainMenu = GameObject.Find("Main Menu");
+        GameObject UnableToConnectDialog = MainMenu.transform.Find("Unable to Connect Dialog").gameObject;
+        if (UnableToConnectDialog != null)
+        {
+            UnableToConnectDialog.SetActive(false);
         }
     }
 
@@ -223,13 +261,20 @@ public class GUI_Manager : MonoBehaviour
             GameObject Dialogs = GameObject.Find("Dialogs");
             GameObject userDisconnectedDialog = Dialogs.transform.Find("User Disconnected Dialog").gameObject;
             userDisconnectedDialog.SetActive(true);
-            GameActions.GameEnabled = false;
+            GameActions.GameEnabled = false;           
         }
         else
         {
             GameObject MainMenu = GameObject.Find("Main Menu");
             GameObject userDisconnectedDialog = MainMenu.transform.Find("User Disconnected Dialog").gameObject;
             userDisconnectedDialog.SetActive(true);
+
+            // Hide Panels that might be active
+            HideWaitingForOpponentPanel();
+            HideWaitingForTeamSelectionPanel();
+            HideChooseTeamPanel();
+            HideSearchingForOpponentDialog();
+            HideLoadingGameDialog();
         }
     }
 }
