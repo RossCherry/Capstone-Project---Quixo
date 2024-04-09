@@ -95,6 +95,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             GUI_Manager.UserDisconnected();
         }
+        if(reason == DisconnectCause.DnsExceptionOnConnect)
+        {
+            GUI_Manager.ShowUnableToConnectDialog();
+        }
     }
 
     public override void OnPlayerLeftRoom(Player player)
