@@ -128,6 +128,9 @@ public class GUI_Manager : MonoBehaviour
 
     public static void ShowUnableToConnectDialog()
     {
+        // Hide the connecting dialog
+        HideSearchingForOpponentDialog();
+
         GameObject MainMenu = GameObject.Find("Main Menu");
         GameObject UnableToConnectDialog = MainMenu.transform.Find("Unable to Connect Dialog").gameObject;
         UnableToConnectDialog.SetActive(true);
